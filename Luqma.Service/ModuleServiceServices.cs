@@ -1,0 +1,18 @@
+﻿using Luqma.Service.Implementations;
+using Luqma.Service.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Luqma.Service
+{
+    public static class ModuleServiceServices
+    {
+        public static IServiceCollection AddModuleServiceServices(this IServiceCollection services)
+        {
+            services.AddTransient(typeof(IAuthenticationService), typeof(AuthenticationService));
+            services.AddTransient(typeof(ITokenService), typeof(TokenService));
+            services.AddTransient(typeof(IEmailService), typeof(EmailService));
+            services.AddTransient(typeof(IWhatsAppService), typeof(WhatsAppService));
+            return services;
+        }
+    }
+}

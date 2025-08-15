@@ -1,0 +1,6 @@
+@Luqma.API_HostAddress = http://localhost:5005
+
+GET {{Luqma.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
