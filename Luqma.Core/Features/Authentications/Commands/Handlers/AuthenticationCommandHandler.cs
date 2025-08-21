@@ -135,7 +135,6 @@ namespace Luqma.Core.Features.Authentications.Commands.Handlers
             var (result, message) = await authenticationService.SignInAsync(request.UserName, request.Password);
             return message switch
             {
-                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
                 "EmailNotConfirmed" => Forbidden(SharedResponseKeys.EmailNotConfirmed),
                 "PasswordOrUserNameWrnog" => Unauthorized(SharedResponseKeys.PasswordOrUserNameWrnog),
                 "AnErrorOccurredWhileGeneratingTheToken" =>
