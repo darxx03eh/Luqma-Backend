@@ -70,7 +70,7 @@ namespace Luqma.Core.Features.Authentications.Commands.Handlers
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
                 "AnErrorOccurredWhileSendingTheConfirmationEmailPleaseTryAgain" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileSendingTheConfirmationEmailPleaseTryAgain),
-                "YourAccountHasAlreadyBeenConfirmed" => BadRequest(SharedResponseKeys.EmailConfirmationEmailHasBeenSent),
+                "YourAccountHasAlreadyBeenConfirmed" => BadRequest(SharedResponseKeys.YourAccountHasAlreadyBeenConfirmed),
                 "EmailConfirmationEmailHasBeenSent" => Success(null, message: SharedResponseKeys.EmailConfirmationEmailHasBeenSent),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileSendingTheConfirmationEmailPleaseTryAgain)
             };

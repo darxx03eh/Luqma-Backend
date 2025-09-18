@@ -23,17 +23,21 @@ namespace Luqma.Core.Middlewares
         private readonly string[] PUBLICPATHS = new string[]
         {
             // authentication paths
-            Router.AuthenticationRouting.SignIn,
-            Router.AuthenticationRouting.EmailConfirmation,
-            Router.AuthenticationRouting.SendConfirmationEmail,
-            Router.AuthenticationRouting.SendForgetPasswordEmail,
-            Router.AuthenticationRouting.ForgetPasswordConfirmation,
-            Router.AuthenticationRouting.ResetPassword,
-            Router.AuthenticationRouting.GenerateRefreshToken,
-            Router.AuthenticationRouting.RevokeRefreshToken,
-            Router.AuthenticationRouting.ValidateAccessToken,
-
+            Router.AuthenticationsRouting.SignIn,
+            Router.AuthenticationsRouting.EmailConfirmation,
+            Router.AuthenticationsRouting.SendConfirmationEmail,
+            Router.AuthenticationsRouting.SendForgetPasswordEmail,
+            Router.AuthenticationsRouting.ForgetPasswordConfirmation,
+            Router.AuthenticationsRouting.ResetPassword,
+            Router.AuthenticationsRouting.GenerateRefreshToken,
+            Router.AuthenticationsRouting.RevokeRefreshToken,
+            Router.AuthenticationsRouting.ValidateAccessToken,
         };
+        public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
+        {
+            this.next = next;
+            this.jwtSettings = jwtSettings;
+        }
         public async Task Invoke(HttpContext context)
         {
             var path = context.Request.Path.Value.Substring(1) ?? string.Empty;

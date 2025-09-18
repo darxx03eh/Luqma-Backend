@@ -11,78 +11,78 @@ namespace Luqma.API.Controllers
     public class AuthenticationsController : AppBaseController
     {
         [Authorize(Roles = "Manager")]
-        [HttpPost(Router.AuthenticationRouting.SignUp)]
+        [HttpPost(Router.AuthenticationsRouting.SignUp)]
         public async Task<IActionResult> RegistrationUser([FromBody] SignUpCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpPost(Router.AuthenticationRouting.SignIn)]
-        public async Task<IActionResult> SignIn([FromForm] SignInCommand request)
+        [HttpPost(Router.AuthenticationsRouting.SignIn)]
+        public async Task<IActionResult> SignIn([FromBody] SignInCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpGet(Router.AuthenticationRouting.EmailConfirmation)]
+        [HttpGet(Router.AuthenticationsRouting.EmailConfirmation)]
         public async Task<IActionResult> EmailConfirmation([FromQuery] ConfirmationEmailCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpPost(Router.AuthenticationRouting.SendConfirmationEmail)]
-        public async Task<IActionResult> SendConfirmationEmail([FromForm] String email)
-        {
-            var result = await mediator.Send(new SendConfirmationEmailCommand(email));
-            return Result(result);
-        }
-        [HttpPost(Router.AuthenticationRouting.SendForgetPasswordEmail)]
-        public async Task<IActionResult> SendForgetPasswordEmail([FromForm] String email)
-        {
-            var result = await mediator.Send(new SendForgetPasswordCommand(email));
-            return Result(result);
-        }
-        [HttpPost(Router.AuthenticationRouting.ForgetPasswordConfirmation)]
-        public async Task<IActionResult> ForgetPasswordConfirmation([FromForm] ForgetPasswordConfirmationCommand request)
+        [HttpPost(Router.AuthenticationsRouting.SendConfirmationEmail)]
+        public async Task<IActionResult> SendConfirmationEmail([FromBody] SendConfirmationEmailCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpPost(Router.AuthenticationRouting.ResetPassword)]
+        [HttpPost(Router.AuthenticationsRouting.SendForgetPasswordEmail)]
+        public async Task<IActionResult> SendForgetPasswordEmail([FromBody] SendForgetPasswordCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [HttpPost(Router.AuthenticationsRouting.ForgetPasswordConfirmation)]
+        public async Task<IActionResult> ForgetPasswordConfirmation([FromBody] ForgetPasswordConfirmationCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [HttpPost(Router.AuthenticationsRouting.ResetPassword)]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpPost(Router.AuthenticationRouting.GenerateRefreshToken)]
+        [HttpPost(Router.AuthenticationsRouting.GenerateRefreshToken)]
         public async Task<IActionResult> GenerateRefreshToken([FromBody] GenerateRefreshTokenCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpPost(Router.AuthenticationRouting.RevokeRefreshToken)]
+        [HttpDelete(Router.AuthenticationsRouting.RevokeRefreshToken)]
         public async Task<IActionResult> RevokeRefreshToken([FromBody] RevokeRefreshTokenCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpGet(Router.AuthenticationRouting.ValidateAccessToken)]
+        [HttpGet(Router.AuthenticationsRouting.ValidateAccessToken)]
         public async Task<IActionResult> ValidateAccessToken([FromQuery] String token)
         {
             var result = await mediator.Send(new ValidateAccessTokenQuery(token));
             return Result(result);
         }
         [Authorize]
-        [HttpPost(Router.AuthenticationRouting.SendConfirmationCodeThenAdd)]
-        public async Task<IActionResult> SendConfirmationCodeThenAdd([FromForm] string phoneNumber)
+        [HttpPost(Router.AuthenticationsRouting.SendConfirmationCodeThenAdd)]
+        public async Task<IActionResult> SendConfirmationCodeThenAdd([FromBody] SendConfirmationCodeThenAddCommand request)
         {
-            var result = await mediator.Send(new SendConfirmationCodeThenAddCommand(phoneNumber));
+            var result = await mediator.Send(request);
             return Result(result);
         }
         [Authorize]
-        [HttpPost(Router.AuthenticationRouting.PhoneNumberConfirmation)]
-        public async Task<IActionResult> PhoneNumberConfirmation([FromForm] string code)
+        [HttpPost(Router.AuthenticationsRouting.PhoneNumberConfirmation)]
+        public async Task<IActionResult> PhoneNumberConfirmation([FromBody] ConfirmationPhoneNumberCommand request)
         {
-            var result = await mediator.Send(new ConfirmationPhoneNumberCommand(code));
+            var result = await mediator.Send(request);
             return Result(result);
         }
     }
