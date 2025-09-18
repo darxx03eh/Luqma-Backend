@@ -3,24 +3,24 @@
     public static class Router
     {
         public const string singleRoute = "/{id}";
-        public const string root = "Api";
-        public const string version = "V1";
+        public const string root = "api";
+        public const string version = "v1";
         public const string rule = $"{root}/{version}/";
-        public static class AuthenticationRouting
+        public static class AuthenticationsRouting
         {
-            public const string prefix = $"{rule}Authentication";
-            public const string SignUp = $"{prefix}/SignUp";
-            public const string EmailConfirmation = $"{prefix}/EmailConfirmation";
-            public const string SignIn = $"{prefix}/SignIn";
-            public const string SendConfirmationEmail = $"{prefix}/SendConfirmationEmail";
-            public const string ValidateAccessToken = $"{prefix}/ValidateAccessToken";
-            public const string GenerateRefreshToken = $"{prefix}/GenerateRefreshToken";
-            public const string RevokeRefreshToken = $"{prefix}/RevokeRefreshToken";
-            public const string SendForgetPasswordEmail = $"{prefix}/SendForgetPasswordEmail";
-            public const string ForgetPasswordConfirmation = $"{prefix}/ForgetPasswordConfirmation";
-            public const string ResetPassword = $"{prefix}/ResetPassword";
-            public const string SendConfirmationCodeThenAdd = $"{prefix}/SendConfirmationCodeThenAdd";
-            public const string PhoneNumberConfirmation = $"{prefix}/PhoneNumberConfirmation";
+            public const string prefix = $"{rule}authentications";
+            public const string SignUp = $"{prefix}/register";
+            public const string EmailConfirmation = $"{prefix}/email-confirmation";
+            public const string SignIn = $"{prefix}/login";
+            public const string SendConfirmationEmail = $"{prefix}/send-confirmation-email";
+            public const string ValidateAccessToken = $"{prefix}/token-validate";
+            public const string GenerateRefreshToken = $"{prefix}/refresh-token";
+            public const string RevokeRefreshToken = $"{prefix}/refresh-token"; 
+            public const string SendForgetPasswordEmail = $"{prefix}/send-forget-password-email";
+            public const string ForgetPasswordConfirmation = $"{prefix}/forget-password-confirmation";
+            public const string ResetPassword = $"{prefix}/reset-password"; 
+            public const string SendConfirmationCodeThenAdd = $"{prefix}/send-confirmation-code-add";
+            public const string PhoneNumberConfirmation = $"{prefix}/phonenumber-confirmation";
         }
     }
 }

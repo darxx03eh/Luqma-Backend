@@ -246,7 +246,7 @@ namespace Luqma.Service.Implementations
                     return "YourAccountHasAlreadyBeenConfirmed";
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 var httpRequest = httpContextAccessor.HttpContext.Request;
-                var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
+                var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationsRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
                 var send = await emailService.SendAuthenticationsEmailAsync(email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
                 if (send.Equals("Failed"))
                     return "AnErrorOccurredWhileSendingTheConfirmationEmailPleaseTryAgain";
@@ -371,7 +371,7 @@ namespace Luqma.Service.Implementations
                     }
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var httpRequest = httpContextAccessor.HttpContext.Request;
-                    var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
+                    var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationsRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
                     var sendEmail = emailService.SendAuthenticationsEmailAsync(user.Email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
                     if (sendEmail.Equals("Failed"))
                     {
