@@ -25,6 +25,7 @@
         public const string TheAccountHasBeenCreated = "The account has been successfully created";
         public const string UserNotFound = "The specified user was not found";
         public const string InvalidOrExpiredToken = "The provided token is invalid or has expired";
+        public const string InvalidToken = "Invalid token";
         public const string AnErrorOccurredDuringTheEmailConfirmationProcess = "An error occurred during the email confirmation process. Please try again";
         public const string EmailConfirmedSuccessfully = "The email has been successfully confirmed";
         public const string FirstNameNotEmpty = "First name cannot be empty";
@@ -56,10 +57,10 @@
         public const string AnErrorOccurredWhileSavingTheCode = "An error occurred while saving the code";
         public const string ForgetPasswordEmailHasBeenSent = "A password reset email has been sent to your email address";
         public const string AnErrorOccurredWhileSendingTheForgetPasswordEmailPleaseTryAgain = "An error occurred while sending the password reset email. Please try again";
-        public const string CodeNotEmpty = "Code must not be empty"; // from here 
+        public const string CodeNotEmpty = "Code must not be empty"; 
         public const string CodeNotNull = "Code is required";
         public const string CodeGreaterThan6 = "Code must not be greater than 6 digits";
-        public const string CodeLessThan6 = "Code must not be less than 6 digits"; // to here
+        public const string CodeLessThan6 = "Code must not be less than 6 digits"; 
         public const string TheCodeHasExpired = "The code has expired";
         public const string TheCodeEnteredIsIncorrect = "The code entered is incorrect";
         public const string AnErrorOccurredWhileDeletingTheCode = "An error occurred while deleting the code";

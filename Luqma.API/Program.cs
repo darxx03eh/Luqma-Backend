@@ -1,7 +1,7 @@
 
 using Luqma.Core;
 using Luqma.Core.Bases;
-using Luqma.Core.MiddleWare;
+using Luqma.Core.Middlewares;
 using Luqma.Core.ResponseKeys;
 using Luqma.Data.Helpers;
 using Luqma.Infrastructure;
@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Luqma.API
 {
@@ -96,6 +95,7 @@ namespace Luqma.API
             app.UseResponseCaching();
             app.UseCors(CORS);
             app.UseMiddleware<ErrorHandlerMiddleWare>();
+            app.UseMiddleware<TokenValidationMiddleware>();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

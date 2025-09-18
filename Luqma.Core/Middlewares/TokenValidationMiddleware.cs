@@ -1,0 +1,108 @@
+﻿using Luqma.Core.Bases;
+using Luqma.Core.ResponseKeys;
+using Luqma.Data.Helpers;
+using Luqma.Data.Routing;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Text;
+using System.Text.Json;
+
+namespace Luqma.Core.Middlewares
+{
+    public class TokenValidationMiddleware
+    {
+        private readonly RequestDelegate next;
+        private readonly JwtSettings jwtSettings;
+        private readonly JsonSerializerOptions JSONOPTIONS = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DictionaryKeyPolicy = JsonNamingPolicy.CamelCase
+        };
+        private readonly string[] PUBLICPATHS = new string[]
+        {
+            // authentication paths
+            Router.AuthenticationRouting.SignIn,
+            Router.AuthenticationRouting.EmailConfirmation,
+            Router.AuthenticationRouting.SendConfirmationEmail,
+            Router.AuthenticationRouting.SendForgetPasswordEmail,
+            Router.AuthenticationRouting.ForgetPasswordConfirmation,
+            Router.AuthenticationRouting.ResetPassword,
+            Router.AuthenticationRouting.GenerateRefreshToken,
+            Router.AuthenticationRouting.RevokeRefreshToken,
+            Router.AuthenticationRouting.ValidateAccessToken,
+
+        };
+        public async Task Invoke(HttpContext context)
+        {
+            var path = context.Request.Path.Value.Substring(1) ?? string.Empty;
+            var header = context.Request.Headers["Authorization"].FirstOrDefault();
+            string token = null;
+            if (!string.IsNullOrEmpty(header) && header.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                token = header.Substring("Bearer ".Length).Trim();
+            var isPublic = PUBLICPATHS.Any(p => path.StartsWith(p, StringComparison.OrdinalIgnoreCase));
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                if (!isPublic)
+                {
+                    await WriteJsonResponse(context, HttpStatusCode.Unauthorized, SharedResponseKeys.Unauthorized);
+                    return;
+                }
+                await next(context);
+                return;
+            }
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var parameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = jwtSettings.ValidateIssuer,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey)),
+                    ValidateAudience = true,
+                    ValidAudiences = new[] { jwtSettings.Audience },
+                    ValidateLifetime = jwtSettings.ValidateLifetime,
+                    ClockSkew = TimeSpan.Zero
+                };
+                var principal = handler.ValidateToken(token, parameters, out SecurityToken validatedToken);
+                if (validatedToken is not JwtSecurityToken jwtToken)
+                {
+                    await WriteJsonResponse(context, HttpStatusCode.Unauthorized, SharedResponseKeys.InvalidTokenFormat);
+                    return;
+                }
+            }
+            catch (SecurityTokenExpiredException exp)
+            {
+                await WriteJsonResponse(context, HttpStatusCode.Unauthorized, SharedResponseKeys.TokenExpired);
+                return;
+            }
+            catch
+            {
+                await WriteJsonResponse(context, HttpStatusCode.Unauthorized, SharedResponseKeys.InvalidToken);
+                return;
+            }
+            await next(context);
+        }
+        private async Task WriteJsonResponse(HttpContext context, HttpStatusCode statusCode, string message)
+        {
+
+            if (context.Response.HasStarted)
+                return;
+
+            context.Response.StatusCode = (int)statusCode;
+            context.Response.ContentType = "application/json; charset=utf-8";
+
+            var response = new ApiResponse
+            {
+                Succeeded = false,
+                StatusCode = statusCode,
+                Message = message
+            };
+
+            var json = JsonSerializer.Serialize(response, JSONOPTIONS);
+            await context.Response.WriteAsync(json, Encoding.UTF8);
+        }
+    }
+}

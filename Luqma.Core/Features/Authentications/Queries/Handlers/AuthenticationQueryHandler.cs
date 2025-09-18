@@ -21,10 +21,11 @@ namespace Luqma.Core.Features.Authentications.Queries.Handlers
             var result = await authenticationService.ValidateAccessToken(request.AccessToken);
             return result switch
             {
-                "InvalidTokenFormat" => BadRequest(SharedResponseKeys.InvalidTokenFormat),
-                "TokenExpired" => BadRequest(SharedResponseKeys.TokenExpired),
+                "InvalidTokenFormat" => Unauthorized(SharedResponseKeys.InvalidTokenFormat),
+                "TokenExpired" => Unauthorized(SharedResponseKeys.TokenExpired),
                 "AnErrorOccurredWhileVerifyingTheToken" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileVerifyingTheToken),
+                "InvalidToken" => Unauthorized(SharedResponseKeys.Unauthorized),
                 "ValidToken" => Success(null, message: SharedResponseKeys.ValidToken),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileVerifyingTheToken)
             };
