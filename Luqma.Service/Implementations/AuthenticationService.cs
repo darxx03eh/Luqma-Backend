@@ -419,7 +419,7 @@ namespace Luqma.Service.Implementations
             }
             catch (Exception exp)
             {
-                return "AnErrorOccurredWhileVerifyingTheToken";
+                return "InvalidToken";
             }
         }
     }
