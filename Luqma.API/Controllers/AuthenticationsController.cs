@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Luqma.API.Controllers
 {
     [ApiController]
+    //test abood
     public class AuthenticationsController : AppBaseController
     {
         [Authorize(Roles = "Manager")]
