@@ -21,6 +21,7 @@ namespace Luqma.Data.Entities
         public bool PromitionApplied { get; set; }
         public virtual ICollection<Deliveries>? Deliveries { get; set; } = new HashSet<Deliveries>();
         public virtual ICollection<PaymentsOrder> PaymentsOrders { get; set; } = new HashSet<PaymentsOrder>();
+        public virtual ICollection<OrderTracking> OrderTrackings { get; set; } = new HashSet<OrderTracking>();
         public virtual LuqmaUser? Cashier { get; set; }
         public virtual Customer? Customer { get; set; }
     }
