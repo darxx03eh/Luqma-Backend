@@ -13,5 +13,6 @@ namespace Luqma.Data.Entities
         public virtual ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
         public virtual ICollection<CustomerAddress>? Addresses { get; set; } = new HashSet<CustomerAddress>();
         public virtual ICollection<OrderTracking>? OrderTrackings { get; set; } = new HashSet<OrderTracking>();
+        public virtual ICollection<Feedback>? Feedbacks { get; set; } = new HashSet<Feedback>();
     }
 }
