@@ -11,19 +11,22 @@ namespace Luqma.Infrastructure.Data
         : IdentityDbContext<LuqmaUser, LuqmaRole, int,
           IdentityUserClaim<int>, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DbSet<LuqmaUser> Users { get;set; }
-        public DbSet<LuqmaRole> Roles { get;set; }
-        public DbSet<UserRefreshToken> UserRefreshTokens { get;set; }
-        public DbSet<Deduction> Deductions { get;set; }
-        public DbSet<Salary> Salaries { get;set; }
-        public DbSet<UserAddress> UserAddresses { get;set; }
-        public DbSet<Bill> Bills { get;set; }
-        public DbSet<KitchenRequirments> KitchenRequirments { get;set; }
-        public DbSet<KitchenItems> KitchenItems { get;set; }
-        public DbSet<RequirmentItems> RequirmentItems { get;set; }
-        public DbSet<Deliveries> Deliveries { get;set; }
-        public DbSet<Order> Orders { get;set; }
-        public DbSet<Customer> Customers { get;set; }
+        #region Tables
+        public DbSet<LuqmaUser> Users { get; set; }
+        public DbSet<LuqmaRole> Roles { get; set; }
+        public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
+        public DbSet<Deduction> Deductions { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
+        public DbSet<UserAddress> UserAddresses { get; set; }
+        public DbSet<Bill> Bills { get; set; }
+        public DbSet<KitchenRequirments> KitchenRequirments { get; set; }
+        public DbSet<KitchenItems> KitchenItems { get; set; }
+        public DbSet<RequirmentItems> RequirmentItems { get; set; }
+        public DbSet<Deliveries> Deliveries { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerAddress> CustomerAddresses { get; set; }
+        #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
         protected override void OnModelCreating(ModelBuilder builder)

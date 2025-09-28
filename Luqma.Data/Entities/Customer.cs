@@ -11,5 +11,6 @@ namespace Luqma.Data.Entities
         public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
         public Gender gender { get; set; }
         public virtual ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<CustomerAddress>? Addresses { get; set; } = new HashSet<CustomerAddress>();
     }
 }

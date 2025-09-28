@@ -14,6 +14,11 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(order => order.Customer)
                 .HasForeignKey(order => order.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(customer => customer.Addresses)
+                .WithOne(address => address.Customer)
+                .HasForeignKey(address => address.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
