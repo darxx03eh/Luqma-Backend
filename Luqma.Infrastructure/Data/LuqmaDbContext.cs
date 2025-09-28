@@ -27,6 +27,9 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerAddress> CustomerAddresses { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentsOrder> PaymentsOrders { get; set; }
+        public DbSet<OrderTracking> OrderTrackings { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
