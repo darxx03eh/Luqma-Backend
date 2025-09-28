@@ -20,6 +20,7 @@ namespace Luqma.Data.Entities
         public string? EventTag { get; set; }
         public bool PromitionApplied { get; set; }
         public virtual ICollection<Deliveries>? Deliveries { get; set; } = new HashSet<Deliveries>();
+        public virtual ICollection<PaymentsOrder> PaymentsOrders { get; set; } = new HashSet<PaymentsOrder>();
         public virtual LuqmaUser? Cashier { get; set; }
         public virtual Customer? Customer { get; set; }
     }

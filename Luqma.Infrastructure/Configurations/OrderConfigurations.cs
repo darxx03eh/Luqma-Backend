@@ -21,6 +21,11 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasOne(order => order.Customer)
                 .WithMany(customer => customer.Orders)
                 .HasForeignKey(order => order.CustomerId);
+
+            builder.HasMany(order => order.PaymentsOrders)
+                .WithOne(po => po.Order)
+                .HasForeignKey(po => po.OrderId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
