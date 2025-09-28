@@ -25,6 +25,27 @@ namespace Luqma.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Luqma.Data.Entities.Deduction", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinanceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeductionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DeductionRate")
+                        .HasColumnType("float");
+
+                    b.HasKey("UserId", "FinanceId", "DeductionDate");
+
+                    b.HasIndex("FinanceId");
+
+                    b.ToTable("Deductions");
+                });
+
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaRole", b =>
                 {
                     b.Property<int>("Id")
@@ -208,7 +229,48 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRefreshToken");
+                    b.ToTable("UserRefreshTokens");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinanceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SalaryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "FinanceId", "SalaryDate");
+
+                    b.HasIndex("FinanceId");
+
+                    b.ToTable("Salaries");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.UserAddress", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "City", "State", "Street");
+
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -314,6 +376,25 @@ namespace Luqma.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Luqma.Data.Entities.Deduction", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Finance")
+                        .WithMany("FinanceDeductions")
+                        .HasForeignKey("FinanceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("UserDeductions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Finance");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaUser", b =>
                 {
                     b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Manager")
@@ -328,6 +409,36 @@ namespace Luqma.Infrastructure.Migrations
                 {
                     b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
                         .WithMany("UserRefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Finance")
+                        .WithMany("FinanceSalaries")
+                        .HasForeignKey("FinanceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("UserSalaries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Finance");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.UserAddress", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,9 +499,19 @@ namespace Luqma.Infrastructure.Migrations
 
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaUser", b =>
                 {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("FinanceDeductions");
+
+                    b.Navigation("FinanceSalaries");
+
                     b.Navigation("Subordinates");
 
+                    b.Navigation("UserDeductions");
+
                     b.Navigation("UserRefreshTokens");
+
+                    b.Navigation("UserSalaries");
                 });
 #pragma warning restore 612, 618
         }
