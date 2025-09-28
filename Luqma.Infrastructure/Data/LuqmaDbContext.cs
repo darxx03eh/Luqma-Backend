@@ -19,6 +19,11 @@ namespace Luqma.Infrastructure.Data
         public DbSet<UserAddress> UserAddresses { get;set; }
         public DbSet<Bill> Bills { get;set; }
         public DbSet<KitchenRequirments> KitchenRequirments { get;set; }
+        public DbSet<KitchenItems> KitchenItems { get;set; }
+        public DbSet<RequirmentItems> RequirmentItems { get;set; }
+        public DbSet<Deliveries> Deliveries { get;set; }
+        public DbSet<Order> Orders { get;set; }
+        public DbSet<Customer> Customers { get;set; }
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
         protected override void OnModelCreating(ModelBuilder builder)
