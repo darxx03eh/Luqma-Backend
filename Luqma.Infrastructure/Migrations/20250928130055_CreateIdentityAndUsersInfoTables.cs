@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Luqma.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateIdentityTables : Migration
+    public partial class CreateIdentityAndUsersInfoTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,6 +40,8 @@ namespace Luqma.Infrastructure.Migrations
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ForgetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberCodeExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CodeExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -178,7 +180,77 @@ namespace Luqma.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRefreshToken",
+                name: "Deductions",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FinanceId = table.Column<int>(type: "int", nullable: false),
+                    DeductionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeductionRate = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deductions", x => new { x.UserId, x.FinanceId, x.DeductionDate });
+                    table.ForeignKey(
+                        name: "FK_Deductions_AspNetUsers_FinanceId",
+                        column: x => x.FinanceId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Deductions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Salaries",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FinanceId = table.Column<int>(type: "int", nullable: false),
+                    SalaryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Salaries", x => new { x.UserId, x.FinanceId, x.SalaryDate });
+                    table.ForeignKey(
+                        name: "FK_Salaries_AspNetUsers_FinanceId",
+                        column: x => x.FinanceId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Salaries_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserAddresses",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserAddresses", x => new { x.UserId, x.City, x.State, x.Street });
+                    table.ForeignKey(
+                        name: "FK_UserAddresses_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRefreshTokens",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
@@ -194,9 +266,9 @@ namespace Luqma.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRefreshToken", x => x.ID);
+                    table.PrimaryKey("PK_UserRefreshTokens", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_UserRefreshToken_AspNetUsers_UserId",
+                        name: "FK_UserRefreshTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -248,8 +320,18 @@ namespace Luqma.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRefreshToken_UserId",
-                table: "UserRefreshToken",
+                name: "IX_Deductions_FinanceId",
+                table: "Deductions",
+                column: "FinanceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salaries_FinanceId",
+                table: "Salaries",
+                column: "FinanceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRefreshTokens_UserId",
+                table: "UserRefreshTokens",
                 column: "UserId");
         }
 
@@ -272,7 +354,16 @@ namespace Luqma.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "UserRefreshToken");
+                name: "Deductions");
+
+            migrationBuilder.DropTable(
+                name: "Salaries");
+
+            migrationBuilder.DropTable(
+                name: "UserAddresses");
+
+            migrationBuilder.DropTable(
+                name: "UserRefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

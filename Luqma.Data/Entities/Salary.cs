@@ -1,0 +1,14 @@
+﻿using Luqma.Data.Entities.Identity;
+
+namespace Luqma.Data.Entities
+{
+    public class Salary
+    {
+        public int UserId { get; set; }
+        public int FinanceId { get; set; }
+        public string Status { get; set; }
+        public DateTime SalaryDate { get; set; } = DateTime.UtcNow;
+        public virtual LuqmaUser? User { get; set; }
+        public virtual LuqmaUser? Finance { get; set; }
+    }
+}
