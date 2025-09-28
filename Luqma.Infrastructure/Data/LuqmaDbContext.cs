@@ -17,6 +17,7 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Deduction> Deductions { get;set; }
         public DbSet<Salary> Salaries { get;set; }
         public DbSet<UserAddress> UserAddresses { get;set; }
+        public DbSet<Bill> Bills { get;set; }
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
         protected override void OnModelCreating(ModelBuilder builder)
