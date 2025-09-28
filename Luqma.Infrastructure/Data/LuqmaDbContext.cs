@@ -26,6 +26,7 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerAddress> CustomerAddresses { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
