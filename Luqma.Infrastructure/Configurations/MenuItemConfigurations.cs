@@ -29,6 +29,16 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(oi => oi.MenuItem)
                 .HasForeignKey(oi => oi.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(menuitem => menuitem.Predictions)
+                .WithOne(prediction => prediction.MenuItem)
+                .HasForeignKey(prediction => prediction.ItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(menuitem => menuitem.WasteReports)
+                .WithOne(wastereport => wastereport.MenuItem)
+                .HasForeignKey(wastereport => wastereport.ItemId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
