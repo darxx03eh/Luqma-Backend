@@ -8,6 +8,7 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Salary> builder)
         {
+            builder.ToTable("Salaries");
             builder.HasKey(salary => new
             {
                 salary.UserId,
@@ -22,6 +23,9 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasOne(salary => salary.Finance)
                 .WithMany(user => user.FinanceSalaries)
                 .HasForeignKey(salary => salary.FinanceId);
+
+            builder.Property(s => s.Status)
+                   .IsRequired().HasMaxLength(50);
         }
     }
 }

@@ -8,6 +8,11 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<RequirmentItems> builder)
         {
+            builder.ToTable("RequirmentItems", ri =>
+            {
+                ri.HasCheckConstraint("CK_RequirmentItems_Price_NonNegative", "[Price] >= 0");
+                ri.HasCheckConstraint("CK_RequirmentItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
+            });
             builder.HasKey(ri => new
             {
                 ri.ItemId,
@@ -22,6 +27,10 @@ namespace Luqma.Infrastructure.Configurations
                 .WithMany(kr => kr.RequirmentItems)
                 .HasForeignKey(ri => ri.RequirmentId);
 
+            builder.Property(ri => ri.Price)
+                   .IsRequired().HasPrecision(10, 2);
+            builder.Property(ri => ri.Discount)
+                   .IsRequired().HasPrecision(5, 2);
         }
     }
 }

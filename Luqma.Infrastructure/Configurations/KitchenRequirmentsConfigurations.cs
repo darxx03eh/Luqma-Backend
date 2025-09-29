@@ -8,6 +8,10 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<KitchenRequirments> builder)
         {
+            builder.ToTable("KitchenRequirments", kr =>
+            {
+                kr.HasCheckConstraint("CK_KitchenRequirments_TotalPrice_NonNegative", "[TotalPrice] >= 0");
+            });
             builder.HasKey(kr => kr.Id);
 
             builder.HasOne(kr => kr.Chef)
@@ -18,6 +22,15 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(ri => ri.KitchenRequirments)
                 .HasForeignKey(ri => ri.RequirmentId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(kr => kr.Status)
+                   .IsRequired()
+                   .HasMaxLength(50);
+            builder.Property(kr => kr.Note)
+                   .HasMaxLength(500);
+            builder.Property(kr => kr.TotalPrice)
+                   .IsRequired()
+                   .HasPrecision(10, 2);
         }
     }
 }

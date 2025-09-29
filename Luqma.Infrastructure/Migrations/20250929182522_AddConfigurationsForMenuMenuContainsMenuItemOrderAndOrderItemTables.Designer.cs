@@ -4,6 +4,7 @@ using Luqma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Luqma.Infrastructure.Migrations
 {
     [DbContext(typeof(LuqmaDbContext))]
-    partial class LuqmaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250929182522_AddConfigurationsForMenuMenuContainsMenuItemOrderAndOrderItemTables")]
+    partial class AddConfigurationsForMenuMenuContainsMenuItemOrderAndOrderItemTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -311,8 +314,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ForgetPasswordToken")
                         .HasColumnType("nvarchar(max)");
@@ -324,14 +326,11 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -366,7 +365,6 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Salary")
-                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SecurityStamp")
@@ -433,7 +431,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRefreshTokens", (string)null);
+                    b.ToTable("UserRefreshTokens");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.KitchenItems", b =>
@@ -698,7 +696,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("OrderTrackings", (string)null);
+                    b.ToTable("OrderTrackings");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Payment", b =>
@@ -710,39 +708,29 @@ namespace Luqma.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Amount")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
+                        .HasColumnType("float");
 
                     b.Property<string>("Currency")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasDefaultValue("NIS");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payments", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_Payment_Amount_Positive", "[Amount] > 0");
-                        });
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.PaymentsOrder", b =>
@@ -757,7 +745,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("PaymentId");
 
-                    b.ToTable("PaymentsOrders", (string)null);
+                    b.ToTable("PaymentsOrders");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Prediction", b =>
@@ -769,8 +757,7 @@ namespace Luqma.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("ConfidenceScore")
-                        .HasPrecision(5, 4)
-                        .HasColumnType("float(5)");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -779,8 +766,7 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("PredictedQuantity")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("PredictionDate")
                         .HasColumnType("datetime2");
@@ -789,12 +775,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Predictions", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_Prediction_ConfidenceScore_Valid", "[ConfidenceScore] >= 0 AND [ConfidenceScore] <= 1");
-
-                            t.HasCheckConstraint("CK_Prediction_PredictedQuantity_NonNegative", "[PredictedQuantity] >= 0");
-                        });
+                    b.ToTable("Predictions");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.RequirmentItems", b =>
@@ -806,23 +787,16 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Discount")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("float(5)");
+                        .HasColumnType("float");
 
                     b.Property<double>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
+                        .HasColumnType("float");
 
                     b.HasKey("ItemId", "RequirmentId");
 
                     b.HasIndex("RequirmentId");
 
-                    b.ToTable("RequirmentItems", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_RequirmentItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
-
-                            t.HasCheckConstraint("CK_RequirmentItems_Price_NonNegative", "[Price] >= 0");
-                        });
+                    b.ToTable("RequirmentItems");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
@@ -838,14 +812,13 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "FinanceId", "SalaryDate");
 
                     b.HasIndex("FinanceId");
 
-                    b.ToTable("Salaries", (string)null);
+                    b.ToTable("Salaries");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.UserAddress", b =>
@@ -854,27 +827,17 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("State")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Street")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "City", "State", "Street");
 
-                    b.ToTable("UserAddresses", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_UserAddress_City_NotEmpty", "LEN([City]) > 0");
-
-                            t.HasCheckConstraint("CK_UserAddress_State_NotEmpty", "LEN([State]) > 0");
-
-                            t.HasCheckConstraint("CK_UserAddress_Street_NotEmpty", "LEN([Street]) > 0");
-                        });
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.WasteReport", b =>
@@ -895,21 +858,16 @@ namespace Luqma.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("WasteQuantity")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("WasteReports", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_WasteReport_WasteQuantity_NonNegative", "[WasteQuantity] >= 0");
-                        });
+                    b.ToTable("WasteReports");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

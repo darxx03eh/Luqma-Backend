@@ -63,6 +63,17 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(order => order.Cashier)
                 .HasForeignKey(order => order.CashierId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(u => u.FirstName)
+                   .IsRequired().HasMaxLength(50);
+            builder.Property(u => u.LastName)
+                   .IsRequired().HasMaxLength(50);
+            builder.Property(u => u.BirthDate)
+                   .IsRequired();
+            builder.Property(u => u.Salary)
+                   .HasPrecision(18, 2);
+            builder.Property(u => u.IsActive)
+                   .HasDefaultValue(true);
         }
     }
 }
