@@ -30,6 +30,10 @@ namespace Luqma.Infrastructure.Data
         public DbSet<PaymentsOrder> PaymentsOrders { get; set; }
         public DbSet<OrderTracking> OrderTrackings { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<MenuContains> MenuContains { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryItem> CategoryItems { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
