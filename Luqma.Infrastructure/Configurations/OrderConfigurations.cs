@@ -31,6 +31,11 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(ot => ot.Order)
                 .HasForeignKey(ot => ot.OrderId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(order => order.OrderItems)
+                .WithOne(oi => oi.Order)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

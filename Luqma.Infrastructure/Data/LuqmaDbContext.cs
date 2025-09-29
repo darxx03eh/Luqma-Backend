@@ -34,6 +34,7 @@ namespace Luqma.Infrastructure.Data
         public DbSet<MenuContains> MenuContains { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryItem> CategoryItems { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
