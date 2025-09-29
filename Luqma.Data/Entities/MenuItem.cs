@@ -12,5 +12,6 @@
         public virtual ICollection<Feedback>? Feedbacks { get; set; } = new HashSet<Feedback>();
         public virtual ICollection<MenuContains>? MenuContains { get; set; } = new HashSet<MenuContains>();
         public virtual ICollection<CategoryItem>? CategoryItems { get; set; } = new HashSet<CategoryItem>();
+        public virtual ICollection<OrderItem>? OrderItems { get; set; } = new HashSet<OrderItem>();
     }
 }
