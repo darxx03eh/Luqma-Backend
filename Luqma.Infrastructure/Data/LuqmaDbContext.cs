@@ -35,6 +35,8 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryItem> CategoryItems { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Prediction> Predictions { get; set; }
+        public DbSet<WasteReport> WasteReports { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }
