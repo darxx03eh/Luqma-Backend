@@ -8,6 +8,11 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<MenuItem> builder)
         {
+            builder.ToTable("MenuItems", menuitem =>
+            {
+                menuitem.HasCheckConstraint("CK_MenuItem_Price_NonNegative", "[Price] >= 0");
+                menuitem.HasCheckConstraint("CK_MenuItem_Discount_Valid", "[Discount] IS NULL OR [Discount] >= 0 AND [Discount] <= 100");
+            });
             builder.HasKey(menuitem => menuitem.Id);
 
             builder.HasMany(menuitem => menuitem.Feedbacks)
@@ -39,6 +44,19 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(wastereport => wastereport.MenuItem)
                 .HasForeignKey(wastereport => wastereport.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(mi => mi.Item)
+                   .IsRequired()
+                   .HasMaxLength(100);
+            builder.Property(mi => mi.Description)
+                   .HasMaxLength(500);
+            builder.Property(mi => mi.Price)
+                   .IsRequired()
+                   .HasPrecision(10, 2);
+            builder.Property(mi => mi.Discount)
+                   .HasPrecision(5, 2);
+            builder.Property(mi => mi.IsVegetarian)
+                   .IsRequired();
         }
     }
 }

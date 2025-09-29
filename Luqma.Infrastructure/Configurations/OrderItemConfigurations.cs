@@ -8,6 +8,10 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
+            builder.ToTable("OrderItems", oi =>
+            {
+                oi.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0");
+            });
             builder.HasKey(oi => new
             {
                 oi.OrderId,
@@ -21,6 +25,10 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasOne(oi => oi.MenuItem)
                 .WithMany(menuitem => menuitem.OrderItems)
                 .HasForeignKey(oi => oi.ItemId);
+
+            builder.Property(oi => oi.Quantity)
+                   .IsRequired().HasPrecision(10, 2);
+
         }
     }
 }
