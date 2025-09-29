@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Luqma.Infrastructure.Migrations
 {
     [DbContext(typeof(LuqmaDbContext))]
-    [Migration("20250815205129_AddedFieldsForPhoneToIdentityTable")]
-    partial class AddedFieldsForPhoneToIdentityTable
+    [Migration("20250928134502_CreateKitchenTables")]
+    partial class CreateKitchenTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,55 @@ namespace Luqma.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Luqma.Data.Entities.Bill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BillType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FinanceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FinanceId");
+
+                    b.ToTable("Bills");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Deduction", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinanceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeductionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("DeductionRate")
+                        .HasColumnType("float");
+
+                    b.HasKey("UserId", "FinanceId", "DeductionDate");
+
+                    b.HasIndex("FinanceId");
+
+                    b.ToTable("Deductions");
+                });
 
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaRole", b =>
                 {
@@ -211,7 +260,130 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserRefreshToken");
+                    b.ToTable("UserRefreshTokens");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenItems", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Item")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KitchenItems");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChefId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChefId");
+
+                    b.ToTable("KitchenRequirments");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.RequirmentItems", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequirmentId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("ItemId", "RequirmentId");
+
+                    b.HasIndex("RequirmentId");
+
+                    b.ToTable("RequirmentItems");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FinanceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SalaryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "FinanceId", "SalaryDate");
+
+                    b.HasIndex("FinanceId");
+
+                    b.ToTable("Salaries");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.UserAddress", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "City", "State", "Street");
+
+                    b.ToTable("UserAddresses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -317,6 +489,36 @@ namespace Luqma.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Luqma.Data.Entities.Bill", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Finance")
+                        .WithMany("Bills")
+                        .HasForeignKey("FinanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Finance");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Deduction", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Finance")
+                        .WithMany("FinanceDeductions")
+                        .HasForeignKey("FinanceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("UserDeductions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Finance");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaUser", b =>
                 {
                     b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Manager")
@@ -331,6 +533,66 @@ namespace Luqma.Infrastructure.Migrations
                 {
                     b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
                         .WithMany("UserRefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Chef")
+                        .WithMany("KitchenRequirments")
+                        .HasForeignKey("ChefId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chef");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.RequirmentItems", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.KitchenItems", "KitchenItems")
+                        .WithMany("RequirmentItems")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Luqma.Data.Entities.KitchenRequirments", "KitchenRequirments")
+                        .WithMany("RequirmentItems")
+                        .HasForeignKey("RequirmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KitchenItems");
+
+                    b.Navigation("KitchenRequirments");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Finance")
+                        .WithMany("FinanceSalaries")
+                        .HasForeignKey("FinanceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("UserSalaries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Finance");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.UserAddress", b =>
+                {
+                    b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "User")
+                        .WithMany("Addresses")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -391,9 +653,33 @@ namespace Luqma.Infrastructure.Migrations
 
             modelBuilder.Entity("Luqma.Data.Entities.Identity.LuqmaUser", b =>
                 {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Bills");
+
+                    b.Navigation("FinanceDeductions");
+
+                    b.Navigation("FinanceSalaries");
+
+                    b.Navigation("KitchenRequirments");
+
                     b.Navigation("Subordinates");
 
+                    b.Navigation("UserDeductions");
+
                     b.Navigation("UserRefreshTokens");
+
+                    b.Navigation("UserSalaries");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenItems", b =>
+                {
+                    b.Navigation("RequirmentItems");
+                });
+
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+                {
+                    b.Navigation("RequirmentItems");
                 });
 #pragma warning restore 612, 618
         }

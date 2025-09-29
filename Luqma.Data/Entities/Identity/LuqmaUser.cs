@@ -39,5 +39,14 @@ namespace Luqma.Data.Entities.Identity
         public virtual ICollection<UserRefreshToken>? UserRefreshTokens { get; set; } = new HashSet<UserRefreshToken>();
         public virtual LuqmaUser? Manager { get; set; }
         public virtual ICollection<LuqmaUser>? Subordinates { get; set; } = new HashSet<LuqmaUser>();
+        public virtual ICollection<Salary>? UserSalaries { get; set; } = new HashSet<Salary>();
+        public virtual ICollection<Salary>? FinanceSalaries { get; set; } = new HashSet<Salary>();
+        public virtual ICollection<Deduction>? UserDeductions { get; set; } = new HashSet<Deduction>();
+        public virtual ICollection<Deduction>? FinanceDeductions { get; set; } = new HashSet<Deduction>();
+        public virtual ICollection<UserAddress>? Addresses { get; set; } = new HashSet<UserAddress>();
+        public virtual ICollection<Bill>? Bills { get; set; } = new HashSet<Bill>();
+        public virtual ICollection<KitchenRequirments>? KitchenRequirments { get; set; } = new HashSet<KitchenRequirments>();
+        public virtual ICollection<Deliveries>? Deliveries { get; set; } = new HashSet<Deliveries>();
+        public virtual ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
     }
 }
