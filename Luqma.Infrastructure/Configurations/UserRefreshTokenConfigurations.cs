@@ -8,6 +8,7 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRefreshToken> builder)
         {
+            builder.ToTable("UserRefreshTokens");
             builder.HasOne(refresh => refresh.User)
                 .WithMany(user => user.UserRefreshTokens)
                 .HasForeignKey(refresh => refresh.UserId);
