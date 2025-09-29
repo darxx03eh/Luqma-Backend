@@ -14,6 +14,13 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(feedback => feedback.MenuItem)
                 .HasForeignKey(feedback => feedback.ItemId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(menuitem => menuitem.MenuContains)
+                .WithOne(mc => mc.MenuItem)
+                .HasForeignKey(mc => mc.ItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
     }
 }
