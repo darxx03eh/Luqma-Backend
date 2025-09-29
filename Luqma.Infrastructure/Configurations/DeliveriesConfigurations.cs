@@ -8,6 +8,7 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Deliveries> builder)
         {
+            builder.ToTable("Deliveries");
             builder.HasKey(delivery => new
             {
                 delivery.DeliveryId,
