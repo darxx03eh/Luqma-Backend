@@ -10,5 +10,6 @@
         public double Price { get; set; }
         public bool IsVegetarian { get; set; }
         public virtual ICollection<Feedback>? Feedbacks { get; set; } = new HashSet<Feedback>();
+        public virtual ICollection<MenuContains> MenuContains { get; set; } = new HashSet<MenuContains>();
     }
 }
