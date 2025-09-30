@@ -22,5 +22,10 @@
             public const string SendConfirmationCodeThenAdd = $"{prefix}/send-confirmation-code-add";
             public const string PhoneNumberConfirmation = $"{prefix}/phonenumber-confirmation";
         }
+        public static class UsersRouting
+        {
+            public const string prefix = $"{rule}users";
+            public const string ChangePassword = $"{prefix}/change-password";
+        }
     }
 }

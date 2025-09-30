@@ -84,6 +84,7 @@ namespace Luqma.Infrastructure
             #region Dependancy injection
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient(typeof(IRefreshTokenRepository), typeof(RefreshTokenRepository));
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             #endregion
 
             return services;

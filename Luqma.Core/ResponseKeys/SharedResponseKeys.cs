@@ -107,5 +107,7 @@
         public const string YourPhoneNumberAlreadyConfirmed = "Your phone number has already been confirmed";
         public const string ThereWasAnErrorConfirmingYourPhoneNumber = "There was an error confirming your phone number";
         public const string YourPhoneNumberHasConfirmed = "Your phone number has been confirmed";
+        public const string PasswordShouldNotEqualOldOne = "The new password must be different from the old one";
+        public const string CurrentPasswordWrong = "The current password you entered is incorrect";
     }
 }
