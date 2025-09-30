@@ -122,5 +122,9 @@
         public const string AnErrorOccurredWhileProcessingYourProfileImageModificationRequest = "An error occurred while processing your profile image update request";
         public const string AnErrorOccurredWhileChangingTheUsername = "An error occurred while updating the username";
         public const string UsernameChangedSuccessfully = "The username has been updated successfully";
+        public const string TitleNotEmpty = "the title must not be empty";
+        public const string TitleNotNull = "the title must not be null";
+        public const string TitleMaximumLength = "the maximum length is 100";
+        public const string TitleIsAlreadyExist = "the title already exists";
     }
 }

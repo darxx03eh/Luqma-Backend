@@ -32,6 +32,7 @@ namespace Luqma.Core.Middlewares
             Router.AuthenticationsRouting.GenerateRefreshToken,
             Router.AuthenticationsRouting.RevokeRefreshToken,
             Router.AuthenticationsRouting.ValidateAccessToken,
+            Router.ManagerCategoriesRouting.Add
         };
         public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
         {

@@ -30,5 +30,16 @@
             public const string UploadProfileImage = $"{prefix}/profile/upload-image";
             public const string ChangeUserName = $"{prefix}/change-username";
         }
+        public static class ManagerCategoriesRouting
+        {
+            public const string prefix = $"{rule}Manager/Categories";
+            public const string GetAll = $"{prefix}/GetAll";
+            public const string Add = $"{prefix}/Add";
+        }
+        public static class CustomerCategoriesRouting
+        {
+            public const string prefix = $"{rule}Customer/Categories";
+            public const string GetAll = $"{prefix}/GetAll";
+        }
     }
 }

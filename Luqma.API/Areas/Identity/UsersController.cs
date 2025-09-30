@@ -4,7 +4,7 @@ using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Luqma.API.Controllers
+namespace Luqma.API.Areas.Identity
 {
     [Authorize]
     [ApiController]

@@ -6,7 +6,7 @@ using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Luqma.API.Controllers
+namespace Luqma.API.Areas.Identity
 {
     [ApiController]
     public class AuthenticationsController : AppBaseController
@@ -67,7 +67,7 @@ namespace Luqma.API.Controllers
             return Result(result);
         }
         [HttpGet(Router.AuthenticationsRouting.ValidateAccessToken)]
-        public async Task<IActionResult> ValidateAccessToken([FromQuery] String token)
+        public async Task<IActionResult> ValidateAccessToken([FromQuery] string token)
         {
             var result = await mediator.Send(new ValidateAccessTokenQuery(token));
             return Result(result);
