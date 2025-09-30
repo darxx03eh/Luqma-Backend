@@ -9,6 +9,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
     public class UserCommandHandler : ApiResponseHandler
         , IRequestHandler<ChangePasswordCommand, ApiResponse>
         , IRequestHandler<ChangeNameCommand, ApiResponse>
+        , IRequestHandler<UploadProfileImageCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -46,6 +47,24 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 }, message: SharedResponseKeys.NameChangedSuccessfully),
                 "AnErrorOccurredWhileChangingTheName" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheName),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheName)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(UploadProfileImageCommand request, CancellationToken cancellationToken)
+        {
+            var (result, imageUrl) = await userService.UploadProfileImageAsync(request.ProfileImage);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "FailedToDeleteOldImageFromCloudinary" => InternalServerError(SharedResponseKeys.FailedToDeleteOldImageFromCloudinary),
+                "AnErrorOccurredWhileEditingImage" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingImage),
+                "TheImageHasBeenChangedSuccessfully" => Success(new
+                {
+                    imageUrl = imageUrl,
+                }, message: SharedResponseKeys.TheImageHasBeenChangedSuccessfully),
+                "AnErrorOccurredWhileProcessingYourProfileImageModificationRequest"
+                => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileProcessingYourProfileImageModificationRequest),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileProcessingYourProfileImageModificationRequest)
             };
         }
     }
