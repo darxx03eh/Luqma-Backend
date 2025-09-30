@@ -16,7 +16,7 @@ namespace Luqma.Service.Implementations
         private readonly ICloudinaryService cloudinaryService;
 
         public UserService(IUnitOfWork unitOfWork, UserManager<LuqmaUser> userManager, LuqmaDbContext context
-                          ,ICloudinaryService cloudinaryService)
+                          , ICloudinaryService cloudinaryService)
         {
             this.unitOfWork = unitOfWork;
             this.userManager = userManager;
@@ -52,9 +52,10 @@ namespace Luqma.Service.Implementations
                     }
                     await transaction.CommitAsync();
                     return "NameChangedSuccessfully";
-                }catch(Exception exp)
+                }
+                catch (Exception exp)
                 {
-                    if(transaction.GetDbTransaction().Connection is not null)
+                    if (transaction.GetDbTransaction().Connection is not null)
                         await transaction.RollbackAsync();
                     return "AnErrorOccurredWhileChangingTheName";
                 }
@@ -94,13 +95,28 @@ namespace Luqma.Service.Implementations
                     await transaction.CommitAsync();
                     return "PasswordChangedSuccessfully";
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
-                    if(transaction.GetDbTransaction().Connection is not null)
+                    if (transaction.GetDbTransaction().Connection is not null)
                         await transaction.RollbackAsync();
                     return "AnErrorOccurredWhileChangingThePassword";
                 }
             }
+        }
+
+        public async Task<(string, string?)> ChangeUserNameAsync(string username)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("UserNotFound", null);
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return ("UserNotFound", null);
+            var result = await userManager.SetUserNameAsync(user, username);
+            if (!result.Succeeded)
+                return ("AnErrorOccurredWhileChangingTheUsername", null);
+            return ("UsernameChangedSuccessfully", username);
         }
 
         public async Task<bool> CheckPasswordAsync(string password)
@@ -113,6 +129,22 @@ namespace Luqma.Service.Implementations
                 return false;
 
             return await userManager.CheckPasswordAsync(user, password);
+        }
+
+        public async Task<bool> CheckUserNameAsync(string username)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return false;
+            var currentUser = await userManager.FindByIdAsync(userId);
+            if (currentUser == null)
+                return false;
+            if (currentUser.UserName.Equals(username))
+                return false;
+            var existingUser = await userManager.FindByNameAsync(username);
+            if (existingUser != null && !existingUser.Id.Equals(userId))
+                return false;
+            return true;
         }
 
         public async Task<(string, string?)> UploadProfileImageAsync(IFormFile image)

@@ -10,6 +10,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangePasswordCommand, ApiResponse>
         , IRequestHandler<ChangeNameCommand, ApiResponse>
         , IRequestHandler<UploadProfileImageCommand, ApiResponse>
+        , IRequestHandler<ChangeUserNameCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -65,6 +66,21 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "AnErrorOccurredWhileProcessingYourProfileImageModificationRequest"
                 => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileProcessingYourProfileImageModificationRequest),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileProcessingYourProfileImageModificationRequest)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeUserNameCommand request, CancellationToken cancellationToken)
+        {
+            var (result, username) = await userService.ChangeUserNameAsync(request.UserName);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.NotFound),
+                "AnErrorOccurredWhileChangingTheUsername" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheUsername),
+                "UsernameChangedSuccessfully" => Success(new
+                {
+                    userName = username,
+                }, message: SharedResponseKeys.UsernameChangedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheUsername)
             };
         }
     }
