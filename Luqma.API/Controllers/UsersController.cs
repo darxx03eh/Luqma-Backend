@@ -28,5 +28,11 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [HttpPatch(Router.UsersRouting.ChangeUserName)]
+        public async Task<IActionResult> ChangeUserName([FromBody] ChangeUserNameCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }

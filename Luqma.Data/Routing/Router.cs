@@ -28,6 +28,7 @@
             public const string ChangePassword = $"{prefix}/change-password";
             public const string ChangeName = $"{prefix}/change-name";
             public const string UploadProfileImage = $"{prefix}/profile/upload-image";
+            public const string ChangeUserName = $"{prefix}/change-username";
         }
     }
 }

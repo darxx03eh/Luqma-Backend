@@ -120,5 +120,7 @@
         public const string AnErrorOccurredWhileEditingImage = "An error occurred while editing the image";
         public const string TheImageHasBeenChangedSuccessfully = "The image has been updated successfully";
         public const string AnErrorOccurredWhileProcessingYourProfileImageModificationRequest = "An error occurred while processing your profile image update request";
+        public const string AnErrorOccurredWhileChangingTheUsername = "An error occurred while updating the username";
+        public const string UsernameChangedSuccessfully = "The username has been updated successfully";
     }
 }
