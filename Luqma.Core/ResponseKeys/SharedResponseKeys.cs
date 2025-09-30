@@ -109,5 +109,9 @@
         public const string YourPhoneNumberHasConfirmed = "Your phone number has been confirmed";
         public const string PasswordShouldNotEqualOldOne = "The new password must be different from the old one";
         public const string CurrentPasswordWrong = "The current password you entered is incorrect";
+        public const string AnErrorOccurredWhileChangingTheFirstName = "An error occurred while updating the first name";
+        public const string AnErrorOccurredWhileChangingTheLastName = "An error occurred while updating the last name";
+        public const string NameChangedSuccessfully = "The name has been updated successfully";
+        public const string AnErrorOccurredWhileChangingTheName = "An error occurred while updating the name";
     }
 }

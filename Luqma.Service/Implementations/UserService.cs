@@ -20,6 +20,43 @@ namespace Luqma.Service.Implementations
             this.context = context;
         }
 
+        public async Task<string> ChangeNameAsync(string firstName, string lastName)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    user.FirstName = firstName;
+                    var first = await userManager.UpdateAsync(user);
+                    if (!first.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "AnErrorOccurredWhileChangingTheFirstName";
+                    }
+                    user.LastName = lastName;
+                    var last = await userManager.UpdateAsync(user);
+                    if (!last.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "AnErrorOccurredWhileChangingTheLastName";
+                    }
+                    await transaction.CommitAsync();
+                    return "NameChangedSuccessfully";
+                }catch(Exception exp)
+                {
+                    if(transaction.GetDbTransaction().Connection is not null)
+                        await transaction.RollbackAsync();
+                    return "AnErrorOccurredWhileChangingTheName";
+                }
+            }
+        }
+
         public async Task<string> ChangePasswordAsync(string password, string newPassword)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -62,7 +99,7 @@ namespace Luqma.Service.Implementations
             }
         }
 
-        public async Task<bool> ChecPasswordAsync(string password)
+        public async Task<bool> CheckPasswordAsync(string password)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(userId))

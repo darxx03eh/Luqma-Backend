@@ -10,8 +10,14 @@ namespace Luqma.API.Controllers
     [ApiController]
     public class UsersController : AppBaseController
     {
-        [HttpPost(Router.UsersRouting.ChangePassword)]
+        [HttpPatch(Router.UsersRouting.ChangePassword)]
         public async Task<IActionResult> ChangePassowrd([FromBody] ChangePasswordCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [HttpPatch(Router.UsersRouting.ChangeName)]
+        public async Task<IActionResult> ChangeName([FromBody] ChangeNameCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);

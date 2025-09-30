@@ -36,13 +36,13 @@ namespace Luqma.Core.Features.Users.Commands.Validators
             RuleFor(user => user.CurrentPassword)
                 .MustAsync(async (key, cancellation) =>
                 {
-                    return await userService.ChecPasswordAsync(key);
+                    return await userService.CheckPasswordAsync(key);
                 }).WithMessage(SharedResponseKeys.CurrentPasswordWrong);
 
             RuleFor(user => user.NewPassword)
                 .MustAsync(async (key, cancellation) =>
                 {
-                    return !await userService.ChecPasswordAsync(key);
+                    return !await userService.CheckPasswordAsync(key);
                 }).WithMessage(SharedResponseKeys.PasswordShouldNotEqualOldOne);
         }
     }
