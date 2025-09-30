@@ -113,5 +113,12 @@
         public const string AnErrorOccurredWhileChangingTheLastName = "An error occurred while updating the last name";
         public const string NameChangedSuccessfully = "The name has been updated successfully";
         public const string AnErrorOccurredWhileChangingTheName = "An error occurred while updating the name";
+        public const string ImageIsRequired = "image is required";
+        public const string ImageSizeMustNotExceed5MB = "The image size must not exceed 5MB";
+        public const string OnlyJPEGPNGAndWebPFormatsAreAllowed = "Only JPEG, PNG, and WebP image formats are allowed";
+        public const string FailedToDeleteOldImageFromCloudinary = "Failed to delete the old image from Cloudinary";
+        public const string AnErrorOccurredWhileEditingImage = "An error occurred while editing the image";
+        public const string TheImageHasBeenChangedSuccessfully = "The image has been updated successfully";
+        public const string AnErrorOccurredWhileProcessingYourProfileImageModificationRequest = "An error occurred while processing your profile image update request";
     }
 }
