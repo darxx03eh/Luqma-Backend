@@ -1,11 +1,14 @@
 
+using CloudinaryDotNet.Actions;
 using Luqma.Core;
 using Luqma.Core.Bases;
 using Luqma.Core.Middlewares;
 using Luqma.Core.ResponseKeys;
+using Luqma.Data.Entities.Identity;
 using Luqma.Data.Helpers;
 using Luqma.Infrastructure;
 using Luqma.Infrastructure.Data;
+using Luqma.Infrastructure.Seeder;
 using Luqma.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +19,7 @@ namespace Luqma.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             #region Initialize Encryption Key
@@ -85,6 +88,13 @@ namespace Luqma.API
             });
             builder.Services.AddResponseCaching();
             var app = builder.Build();
+            using (var scope = app.Services.CreateScope())
+            {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<LuqmaUser>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<LuqmaRole>>();
+                await RoleSeeder.SeedAsync(roleManager);
+                await UserSeeder.SeedAsync(userManager);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

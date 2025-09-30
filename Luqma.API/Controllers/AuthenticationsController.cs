@@ -1,6 +1,7 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Authentications.Commands.Models;
 using Luqma.Core.Features.Authentications.Queries.Models;
+using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace Luqma.API.Controllers
     [ApiController]
     public class AuthenticationsController : AppBaseController
     {
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = Roles.Manager)]
         [HttpPost(Router.AuthenticationsRouting.SignUp)]
         public async Task<IActionResult> RegistrationUser([FromBody] SignUpCommand request)
         {
