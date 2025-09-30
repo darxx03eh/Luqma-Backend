@@ -22,5 +22,16 @@
             public const string SendConfirmationCodeThenAdd = $"{prefix}/send-confirmation-code-add";
             public const string PhoneNumberConfirmation = $"{prefix}/phonenumber-confirmation";
         }
+        public static class ManagerCategoriesRouting
+        {
+        public const string prefix = $"{rule}Manager/Categories";
+        public const string GetAll = $"{prefix}/GetAll";
+        public const string Add = $"{prefix}/Add";
+        }
+        public static class CustomerCategoriesRouting
+        {
+            public const string prefix = $"{rule}Customer/Categories";
+            public const string GetAll = $"{prefix}/GetAll";
+        }
     }
 }

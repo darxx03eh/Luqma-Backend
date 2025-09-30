@@ -107,5 +107,10 @@
         public const string YourPhoneNumberAlreadyConfirmed = "Your phone number has already been confirmed";
         public const string ThereWasAnErrorConfirmingYourPhoneNumber = "There was an error confirming your phone number";
         public const string YourPhoneNumberHasConfirmed = "Your phone number has been confirmed";
+        public const string TitleNotEmpty = "the title must not be empty";
+        public const string TitleNotNull = "the title must not be null";
+        public const string TitleMaximumLength = "the maximum length is 100";
+        public const string TitleIsAlreadyExist = "the title already exists";
+
     }
 }

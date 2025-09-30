@@ -13,6 +13,15 @@ namespace Luqma.Infrastructure.Repositories
     {
         private readonly LuqmaDbContext context = context;
         private readonly IHttpContextAccessor httpContextAccessor = httpContextAccessor;
+        public virtual async Task<ICollection<T>> GetAllAsync(bool withtrack=false)
+        {
+            if (withtrack)
+            {
+                return await context.Set<T>().ToListAsync();
+            }
+            return await context.Set<T>().AsNoTracking().ToListAsync();
+        }
+      
         public virtual async Task<T> GetByIdAsync(Int32 id)
             => await context.Set<T>().FindAsync(id);
         public IQueryable<T> GetTableNoTracking()

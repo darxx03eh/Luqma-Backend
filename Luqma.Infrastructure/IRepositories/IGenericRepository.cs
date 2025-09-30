@@ -21,6 +21,7 @@ namespace Luqma.Infrastructure.IRepositories
         public Task CommitAsync();
         public Task RollBackAsync();
         public String? ExtractUserIdFromToken();
+        public Task<ICollection<T>> GetAllAsync(bool withtrack = false);
 
     }
 }

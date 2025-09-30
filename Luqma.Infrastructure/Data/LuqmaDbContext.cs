@@ -33,7 +33,7 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuContains> MenuContains { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<CategoryItem> CategoryItems { get; set; }
+    
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Prediction> Predictions { get; set; }
         public DbSet<WasteReport> WasteReports { get; set; }
