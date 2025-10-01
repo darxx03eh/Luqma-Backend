@@ -24,6 +24,24 @@ namespace Luqma.Service.Implementations
             this.cloudinaryService = cloudinaryService;
         }
 
+        public async Task<string> ActivateAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            user = await userManager.FindByIdAsync(id.ToString());
+            if (user is null)
+                return "TheUserWhoseAccountYouWantToActivateIsNotFound";
+            user.IsActive = true;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileActivatingTheUser";
+            return "TheUserHasBeenActivatedSuccessfully";
+        }
+
         public async Task<string> ChangeBirthDateAsync(DateTime birthDate)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -162,10 +180,28 @@ namespace Luqma.Service.Implementations
             return true;
         }
 
+        public async Task<string> DeActivateAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            user = await userManager.FindByIdAsync(id.ToString());
+            if (user is null)
+                return "TheUserWhoseAccountYouWantToDeactivateIsNotFound";
+            user.IsActive = false;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileDeactivatingTheUser";
+            return "TheUserHasBeenDeactivatedSuccessfully";
+        }
+
         public async Task<string> DeleteProfileImageAsync()
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
-            if (String.IsNullOrWhiteSpace(userId))
+            if (string.IsNullOrWhiteSpace(userId))
                 return "UserNotFound";
             var user = await userManager.FindByIdAsync(userId);
             if (user is null)
@@ -187,6 +223,9 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredWhileDeletingTheImage";
             }
         }
+
+        public async Task<bool> IsUserExistAsync(int id)
+            => await userManager.FindByIdAsync(id.ToString()) is not null;
 
         public async Task<(string, string?)> UploadProfileImageAsync(IFormFile image)
         {

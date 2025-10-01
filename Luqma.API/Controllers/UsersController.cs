@@ -1,5 +1,6 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Users.Commands.Models;
+using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +43,20 @@ namespace Luqma.API.Controllers
         }
         [HttpPatch(Router.UsersRouting.ChangeBirthDate)]
         public async Task<IActionResult> ChangeBirthDate([FromBody] ChangeBirthDateCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [Authorize(Roles = Roles.Manager)]
+        [HttpDelete(Router.UsersRouting.DeactiveUser)]
+        public async Task<IActionResult> DeactiveUser([FromBody] DeactivateUserCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [Authorize(Roles = Roles.Manager)]
+        [HttpPost(Router.UsersRouting.ActivateUser)]
+        public async Task<IActionResult> ActivateUser([FromBody] ActivateUserCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
