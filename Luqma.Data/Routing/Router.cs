@@ -25,12 +25,16 @@
         public static class UsersRouting
         {
             public const string prefix = $"{rule}users";
-            public const string ChangePassword = $"{prefix}/change-password";
-            public const string ChangeName = $"{prefix}/change-name";
-            public const string UploadProfileImage = $"{prefix}/profile/upload-image";
-            public const string ChangeUserName = $"{prefix}/change-username";
-            public const string DeleteProfileImage = $"{prefix}/profile-image";
-            public const string ChangeBirthDate = $"{prefix}/change-birth-date";
+            public const string settings = $"settings";
+            public const string ChangePassword = $"{prefix}/{settings}/change-password";
+            public const string ChangeName = $"{prefix}/{settings}/change-name";
+            public const string UploadProfileImage = $"{prefix}/{settings}/profile/upload-image";
+            public const string ChangeUserName = $"{prefix}/{settings}/change-username";
+            public const string DeleteProfileImage = $"{prefix}/{settings}/profile-image";
+            public const string ChangeBirthDate = $"{prefix}/{settings}/change-birth-date";
+
+            public const string DeactiveUser = $"{prefix}/deactive";
+            public const string ActivateUser = $"{prefix}/active";
         }
     }
 }

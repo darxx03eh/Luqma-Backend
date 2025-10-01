@@ -133,5 +133,14 @@
         public const string BirthDateNotNull = "Birth date cannot be null";
         public const string UserMustBe18OrOlder = "User must be 18 years old or older";
         public const string BirthDateCannotBeInFuture = "Birth date cannot be in the future";
+        public const string UserIdIsRequired = "User ID is required";
+        public const string UserIdNotNull = "User ID cannot be null";
+        public const string UserNotExist = "The specified user does not exist";
+        public const string TheUserWhoseAccountYouWantToDeactivateIsNotFound = "The user whose account you want to deactivate was not found";
+        public const string AnErrorOccurredWhileDeactivatingTheUser = "An error occurred while deactivating the user";
+        public const string TheUserHasBeenDeactivatedSuccessfully = "The user has been deactivated successfully";
+        public const string TheUserWhoseAccountYouWantToActivateIsNotFound = "The user whose account you want to activate was not found";
+        public const string AnErrorOccurredWhileActivatingTheUser = "An error occurred while activating the user";
+        public const string TheUserHasBeenActivatedSuccessfully = "The user has been activated successfully";
     }
 }

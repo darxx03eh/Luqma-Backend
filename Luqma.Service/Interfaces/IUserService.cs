@@ -6,11 +6,14 @@ namespace Luqma.Service.Interfaces
     {
         public Task<bool> CheckPasswordAsync(string password);
         public Task<bool> CheckUserNameAsync(string username);
+        public Task<bool> IsUserExistAsync(int id);
         public Task<string> ChangePasswordAsync(string password, string newPasswordConfirm);
         public Task<string> ChangeNameAsync(string firstName, string lastName);
         public Task<(string, string?)> ChangeUserNameAsync(string username);
         public Task<(string, string?)> UploadProfileImageAsync(IFormFile image);
         public Task<string> DeleteProfileImageAsync();
         public Task<string> ChangeBirthDateAsync(DateTime birthDate);
+        public Task<string> DeActivateAsync(int id);
+        public Task<string> ActivateAsync(int id);
     }
 }
