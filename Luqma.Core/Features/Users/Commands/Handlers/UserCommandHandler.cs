@@ -11,6 +11,8 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangeNameCommand, ApiResponse>
         , IRequestHandler<UploadProfileImageCommand, ApiResponse>
         , IRequestHandler<ChangeUserNameCommand, ApiResponse>
+        , IRequestHandler<DeleteProfileImageCommand, ApiResponse>
+        , IRequestHandler<ChangeBirthDateCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -81,6 +83,36 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                     userName = username,
                 }, message: SharedResponseKeys.UsernameChangedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheUsername)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeleteProfileImageCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.DeleteProfileImageAsync();
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "ThereIsNoImageToDelete" => BadRequest(SharedResponseKeys.ThereIsNoImageToDelete),
+                "FailedToDeleteImageFromCloudinary" => InternalServerError(SharedResponseKeys.FailedToDeleteImageFromCloudinary),
+                "ImageHasBeenSuccessfullyDeleted" => Success(null, message: SharedResponseKeys.ImageHasBeenSuccessfullyDeleted),
+                "AnErrorOccurredWhileSaving" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileSaving),
+                "AnErrorOccurredWhileDeletingTheImage" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheImage),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheImage)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeBirthDateCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.ChangeBirthDateAsync(request.BirthDate);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.NotFound),
+                "AnErrorOccurredWhileChangingTheBirthDate" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheBirthDate),
+                "BirthDateChangedSuccessfully" => Success(new
+                {
+                    birthDate = request.BirthDate,
+                }, message: SharedResponseKeys.BirthDateChangedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheBirthDate)
             };
         }
     }
