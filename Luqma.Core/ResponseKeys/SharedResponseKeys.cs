@@ -122,5 +122,16 @@
         public const string AnErrorOccurredWhileProcessingYourProfileImageModificationRequest = "An error occurred while processing your profile image update request";
         public const string AnErrorOccurredWhileChangingTheUsername = "An error occurred while updating the username";
         public const string UsernameChangedSuccessfully = "The username has been updated successfully";
+        public const string ThereIsNoImageToDelete = "No image was found to delete";
+        public const string FailedToDeleteImageFromCloudinary = "Failed to delete the image from Cloudinary";
+        public const string ImageHasBeenSuccessfullyDeleted = "The image has been deleted successfully";
+        public const string AnErrorOccurredWhileSaving = "An error occurred while saving the data";
+        public const string AnErrorOccurredWhileDeletingTheImage = "An error occurred while deleting the image";
+        public const string AnErrorOccurredWhileChangingTheBirthDate = "An error occurred while updating the birth date";
+        public const string BirthDateChangedSuccessfully = "The birth date has been updated successfully";
+        public const string BirthDateIsRequired = "Birth date is required";
+        public const string BirthDateNotNull = "Birth date cannot be null";
+        public const string UserMustBe18OrOlder = "User must be 18 years old or older";
+        public const string BirthDateCannotBeInFuture = "Birth date cannot be in the future";
     }
 }

@@ -24,6 +24,21 @@ namespace Luqma.Service.Implementations
             this.cloudinaryService = cloudinaryService;
         }
 
+        public async Task<string> ChangeBirthDateAsync(DateTime birthDate)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            user.BirthDate = birthDate;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileChangingTheBirthDate";
+            return "BirthDateChangedSuccessfully";
+        }
+
         public async Task<string> ChangeNameAsync(string firstName, string lastName)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -145,6 +160,32 @@ namespace Luqma.Service.Implementations
             if (existingUser != null && !existingUser.Id.Equals(userId))
                 return false;
             return true;
+        }
+
+        public async Task<string> DeleteProfileImageAsync()
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (String.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            var url = user.ImageUrl;
+            if (string.IsNullOrWhiteSpace(url))
+                return "ThereIsNoImageToDelete";
+            try
+            {
+                var cloudinaryResult = cloudinaryService.DeleteFileAsync(url);
+                if (cloudinaryResult.Equals("FailedToDeleteImageFromCloudinary"))
+                    return "FailedToDeleteImageFromCloudinary";
+                user.ImageUrl = null;
+                var result = await userManager.UpdateAsync(user);
+                return result.Succeeded ? "ImageHasBeenSuccessfullyDeleted" : "AnErrorOccurredWhileSaving";
+            }
+            catch (Exception exp)
+            {
+                return "AnErrorOccurredWhileDeletingTheImage";
+            }
         }
 
         public async Task<(string, string?)> UploadProfileImageAsync(IFormFile image)

@@ -34,5 +34,17 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [HttpDelete(Router.UsersRouting.DeleteProfileImage)]
+        public async Task<IActionResult> DeleteProfileImage()
+        {
+            var result = await mediator.Send(new DeleteProfileImageCommand());
+            return Result(result);
+        }
+        [HttpPatch(Router.UsersRouting.ChangeBirthDate)]
+        public async Task<IActionResult> ChangeBirthDate([FromBody] ChangeBirthDateCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }
