@@ -14,13 +14,17 @@ namespace Luqma.Infrastructure.IRepositories
         public IQueryable<T> GetTableAsTracking();
         public Task<T> AddAsync(T entity);
         public Task AddRangeAsync(ICollection<T> entities);
-        public Task UpdateAsync(T entity);
+        public Task<int> UpdateAsync(T entity);
         public Task UpdateRangeAsync(ICollection<T> entities);
-        public Task DeleteAsync(T entity);
+        public Task<int> DeleteAsync(T entity);
         public Task<IDbContextTransaction> BeginTransactionAsync();
         public Task CommitAsync();
         public Task RollBackAsync();
         public String? ExtractUserIdFromToken();
+        public Task<ICollection<T>> GetAllAsync(bool withtrack = false);
+       
+
+
 
     }
 }

@@ -38,5 +38,20 @@
             public const string ActivateUser = $"{prefix}/{management}/active";
             public const string ViewUsers = $"{prefix}";
         }
+        public static class ManagerCategoriesRouting
+        {
+            public const string prefix = $"{rule}Manager/Categories";
+            public const string GetAll = $"{prefix}/GetAll";
+            public const string Add = $"{prefix}/Add";
+            public const string Update = $"{prefix}/Update";
+            public const string Delete = $"{prefix}/Delete{singleRoute}";
+            public const string GetById = $"{prefix}/GetById{singleRoute}";
+        }
+        public static class CustomerCategoriesRouting
+        {
+            public const string prefix = $"{rule}Customer/Categories";
+            public const string GetAll = $"{prefix}/GetAll";
+            public const string GetById = $"{prefix}/GetById{singleRoute}";
+        }
     }
 }
