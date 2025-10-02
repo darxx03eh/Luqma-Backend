@@ -36,6 +36,10 @@
             public const string DeactiveUser = $"{prefix}/deactive";
             public const string ActivateUser = $"{prefix}/active";
             public const string ViewUsers = $"{prefix}";
+            public const string UserAddress = $"{prefix}/address";
+            public const string DeleteUserAddress = $"{prefix}/address{singleRoute}";
+            public const string ShowUserAddresses = $"{prefix}/address";
+            public const string ShowSpecificAddress = $"{prefix}/address{singleRoute}";
         }
         public static class ManagerCategoriesRouting
         {
