@@ -21,8 +21,4 @@
     <ProjectReference Include="..\Luqma.Service\Luqma.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Users\Queries\" />
-  </ItemGroup>
-
 </Project>

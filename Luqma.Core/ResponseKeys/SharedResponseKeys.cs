@@ -144,5 +144,7 @@
         public const string TheUserHasBeenActivatedSuccessfully = "The user has been activated successfully";
         public const string UsersNotFound = "No users were found";
         public const string UsersFound = "Users have been found";
+        public const string UserAlreadyActive = "The user account is already active";
+        public const string UserAlreadyInActive = "The user account is already inactive";
     }
 }
