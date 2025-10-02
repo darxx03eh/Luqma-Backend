@@ -142,5 +142,18 @@
         public const string TheUserWhoseAccountYouWantToActivateIsNotFound = "The user whose account you want to activate was not found";
         public const string AnErrorOccurredWhileActivatingTheUser = "An error occurred while activating the user";
         public const string TheUserHasBeenActivatedSuccessfully = "The user has been activated successfully";
+        public const string TitleNotEmpty = "the title must not be empty";
+        public const string TitleNotNull = "the title must not be null";
+        public const string TitleMaximumLength = "the maximum length is 100";
+        public const string TitleIsAlreadyExist = "the title already exists";
+        public const string SuccessUpdateCategory = "the category is updated successfully";
+        public const string FailUpdateCategory = "the category is not updated";
+        public const string AnErrorOccurewhileUpdateCategory = "An error occured while updating the category";
+        public const string SucessDeleteCategory = "the category is deleted successfully";
+        public const string FailDeleteCategory = "the category is not deleted";
+        public const string CategoryNotFound = "the category is not found";
+        public const string AnErrorOccuredwhileDeletingTheCategory = "An error occured while deleting the category";
+        public const string SuccessGetCategory = "the catgeory is fetched successfully";
+        public const string AnErrorWhileFetchCategory = "An error while fetching the category";
     }
 }
