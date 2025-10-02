@@ -1,4 +1,6 @@
-﻿using Luqma.Service.Implementations;
+﻿using Luqma.Infrastructure.IRepositories;
+using Luqma.Infrastructure.Repositories;
+using Luqma.Service.Implementations;
 using Luqma.Service.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +16,8 @@ namespace Luqma.Service
             services.AddTransient(typeof(IWhatsAppService), typeof(WhatsAppService));
             services.AddTransient(typeof(IUserService), typeof(UserService));
             services.AddTransient(typeof(ICloudinaryService), typeof(CloudinaryService));
-           services.AddTransient(typeof(ICategoryService), typeof(CategoryService));
+            services.AddTransient(typeof(ICategoryService), typeof(CategoryService));
+            services.AddTransient(typeof(IUserAddressRepository), typeof(UserAddressRepository));
             return services;
         }
     }

@@ -9,12 +9,7 @@ namespace Luqma.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Salary> builder)
         {
             builder.ToTable("Salaries");
-            builder.HasKey(salary => new
-            {
-                salary.UserId,
-                salary.FinanceId,
-                salary.SalaryDate
-            });
+            builder.HasKey(salary => salary.Id);
 
             builder.HasOne(salary => salary.User)
                 .WithMany(user => user.UserSalaries)

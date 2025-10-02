@@ -2,6 +2,7 @@
 {
     public class RequirmentItems
     {
+        public int Id { get; set; }
         public int ItemId { get; set; }
         public int RequirmentId { get; set; }
         public double Discount { get; set; }

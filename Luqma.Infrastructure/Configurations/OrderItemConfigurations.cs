@@ -12,11 +12,7 @@ namespace Luqma.Infrastructure.Configurations
             {
                 oi.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0");
             });
-            builder.HasKey(oi => new
-            {
-                oi.OrderId,
-                oi.ItemId,
-            });
+            builder.HasKey(oi => oi.Id);
 
             builder.HasOne(oi => oi.Order)
                 .WithMany(order => order.OrderItems)

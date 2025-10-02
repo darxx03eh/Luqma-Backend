@@ -13,11 +13,7 @@ namespace Luqma.Infrastructure.Configurations
                 ri.HasCheckConstraint("CK_RequirmentItems_Price_NonNegative", "[Price] >= 0");
                 ri.HasCheckConstraint("CK_RequirmentItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
             });
-            builder.HasKey(ri => new
-            {
-                ri.ItemId,
-                ri.RequirmentId,
-            });
+            builder.HasKey(ri => ri.Id);
 
             builder.HasOne(ri => ri.KitchenItems)
                 .WithMany(ki => ki.RequirmentItems)

@@ -9,11 +9,7 @@ namespace Luqma.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<MenuContains> builder)
         {
             builder.ToTable("MenuContains");
-            builder.HasKey(mc => new
-            {
-                mc.ItemId,
-                mc.MenuId,
-            });
+            builder.HasKey(mc => mc.Id);
 
             builder.HasOne(mc => mc.Menu)
                 .WithMany(menu => menu.MenuContains)
