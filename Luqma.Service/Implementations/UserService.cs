@@ -1,4 +1,6 @@
 ﻿using Luqma.Data.Entities.Identity;
+using Luqma.Data.Response.UsersManagements;
+using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
@@ -235,6 +237,55 @@ namespace Luqma.Service.Implementations
                     return ("AnErrorOccurredWhileProcessingYourProfileImageModificationRequest", null);
                 }
             }
+        }
+        public async Task<string> ActivateAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            user = await userManager.FindByIdAsync(id.ToString());
+            if (user is null)
+                return "TheUserWhoseAccountYouWantToActivateIsNotFound";
+            if (user.IsActive)
+                return "UserAlreadyActive";
+            user.IsActive = true;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileActivatingTheUser";
+            return "TheUserHasBeenActivatedSuccessfully";
+        }
+        public async Task<string> DeActivateAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return "UserNotFound";
+            user = await userManager.FindByIdAsync(id.ToString());
+            if (user is null)
+                return "TheUserWhoseAccountYouWantToDeactivateIsNotFound";
+            if (!user.IsActive)
+                return "UserAlreadyInActive";
+            user.IsActive = false;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileDeactivatingTheUser";
+            return "TheUserHasBeenDeactivatedSuccessfully";
+        }
+
+        public async Task<(string, PaginatedResult<ViewUsersResponse>?)> ViewUsersAsync(int pageNumber, int pageSize)
+        {
+            var (result, users) = await unitOfWork.UserRepository.ViewUsersAsync(pageNumber, pageSize);
+            return result switch
+            {
+                "UsersNotFound" => ("UsersNotFound", null),
+                "UsersFound" => ("UsersFound", users),
+                _ => ("UsersNotFound", null)
+            };
         }
     }
 }

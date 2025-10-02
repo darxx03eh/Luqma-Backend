@@ -1,6 +1,5 @@
 ﻿using Luqma.Core.Bases;
 using Luqma.Core.Features.Users.Commands.Models;
-using Luqma.Core.Features.UsersManagements.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 using MediatR;
@@ -14,6 +13,8 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangeUserNameCommand, ApiResponse>
         , IRequestHandler<DeleteProfileImageCommand, ApiResponse>
         , IRequestHandler<ChangeBirthDateCommand, ApiResponse>
+        , IRequestHandler<ActivateUserCommand, ApiResponse>
+        , IRequestHandler<DeactivateUserCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -30,7 +31,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "CurrentPasswordWrong" => Unauthorized(SharedResponseKeys.CurrentPasswordWrong),
                 "AnErrorOccurredWhileDeletingTheOldPassword" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheOldPassword),
                 "AnErrorOccurredWhileAddingTheNewPassword" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheNewPassword),
-                "PasswordChangedSuccessfully" => Success(null, message:SharedResponseKeys.PasswordChangedSuccessfully),
+                "PasswordChangedSuccessfully" => Success(null, message: SharedResponseKeys.PasswordChangedSuccessfully),
                 "AnErrorOccurredWhileChangingThePassword" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword)
             };
@@ -114,6 +115,38 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                     birthDate = request.BirthDate,
                 }, message: SharedResponseKeys.BirthDateChangedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheBirthDate)
+            };
+        }
+        public async Task<ApiResponse> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.ActivateAsync(request.UserId);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "TheUserWhoseAccountYouWantToActivateIsNotFound" =>
+                NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToActivateIsNotFound),
+                "AnErrorOccurredWhileActivatingTheUser" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser),
+                "UserAlreadyActive" => BadRequest(SharedResponseKeys.UserAlreadyActive),
+                "TheUserHasBeenActivatedSuccessfully" => Success(null, message: SharedResponseKeys.TheUserHasBeenActivatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeactivateUserCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.DeActivateAsync(request.UserId);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "TheUserNWhoseAccountYouWantToDeactivateIsNotFound" =>
+                NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToDeactivateIsNotFound),
+                "AnErrorOccurredWhileDeactivatingTheUser" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser),
+                "UserAlreadyInActive" => BadRequest(SharedResponseKeys.UserAlreadyInActive),
+                "TheUserHasBeenDeactivatedSuccessfully" =>
+                Success(null, message: SharedResponseKeys.TheUserHasBeenDeactivatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser)
             };
         }
     }

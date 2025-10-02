@@ -144,6 +144,8 @@
         public const string TheUserHasBeenActivatedSuccessfully = "The user has been activated successfully";
         public const string UsersNotFound = "No users were found";
         public const string UsersFound = "Users have been found";
+        public const string UserAlreadyActive = "The user account is already active";
+        public const string UserAlreadyInActive = "The user account is already inactive";
         public const string TitleNotEmpty = "the title must not be empty";
         public const string TitleNotNull = "the title must not be null";
         public const string TitleMaximumLength = "the maximum length is 100";

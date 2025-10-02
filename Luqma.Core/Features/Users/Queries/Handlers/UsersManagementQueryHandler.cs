@@ -1,23 +1,23 @@
 ﻿using Luqma.Core.Bases;
-using Luqma.Core.Features.UsersManagements.Queries.Models;
+using Luqma.Core.Features.Users.Queries.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 using MediatR;
 
-namespace Luqma.Core.Features.UsersManagements.Queries.Handlers
+namespace Luqma.Core.Features.Users.Queries.Handlers
 {
     public class UsersManagementQueryHandler : ApiResponseHandler
         , IRequestHandler<ViewUsersCommand, ApiResponse>
     {
-        private readonly IUsersManagementService usersManagementService;
+        private readonly IUserService userService;
 
-        public UsersManagementQueryHandler(IUsersManagementService usersManagementService)
+        public UsersManagementQueryHandler(IUserService userService)
         {
-            this.usersManagementService = usersManagementService;
+            this.userService = userService;
         }
         public async Task<ApiResponse> Handle(ViewUsersCommand request, CancellationToken cancellationToken)
         {
-            var (result, users) = await usersManagementService.ViewUsersAsync(request.PageNumber, 5);
+            var (result, users) = await userService.ViewUsersAsync(request.PageNumber, 5);
             return result switch
             {
                 "UsersNotFound" => NotFound(SharedResponseKeys.UsersNotFound),

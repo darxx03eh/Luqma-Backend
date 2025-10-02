@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Luqma.Data.Response.UsersManagements;
+using Luqma.Data.Wrappers;
+using Microsoft.AspNetCore.Http;
 
 namespace Luqma.Service.Interfaces
 {
@@ -13,5 +15,8 @@ namespace Luqma.Service.Interfaces
         public Task<(string, string?)> UploadProfileImageAsync(IFormFile image);
         public Task<string> DeleteProfileImageAsync();
         public Task<string> ChangeBirthDateAsync(DateTime birthDate);
+        public Task<(string, PaginatedResult<ViewUsersResponse>?)> ViewUsersAsync(int pageNumber, int pageSize);
+        public Task<string> DeActivateAsync(int id);
+        public Task<string> ActivateAsync(int id);
     }
 }
