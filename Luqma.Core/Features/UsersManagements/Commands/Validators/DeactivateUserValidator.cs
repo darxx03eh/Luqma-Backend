@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
-using Luqma.Core.Features.Users.Commands.Models;
+using Luqma.Core.Features.UsersManagements.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 
-namespace Luqma.Core.Features.Users.Commands.Validators
+namespace Luqma.Core.Features.UsersManagements.Commands.Validators
 {
-    public class ActivateUserValidator : AbstractValidator<ActivateUserCommand>
+    public class DeactivateUserValidator : AbstractValidator<DeactivateUserCommand>
     {
         private readonly IUserService userService;
 
-        public ActivateUserValidator(IUserService userService)
+        public DeactivateUserValidator(IUserService userService)
         {
             this.userService = userService;
             ApplyValidationRules();

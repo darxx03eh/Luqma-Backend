@@ -1,7 +1,7 @@
 ﻿using Luqma.Core.Bases;
 using MediatR;
 
-namespace Luqma.Core.Features.Users.Commands.Models
+namespace Luqma.Core.Features.UsersManagements.Commands.Models
 {
     public class ActivateUserCommand : IRequest<ApiResponse>
     {
