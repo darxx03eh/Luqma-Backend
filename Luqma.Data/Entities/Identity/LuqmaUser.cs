@@ -11,6 +11,7 @@ namespace Luqma.Data.Entities.Identity
         public Gender Gender { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? LastLogin { get; set; }
         public DateTime BirthDate { get; set; }
         private string? code;
         public string? Code

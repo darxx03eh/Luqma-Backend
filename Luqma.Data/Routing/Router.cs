@@ -36,6 +36,7 @@
 
             public const string DeactiveUser = $"{prefix}/{management}/deactive";
             public const string ActivateUser = $"{prefix}/{management}/active";
+            public const string ViewUsers = $"{prefix}";
         }
     }
 }
