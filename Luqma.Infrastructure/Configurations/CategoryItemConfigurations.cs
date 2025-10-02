@@ -9,11 +9,7 @@ namespace Luqma.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<CategoryItem> builder)
         {
             builder.ToTable("CategoryItems");
-            builder.HasKey(ci => new
-            {
-                ci.CategoryId,
-                ci.ItemId,
-            });
+            builder.HasKey(ci => ci.Id);
 
             builder.HasOne(ci => ci.Category)
                 .WithMany(category => category.CategoryItems)

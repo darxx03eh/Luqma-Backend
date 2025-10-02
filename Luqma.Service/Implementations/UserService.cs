@@ -287,5 +287,10 @@ namespace Luqma.Service.Implementations
                 _ => ("UsersNotFound", null)
             };
         }
+
+        public Task<string> AddAddressAsync(string city, string state, string street)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

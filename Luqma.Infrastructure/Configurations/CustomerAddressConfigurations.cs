@@ -15,13 +15,7 @@ namespace Luqma.Infrastructure.Configurations
                 address.HasCheckConstraint("CK_CustomerAddress_Street_NotEmpty", "LEN([Street]) > 0");
 
             });
-            builder.HasKey(address => new
-            {
-                address.CustomerId,
-                address.City,
-                address.State,
-                address.Street,
-            });
+            builder.HasKey(address => address.Id);
 
             builder.HasOne(address => address.Customer)
                 .WithMany(customer => customer.Addresses)

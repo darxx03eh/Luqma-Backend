@@ -18,5 +18,6 @@ namespace Luqma.Service.Interfaces
         public Task<(string, PaginatedResult<ViewUsersResponse>?)> ViewUsersAsync(int pageNumber, int pageSize);
         public Task<string> DeActivateAsync(int id);
         public Task<string> ActivateAsync(int id);
+        public Task<string> AddAddressAsync(string city, string state, string street);
     }
 }

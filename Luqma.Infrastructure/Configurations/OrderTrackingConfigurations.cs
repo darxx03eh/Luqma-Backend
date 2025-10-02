@@ -9,11 +9,7 @@ namespace Luqma.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<OrderTracking> builder)
         {
             builder.ToTable("OrderTrackings");
-            builder.HasKey(ot => new
-            {
-                ot.OrderId,
-                ot.CustomerId,
-            });
+            builder.HasKey(ot => ot.Id);
 
             builder.HasOne(ot => ot.Customer)
                 .WithMany(customer => customer.OrderTrackings)

@@ -19,9 +19,11 @@ namespace Luqma.Infrastructure.Repositories
             this.userManager = userManager;
             RefreshTokenRepository = new RefreshTokenRepository(context, httpContextAccessor);
             UserRepository = new UserRepository(context, httpContextAccessor, userManager);
+            UserAddressRepository = new UserAddressRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; set; }
+        public IUserAddressRepository UserAddressRepository { get; set; }
     }
 }

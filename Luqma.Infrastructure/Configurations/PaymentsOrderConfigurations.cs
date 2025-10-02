@@ -9,11 +9,7 @@ namespace Luqma.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<PaymentsOrder> builder)
         {
             builder.ToTable("PaymentsOrders");
-            builder.HasKey(po => new
-            {
-                po.OrderId,
-                po.PaymentId,
-            });
+            builder.HasKey(po => po.Id);
 
             builder.HasOne(po => po.Order)
                 .WithMany(order => order.PaymentsOrders)

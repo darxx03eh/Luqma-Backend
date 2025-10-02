@@ -4,6 +4,7 @@ namespace Luqma.Data.Entities
 {
     public class Salary
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int FinanceId { get; set; }
         public string Status { get; set; }

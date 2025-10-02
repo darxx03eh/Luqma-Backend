@@ -12,12 +12,7 @@ namespace Luqma.Infrastructure.Configurations
             {
                 deduction.HasCheckConstraint("CK_Deduction_Rate_NonNegative", "[DeductionRate] >= 0");
             });
-            builder.HasKey(deduction => new
-            {
-                deduction.UserId,
-                deduction.FinanceId,
-                deduction.DeductionDate
-            });
+            builder.HasKey(deduction => deduction.Id);
 
             builder.HasOne(deduction => deduction.User)
                 .WithMany(user => user.UserDeductions)
