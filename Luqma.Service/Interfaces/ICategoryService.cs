@@ -11,5 +11,8 @@ namespace Luqma.Service.Interfaces
     {
         public Task<(ICollection<Category>?, string)> GetAllAsync();
         public Task<string> CreateAsync(Category category);
+        public  Task<string> UpdateAsync(Category category);
+       public  Task<string> DeleteAsync(Category category);
+        public Task<(Category?, string)> GetByIdAsync(int id);
     }
 }

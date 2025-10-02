@@ -16,6 +16,8 @@ namespace Luqma.Core.Mapping.Categories
         {
             CreateMap<Category, CategoryResponse>();
             CreateMap<AddCategoryCommand, Category>();
+            CreateMap<UpdateCategoryCommand, Category>();
+            CreateMap<DeleteCategoryCommand, Category>();
 
         }
     }

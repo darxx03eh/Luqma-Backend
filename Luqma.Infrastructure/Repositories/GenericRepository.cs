@@ -37,15 +37,15 @@ namespace Luqma.Infrastructure.Repositories
             await context.SaveChangesAsync();
             return entity;
         }
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task<int> UpdateAsync(T entity)
         {
             context.Set<T>().Update(entity);
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
-        public virtual async Task DeleteAsync(T entity)
+        public virtual async Task<int> DeleteAsync(T entity)
         {
             context.Set<T>().Remove(entity);
-            await context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
         }
         public virtual async Task DeleteRangeAsync(ICollection<T> entities)
         {

@@ -16,7 +16,9 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Luqma.Core.Features.Categories.Queries.Handlers
 {
    public class CategoryQueryHandler:ApiResponseHandler,
-        IRequestHandler<GetAllCategoryQuery,ApiResponse>
+        IRequestHandler<GetAllCategoryQuery,ApiResponse>,
+        IRequestHandler<GetCategoryQuery,ApiResponse>
+       
     {
         private readonly IMapper _mapper;
         private readonly ICategoryService _categoryService;
@@ -39,6 +41,18 @@ namespace Luqma.Core.Features.Categories.Queries.Handlers
             };
             
             
+        }
+
+        public async Task<ApiResponse> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
+        {
+          var(category,message)= await  _categoryService.GetByIdAsync(request.Id);
+            var categoryResponse = _mapper.Map<CategoryResponse>(category);
+            return message switch
+            {
+                "the category is not found" => NotFound(SharedResponseKeys.CategoryNotFound),
+                "the category is fetched successfully" => Success(categoryResponse, message: SharedResponseKeys.SuccessGetCategory),
+                _ => InternalServerError(SharedResponseKeys.AnErrorWhileFetchCategory)
+            };
         }
     }
 }
