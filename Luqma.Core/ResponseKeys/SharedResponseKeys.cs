@@ -176,6 +176,17 @@
         public const string AddressesNotFound = "No addresses were found";
         public const string AddressesFound = "Addresses have been found";
         public const string AddressFound = "The address has been found";
+        public const string FinanceEmployeeNotFound = "The specified finance employee was not found";
+        public const string AnErrorOccurredWhileAddingTheDeduction = "An error occurred while adding the deduction";
+        public const string TheDeductionHasBeenAddedSuccessfully = "The deduction has been added successfully";
+        public const string DeductionRateNotEmpty = "The deduction rate cannot be empty";
+        public const string DeductionRateNotNull = "The deduction rate cannot be null";
+        public const string DeductionRateShouldBeGreaterThanOrEqualToZero = "The deduction rate must be greater than or equal to zero";
+        public const string DeductionNotFound = "The specified deduction was not found";
+        public const string AnErrorOccurredWhileDeletingTheDeduction = "An error occurred while deleting the deduction";
+        public const string TheDeductionHasBeenSuccessfullyRemoved = "The deduction has been removed successfully";
+        public const string ModifyingDeductionFailed = "Failed to modify the deduction";
+        public const string TheDeductionModificationProcessWasCompletedSuccessfully = "The deduction was modified successfully";
 
     }
 }
