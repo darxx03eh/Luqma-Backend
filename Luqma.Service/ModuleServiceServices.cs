@@ -14,6 +14,7 @@ namespace Luqma.Service
             services.AddTransient(typeof(IWhatsAppService), typeof(WhatsAppService));
             services.AddTransient(typeof(IUserService), typeof(UserService));
             services.AddTransient(typeof(ICloudinaryService), typeof(CloudinaryService));
+            services.AddTransient(typeof(IUsersManagementService), typeof(UsersManagementService));
             return services;
         }
     }
