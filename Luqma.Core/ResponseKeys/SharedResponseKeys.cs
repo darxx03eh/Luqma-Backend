@@ -142,6 +142,8 @@
         public const string TheUserWhoseAccountYouWantToActivateIsNotFound = "The user whose account you want to activate was not found";
         public const string AnErrorOccurredWhileActivatingTheUser = "An error occurred while activating the user";
         public const string TheUserHasBeenActivatedSuccessfully = "The user has been activated successfully";
+        public const string UsersNotFound = "No users were found";
+        public const string UsersFound = "Users have been found";
         public const string TitleNotEmpty = "the title must not be empty";
         public const string TitleNotNull = "the title must not be null";
         public const string TitleMaximumLength = "the maximum length is 100";

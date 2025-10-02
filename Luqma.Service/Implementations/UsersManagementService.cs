@@ -1,4 +1,6 @@
 ﻿using Luqma.Data.Entities.Identity;
+using Luqma.Data.Response.UsersManagements;
+using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Infrastructure.Repositories;
 using Luqma.Service.Interfaces;
@@ -50,6 +52,17 @@ namespace Luqma.Service.Implementations
             if (!result.Succeeded)
                 return "AnErrorOccurredWhileDeactivatingTheUser";
             return "TheUserHasBeenDeactivatedSuccessfully";
+        }
+
+        public async Task<(string, PaginatedResult<ViewUsersResponse>?)> ViewUsersAsync(int pageNumber, int pageSize)
+        {
+            var (result, users) = await unitOfWork.UserRepository.ViewUsersAsync(pageNumber, pageSize);
+            return result switch
+            {
+                "UsersNotFound" => ("UsersNotFound", null),
+                "UsersFound" => ("UsersFound", users),
+                _ => ("UsersNotFound", null)
+            };
         }
     }
 }

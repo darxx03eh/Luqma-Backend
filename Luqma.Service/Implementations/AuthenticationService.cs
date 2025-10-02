@@ -337,6 +337,8 @@ namespace Luqma.Service.Implementations
                 var token = await tokenService.GenerateAccessTokenAsync(user);
                 if (token is null)
                     return (null, "AnErrorOccurredWhileGeneratingTheToken");
+                user.LastLogin = DateTime.UtcNow;
+                await userManager.UpdateAsync(user);
                 return (token, "DataVerifiedAndLogin");
             }
             catch (Exception exp)
