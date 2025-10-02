@@ -13,7 +13,5 @@ namespace Luqma.Service.Interfaces
         public Task<(string, string?)> UploadProfileImageAsync(IFormFile image);
         public Task<string> DeleteProfileImageAsync();
         public Task<string> ChangeBirthDateAsync(DateTime birthDate);
-        public Task<string> DeActivateAsync(int id);
-        public Task<string> ActivateAsync(int id);
     }
 }

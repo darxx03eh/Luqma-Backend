@@ -1,5 +1,6 @@
 ﻿using Luqma.Core.Bases;
 using Luqma.Core.Features.Users.Commands.Models;
+using Luqma.Core.Features.UsersManagements.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 using MediatR;
@@ -13,8 +14,6 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangeUserNameCommand, ApiResponse>
         , IRequestHandler<DeleteProfileImageCommand, ApiResponse>
         , IRequestHandler<ChangeBirthDateCommand, ApiResponse>
-        , IRequestHandler<DeactivateUserCommand, ApiResponse>
-        , IRequestHandler<ActivateUserCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -115,37 +114,6 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                     birthDate = request.BirthDate,
                 }, message: SharedResponseKeys.BirthDateChangedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheBirthDate)
-            };
-        }
-
-        public async Task<ApiResponse> Handle(DeactivateUserCommand request, CancellationToken cancellationToken)
-        {
-            var result = await userService.DeActivateAsync(request.UserId);
-            return result switch
-            {
-                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
-                "TheUserNWhoseAccountYouWantToDeactivateIsNotFound" => 
-                NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToDeactivateIsNotFound),
-                "AnErrorOccurredWhileDeactivatingTheUser" => 
-                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser),
-                "TheUserHasBeenDeactivatedSuccessfully" =>
-                Success(null, message: SharedResponseKeys.TheUserHasBeenDeactivatedSuccessfully),
-                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser)
-            };
-        }
-
-        public async Task<ApiResponse> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
-        {
-            var result = await userService.ActivateAsync(request.UserId);
-            return result switch
-            {
-                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
-                "TheUserWhoseAccountYouWantToActivateIsNotFound" => 
-                NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToActivateIsNotFound),
-                "AnErrorOccurredWhileActivatingTheUser" => 
-                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser),
-                "TheUserHasBeenActivatedSuccessfully" => Success(null, message: SharedResponseKeys.TheUserHasBeenActivatedSuccessfully),
-                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser)
             };
         }
     }

@@ -26,6 +26,7 @@
         {
             public const string prefix = $"{rule}users";
             public const string settings = $"settings";
+            public const string management = $"management";
             public const string ChangePassword = $"{prefix}/{settings}/change-password";
             public const string ChangeName = $"{prefix}/{settings}/change-name";
             public const string UploadProfileImage = $"{prefix}/{settings}/profile/upload-image";
@@ -33,8 +34,8 @@
             public const string DeleteProfileImage = $"{prefix}/{settings}/profile-image";
             public const string ChangeBirthDate = $"{prefix}/{settings}/change-birth-date";
 
-            public const string DeactiveUser = $"{prefix}/deactive";
-            public const string ActivateUser = $"{prefix}/active";
+            public const string DeactiveUser = $"{prefix}/{management}/deactive";
+            public const string ActivateUser = $"{prefix}/{management}/active";
         }
     }
 }
