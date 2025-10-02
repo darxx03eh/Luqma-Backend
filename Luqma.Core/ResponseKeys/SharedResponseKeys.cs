@@ -159,5 +159,23 @@
         public const string AnErrorOccuredwhileDeletingTheCategory = "An error occured while deleting the category";
         public const string SuccessGetCategory = "the catgeory is fetched successfully";
         public const string AnErrorWhileFetchCategory = "An error while fetching the category";
+        public const string AnErrorOccurredWhileAddingTheAddress = "An error occurred while adding the address";
+        public const string TheAddressHasBeenAddedSuccessfully = "The address has been added successfully";
+        public const string CityNotEmpty = "The city field cannot be empty";
+        public const string StateNotEmpty = "The state field cannot be empty";
+        public const string StreetNotEmpty = "The street field cannot be empty";
+        public const string CityNotNull = "The city field cannot be null";
+        public const string StateNotNull = "The state field cannot be null";
+        public const string StreetNotNull = "The street field cannot be null";
+        public const string AddressNotFound = "The specified address was not found";
+        public const string ThisAddressDoesNotBelongToYou = "This address does not belong to your account";
+        public const string AnErrorOccurredWhileEditingTheAddress = "An error occurred while editing the address";
+        public const string TheAddressHasBeenSuccessfullyModified = "The address has been updated successfully";
+        public const string AnErrorOccurredWhileDeletingTheAddress = "An error occurred while deleting the address";
+        public const string TheAddressHasBeenSuccessfullyDeleted = "The address has been deleted successfully";
+        public const string AddressesNotFound = "No addresses were found";
+        public const string AddressesFound = "Addresses have been found";
+        public const string AddressFound = "The address has been found";
+
     }
 }

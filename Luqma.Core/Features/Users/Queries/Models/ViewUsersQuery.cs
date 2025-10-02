@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Luqma.Core.Features.Users.Queries.Models
 {
-    public class ViewUsersCommand : IRequest<ApiResponse>
+    public class ViewUsersQuery : IRequest<ApiResponse>
     {
         public int PageNumber { get; set; }
     }
