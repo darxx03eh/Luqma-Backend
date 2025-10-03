@@ -86,6 +86,13 @@ namespace Luqma.Infrastructure
             services.AddTransient(typeof(IRefreshTokenRepository), typeof(RefreshTokenRepository));
             services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddTransient(typeof(ICategoryRepository), typeof(CategoryRepository));
+            services.AddTransient(typeof(IMenuItemRepository), typeof(MenuItemRepository));
+            services.AddTransient(typeof(IMenuContainsRepository), typeof(MenuContainsRepository));
+            services.AddTransient(typeof(ICategoryItemRepository), typeof(CategoryItemRepository));
+
+
+
+
             #endregion
 
             return services;

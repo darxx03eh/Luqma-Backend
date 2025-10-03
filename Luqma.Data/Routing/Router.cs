@@ -56,12 +56,21 @@
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
+
+       
+
         public static class DeductionsRouting
         {
             public const string prefix = $"{rule}deductions";
             public const string AddDeductionToUser = $"{prefix}";
             public const string RemoveDeductionFromUser = $"{prefix}{singleRoute}";
             public const string UpdateDeduction = $"{prefix}";
+        }
+           public static class ManagerMenuItemsRouting
+        {
+            public const string prefix = $"{rule}Manager/MenuItems";
+            public const string Add = $"{prefix}/Add";
+
         }
     }
 }
