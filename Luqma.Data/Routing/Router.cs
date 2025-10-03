@@ -56,6 +56,9 @@
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
+
+       
+
         public static class DeductionsRouting
         {
             public const string name = "/{name}";
@@ -66,6 +69,12 @@
             public const string ViewAllDeductions = $"{prefix}";
             public const string ViewAllDeductionsByDate = $"{prefix}/date";
             public const string ViewAllDeductionsForSpecificUser = $"{prefix}{name}";
+        }
+           public static class ManagerMenuItemsRouting
+        {
+            public const string prefix = $"{rule}Manager/MenuItems";
+            public const string Add = $"{prefix}/Add";
+
         }
     }
 }

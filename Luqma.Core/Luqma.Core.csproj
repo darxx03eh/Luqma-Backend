@@ -21,4 +21,9 @@
     <ProjectReference Include="..\Luqma.Service\Luqma.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\MenuItems\Queries\Handlers\" />
+    <Folder Include="Features\MenuItems\Queries\Models\" />
+  </ItemGroup>
+
 </Project>
