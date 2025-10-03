@@ -1,5 +1,6 @@
 ﻿using Luqma.API.Base;
-using Luqma.Core.Features.MenuItems.Commands.Models;
+using Luqma.Core.Features.Menus.Commands.Models;
+using Luqma.Core.Features.Menus.Commands.Models;
 using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
@@ -11,15 +12,13 @@ namespace Luqma.API.Areas.Manager.Controllers
     
     [ApiController]
     [Authorize(Roles =Roles.Manager)]
-    public class MenuItemsController:AppBaseController
+    public class MenusController : AppBaseController
     {
-        [HttpPost(Router.ManagerMenuItemsRouting.Add)]
-       public async Task<IActionResult> AddMenuItem([FromForm]AddMenuItemCommand request)
+        [HttpPost(Router.ManagerMenuRouting.Add)]
+        public async Task<IActionResult> AddMenu([FromBody] AddMenuCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
-      
-      
     }
 }
