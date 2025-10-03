@@ -33,7 +33,9 @@ namespace Luqma.Infrastructure.Repositories
         }
         public virtual async Task<T> AddAsync(T entity)
         {
+          
             await context.Set<T>().AddAsync(entity);
+
             await context.SaveChangesAsync();
             return entity;
         }
@@ -92,5 +94,6 @@ namespace Luqma.Infrastructure.Repositories
                 return null;
             }
         }
+    
     }
 }

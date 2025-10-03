@@ -159,5 +159,29 @@
         public const string AnErrorOccuredwhileDeletingTheCategory = "An error occured while deleting the category";
         public const string SuccessGetCategory = "the catgeory is fetched successfully";
         public const string AnErrorWhileFetchCategory = "An error while fetching the category";
+        public const string ItemNotNull = "the item must not be null";
+        public const string ItemNotEmpty = "the item must not be empty";
+        public const string ItemMaximimLength = "the maximum length is 100";
+        public const string DescriptionMaximumLength = "the maximum length is 500";
+        public const string PriceHasPrecision = "the price Precision is (10,2)";
+        public const string DiscountPrecision = "the Discount Precision is(5, 2)";
+        public const string IsVegetarianNotEmpty = "the IsVegetarian must not be empty ";
+        public const string IsVegetarianNotNull = "the IsVigration must not be null";
+        public const string PriceNotNull = "the price must not be null";
+        public const string PriceNotEmpty = "the price must not be empty";
+        public const string PriceGreaterorEqualZero="the price must be greater than or equal zero";
+        public const string DiscountHasPrecision = "the discount precision is (5,2)";
+        public const string DiscountGreaterzeroandless100 = "the discount must be greater then zero and less than 100";
+        public const string SuccessMenuItem = "the menuitem is added successfully";
+        public const string AnErrorWhileAddMenuItem = "An Error while adding the menuitem";
+   
+
+
+
+
+
+
+
+
     }
 }
