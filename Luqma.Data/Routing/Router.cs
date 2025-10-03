@@ -36,6 +36,10 @@
             public const string DeactiveUser = $"{prefix}/deactive";
             public const string ActivateUser = $"{prefix}/active";
             public const string ViewUsers = $"{prefix}";
+            public const string UserAddress = $"{prefix}/address";
+            public const string DeleteUserAddress = $"{prefix}/address{singleRoute}";
+            public const string ShowUserAddresses = $"{prefix}/address";
+            public const string ShowSpecificAddress = $"{prefix}/address{singleRoute}";
         }
         public static class ManagerCategoriesRouting
         {
@@ -52,10 +56,21 @@
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
-        public static class ManagerMenuItemsRouting
+
+       
+
+        public static class DeductionsRouting
+        {
+            public const string prefix = $"{rule}deductions";
+            public const string AddDeductionToUser = $"{prefix}";
+            public const string RemoveDeductionFromUser = $"{prefix}{singleRoute}";
+            public const string UpdateDeduction = $"{prefix}";
+        }
+           public static class ManagerMenuItemsRouting
         {
             public const string prefix = $"{rule}Manager/MenuItems";
             public const string Add = $"{prefix}/Add";
+
         }
     }
 }

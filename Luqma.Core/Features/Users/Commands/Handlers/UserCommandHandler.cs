@@ -15,6 +15,9 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangeBirthDateCommand, ApiResponse>
         , IRequestHandler<ActivateUserCommand, ApiResponse>
         , IRequestHandler<DeactivateUserCommand, ApiResponse>
+        , IRequestHandler<AddUserAddressCommand, ApiResponse>
+        , IRequestHandler<UpdateUserAddressCommand, ApiResponse>
+        , IRequestHandler<DeleteUserAddressCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -147,6 +150,57 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "TheUserHasBeenDeactivatedSuccessfully" =>
                 Success(null, message: SharedResponseKeys.TheUserHasBeenDeactivatedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(AddUserAddressCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.AddAddressAsync(request.City, request.State, request.Street);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AnErrorOccurredWhileAddingTheAddress" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheAddress),
+                "TheAddressHasBeenAddedSuccessfully" => Success(new
+                {
+                    City = request.City,
+                    State = request.State,
+                    Street = request.Street,
+                }, message: SharedResponseKeys.TheAddressHasBeenAddedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheAddress)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(UpdateUserAddressCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.UpdateAddressAsync(request.City, request.State, request.Street, request.AddressId);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AddressNotFound" => NotFound(SharedResponseKeys.AddressNotFound),
+                "ThisAddressDoesNotBelongToYou" => BadRequest(SharedResponseKeys.ThisAddressDoesNotBelongToYou),
+                "AnErrorOccurredWhileEditingTheAddress" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheAddress),
+                "TheAddressHasBeenSuccessfullyModified" => Success(new
+                {
+                    AddressId = request.AddressId,
+                    City = request.City,
+                    State = request.State,
+                    Street = request.Street,
+                }, message: SharedResponseKeys.TheAddressHasBeenSuccessfullyModified),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheAddress)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeleteUserAddressCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.DeleteAddressAsync(request.Id);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.NotFound),
+                "AddressNotFound" => NotFound(SharedResponseKeys.AddressNotFound),
+                "ThisAddressDoesNotBelongToYou" => BadRequest(SharedResponseKeys.ThisAddressDoesNotBelongToYou),
+                "AnErrorOccurredWhileDeletingTheAddress" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheAddress),
+                "TheAddressHasBeenSuccessfullyDeleted" => Success(null, message: SharedResponseKeys.TheAddressHasBeenSuccessfullyDeleted),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheAddress)
             };
         }
     }

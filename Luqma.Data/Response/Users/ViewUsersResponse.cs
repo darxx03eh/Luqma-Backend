@@ -1,4 +1,4 @@
-﻿namespace Luqma.Data.Response.UsersManagements
+﻿namespace Luqma.Data.Response.Users
 {
     public class ViewUsersResponse
     {

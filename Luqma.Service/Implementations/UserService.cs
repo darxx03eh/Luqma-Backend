@@ -1,5 +1,6 @@
-﻿using Luqma.Data.Entities.Identity;
-using Luqma.Data.Response.UsersManagements;
+﻿using Luqma.Data.Entities;
+using Luqma.Data.Entities.Identity;
+using Luqma.Data.Response.Users;
 using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
@@ -288,9 +289,92 @@ namespace Luqma.Service.Implementations
             };
         }
 
-        public Task<string> AddAddressAsync(string city, string state, string street)
+        public async Task<string> AddAddressAsync(string city, string state, string street)
         {
-            throw new NotImplementedException();
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var result = await unitOfWork.UserAddressRepository.AddAsync(new UserAddress()
+            {
+                UserId = int.Parse(userId),
+                City = city,
+                State = state,
+                Street = street
+            });
+            return result is null ? "AnErrorOccurredWhileAddingTheAddress" : "TheAddressHasBeenAddedSuccessfully";
+        }
+
+        public async Task<string> UpdateAddressAsync(string city, string state, string street, int addressId)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var address = await unitOfWork.UserAddressRepository.GetByIdAsync(addressId);
+            if (address is null)
+                return "AddressNotFound";
+            var userOwnAddress = await userManager.FindByIdAsync(address.UserId.ToString());
+            if (!userId.Equals(userOwnAddress.Id.ToString()))
+                return "ThisAddressDoesNotBelongToYou";
+            address.City = city;
+            address.State = state;
+            address.Street = street;
+            var result = await unitOfWork.UserAddressRepository.UpdateAsync(address);
+            return result <= 0 ? "AnErrorOccurredWhileEditingTheAddress." : "TheAddressHasBeenSuccessfullyModified";
+        }
+
+        public async Task<string> DeleteAddressAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return "UserNotFound";
+            var address = await unitOfWork.UserAddressRepository.GetByIdAsync(id);
+            if (address is null)
+                return "AddressNotFound";
+            var userOwnAddress = await userManager.FindByIdAsync(address.UserId.ToString());
+            if (!userId.Equals(userOwnAddress.Id.ToString()))
+                return "ThisAddressDoesNotBelongToYou";
+            var result = await unitOfWork.UserAddressRepository.DeleteAsync(address);
+            return result <= 0 ? "AnErrorOccurredWhileDeletingTheAddress" : "TheAddressHasBeenSuccessfullyDeleted";
+        }
+
+        public async Task<(string, PaginatedResult<ShowUserAddressResponse>?)> ShowUserAddressesAsync(int pageNumber)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("UserNotFound", null);
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return ("UserNotFound", null);
+            var (result, addresses) = await unitOfWork.UserAddressRepository.GetUserAddressesAsync(int.Parse(userId), pageNumber, 5);
+            return result switch
+            {
+                "AddressesNotFound" => ("AddressesNotFound", null),
+                "AddressesFound" => ("AddressesFound", addresses),
+                _ => ("AddressesNotFound", null)
+            };
+        }
+
+        public async Task<(string, ShowUserAddressResponse?)> ViewSpecificAddressAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("UserNotFound", null);
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+                return ("UserNotFound", null);
+            var address = await unitOfWork.UserAddressRepository.GetByIdAsync(id);
+            if (address is null)
+                return ("AddressNotFound", null);
+            //var userOwnAddress = await userManager.FindByIdAsync(address.UserId.ToString());
+            //if (!userId.Equals(userOwnAddress.Id.ToString()))
+            //    return ("ThisAddressDoesNotBelongToYou", null);
+            return ("AddressFound", new ShowUserAddressResponse()
+            {
+                Id = address.Id,
+                City = address.City,
+                State = address.State,
+                Street = address.Street
+            });
         }
     }
 }

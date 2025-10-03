@@ -1,5 +1,5 @@
 ﻿using Luqma.Data.Entities.Identity;
-using Luqma.Data.Response.UsersManagements;
+using Luqma.Data.Response.Users;
 using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;

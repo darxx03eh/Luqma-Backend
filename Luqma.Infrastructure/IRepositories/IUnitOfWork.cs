@@ -5,5 +5,6 @@
         public IUserRepository UserRepository { get; set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; set; }
         public IUserAddressRepository UserAddressRepository { get; set; }
+        public IDeductionRepository DeductionRepository { get; set; }
     }
 }

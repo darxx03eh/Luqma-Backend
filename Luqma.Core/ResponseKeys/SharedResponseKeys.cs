@@ -159,6 +159,7 @@
         public const string AnErrorOccuredwhileDeletingTheCategory = "An error occured while deleting the category";
         public const string SuccessGetCategory = "the catgeory is fetched successfully";
         public const string AnErrorWhileFetchCategory = "An error while fetching the category";
+
         public const string ItemNotNull = "the item must not be null";
         public const string ItemNotEmpty = "the item must not be empty";
         public const string ItemMaximimLength = "the maximum length is 100";
@@ -181,6 +182,51 @@
 
 
 
+
+        public const string AnErrorOccurredWhileAddingTheAddress = "An error occurred while adding the address";
+        public const string TheAddressHasBeenAddedSuccessfully = "The address has been added successfully";
+        public const string CityNotEmpty = "The city field cannot be empty";
+        public const string StateNotEmpty = "The state field cannot be empty";
+        public const string StreetNotEmpty = "The street field cannot be empty";
+        public const string CityNotNull = "The city field cannot be null";
+        public const string StateNotNull = "The state field cannot be null";
+        public const string StreetNotNull = "The street field cannot be null";
+        public const string AddressNotFound = "The specified address was not found";
+        public const string ThisAddressDoesNotBelongToYou = "This address does not belong to your account";
+        public const string AnErrorOccurredWhileEditingTheAddress = "An error occurred while editing the address";
+        public const string TheAddressHasBeenSuccessfullyModified = "The address has been updated successfully";
+        public const string AnErrorOccurredWhileDeletingTheAddress = "An error occurred while deleting the address";
+        public const string TheAddressHasBeenSuccessfullyDeleted = "The address has been deleted successfully";
+        public const string AddressesNotFound = "No addresses were found";
+        public const string AddressesFound = "Addresses have been found";
+        public const string AddressFound = "The address has been found";
+        public const string FinanceEmployeeNotFound = "The specified finance employee was not found";
+        public const string AnErrorOccurredWhileAddingTheDeduction = "An error occurred while adding the deduction";
+        public const string TheDeductionHasBeenAddedSuccessfully = "The deduction has been added successfully";
+        public const string DeductionRateNotEmpty = "The deduction rate cannot be empty";
+        public const string DeductionRateNotNull = "The deduction rate cannot be null";
+        public const string DeductionRateShouldBeGreaterThanOrEqualToZero = "The deduction rate must be greater than or equal to zero";
+        public const string DeductionNotFound = "The specified deduction was not found";
+        public const string AnErrorOccurredWhileDeletingTheDeduction = "An error occurred while deleting the deduction";
+        public const string TheDeductionHasBeenSuccessfullyRemoved = "The deduction has been removed successfully";
+        public const string ModifyingDeductionFailed = "Failed to modify the deduction";
+        public const string TheDeductionModificationProcessWasCompletedSuccessfully = "The deduction was modified successfully";
+       public const string ItemNotNull = "the item must not be null";
+        public const string ItemNotEmpty = "the item must not be empty";
+        public const string ItemMaximimLength = "the maximum length is 100";
+        public const string DescriptionMaximumLength = "the maximum length is 500";
+        public const string PriceHasPrecision = "the price Precision is (10,2)";
+        public const string DiscountPrecision = "the Discount Precision is(5, 2)";
+        public const string IsVegetarianNotEmpty = "the IsVegetarian must not be empty ";
+        public const string IsVegetarianNotNull = "the IsVigration must not be null";
+        public const string PriceNotNull = "the price must not be null";
+        public const string PriceNotEmpty = "the price must not be empty";
+        public const string PriceGreaterorEqualZero="the price must be greater than or equal zero";
+        public const string DiscountHasPrecision = "the discount precision is (5,2)";
+        public const string DiscountGreaterzeroandless100 = "the discount must be greater then zero and less than 100";
+        public const string SuccessMenuItem = "the menuitem is added successfully";
+        public const string AnErrorWhileAddMenuItem = "An Error while adding the menuitem";
+   
 
 
     }
