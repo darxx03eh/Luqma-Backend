@@ -1,10 +1,10 @@
 ﻿using Luqma.Core.Bases;
-using Luqma.Core.Features.Deductions.commands.Models;
+using Luqma.Core.Features.Deductions.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 using MediatR;
 
-namespace Luqma.Core.Features.Deductions.commands.Handlers
+namespace Luqma.Core.Features.Deductions.Commands.Handlers
 {
     public class DeductionCommandHandler : ApiResponseHandler
         , IRequestHandler<AddDeductionToUserCommand, ApiResponse>

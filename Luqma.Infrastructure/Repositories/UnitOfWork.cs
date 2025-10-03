@@ -20,7 +20,7 @@ namespace Luqma.Infrastructure.Repositories
             RefreshTokenRepository = new RefreshTokenRepository(context, httpContextAccessor);
             UserRepository = new UserRepository(context, httpContextAccessor, userManager);
             UserAddressRepository = new UserAddressRepository(context, httpContextAccessor);
-            DeductionRepository = new DeductionRepository(context, httpContextAccessor);
+            DeductionRepository = new DeductionRepository(context, httpContextAccessor, userManager);
         }
 
         public IUserRepository UserRepository { get; set; }

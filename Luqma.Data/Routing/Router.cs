@@ -58,10 +58,14 @@
         }
         public static class DeductionsRouting
         {
+            public const string name = "/{name}";
             public const string prefix = $"{rule}deductions";
             public const string AddDeductionToUser = $"{prefix}";
             public const string RemoveDeductionFromUser = $"{prefix}{singleRoute}";
             public const string UpdateDeduction = $"{prefix}";
+            public const string ViewAllDeductions = $"{prefix}";
+            public const string ViewAllDeductionsByDate = $"{prefix}/date";
+            public const string ViewAllDeductionsForSpecificUser = $"{prefix}{name}";
         }
     }
 }

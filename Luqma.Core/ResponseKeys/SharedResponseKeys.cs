@@ -187,6 +187,8 @@
         public const string TheDeductionHasBeenSuccessfullyRemoved = "The deduction has been removed successfully";
         public const string ModifyingDeductionFailed = "Failed to modify the deduction";
         public const string TheDeductionModificationProcessWasCompletedSuccessfully = "The deduction was modified successfully";
+        public const string DeductionsNotFound = "No deductions were found";
+        public const string DeductionsFound = "Deductions have been found";
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Luqma.Core.Bases;
 using MediatR;
 
-namespace Luqma.Core.Features.Deductions.commands.Models
+namespace Luqma.Core.Features.Deductions.Commands.Models
 {
     public class UpdateDeductionCommand : IRequest<ApiResponse>
     {
