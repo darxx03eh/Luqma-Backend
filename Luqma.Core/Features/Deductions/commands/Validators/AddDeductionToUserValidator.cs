@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using Luqma.Core.Features.Deductions.commands.Models;
+using Luqma.Core.Features.Deductions.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 
-namespace Luqma.Core.Features.Deductions.commands.Validators
+namespace Luqma.Core.Features.Deductions.Commands.Validators
 {
     public class AddDeductionToUserValidator : AbstractValidator<AddDeductionToUserCommand>
     {

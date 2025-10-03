@@ -211,7 +211,9 @@
         public const string TheDeductionHasBeenSuccessfullyRemoved = "The deduction has been removed successfully";
         public const string ModifyingDeductionFailed = "Failed to modify the deduction";
         public const string TheDeductionModificationProcessWasCompletedSuccessfully = "The deduction was modified successfully";
-       public const string ItemNotNull = "the item must not be null";
+        public const string DeductionsNotFound = "No deductions were found";
+        public const string DeductionsFound = "Deductions have been found";
+        public const string ItemNotNull = "the item must not be null";
         public const string ItemNotEmpty = "the item must not be empty";
         public const string ItemMaximimLength = "the maximum length is 100";
         public const string DescriptionMaximumLength = "the maximum length is 500";
@@ -226,8 +228,5 @@
         public const string DiscountGreaterzeroandless100 = "the discount must be greater then zero and less than 100";
         public const string SuccessMenuItem = "the menuitem is added successfully";
         public const string AnErrorWhileAddMenuItem = "An Error while adding the menuitem";
-   
-
-
     }
 }
