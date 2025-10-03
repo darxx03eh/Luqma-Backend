@@ -24,6 +24,8 @@
   <ItemGroup>
     <Folder Include="Features\MenuItems\Queries\Handlers\" />
     <Folder Include="Features\MenuItems\Queries\Models\" />
+    <Folder Include="Features\Menus\Queries\Handlers\" />
+    <Folder Include="Features\Menus\Queries\Models\" />
   </ItemGroup>
 
 </Project>

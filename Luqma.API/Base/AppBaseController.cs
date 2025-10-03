@@ -9,7 +9,7 @@ namespace Luqma.API.Base
     {
         private IMediator instanceMediator;
         protected IMediator mediator => instanceMediator ??= HttpContext.RequestServices.GetService<IMediator>();
-        protected ObjectResult Result(ApiResponse response) => response.StatusCode switch
+       protected ObjectResult Result(ApiResponse response) => response.StatusCode switch
         {
             System.Net.HttpStatusCode.OK => new OkObjectResult(response),
             System.Net.HttpStatusCode.Created => new CreatedResult(String.Empty, response),

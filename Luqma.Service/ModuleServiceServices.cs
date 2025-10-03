@@ -18,13 +18,16 @@ namespace Luqma.Service
             services.AddTransient(typeof(ICloudinaryService), typeof(CloudinaryService));
             services.AddTransient(typeof(ICategoryService), typeof(CategoryService));
             services.AddTransient(typeof(IUserAddressRepository), typeof(UserAddressRepository));
-
-           
-
-
-
             services.AddTransient(typeof(IDeductionService), typeof(DeductionService));
            services.AddTransient(typeof(IMenuItemService), typeof(MenuItemService));
+            services.AddTransient(typeof(IMenuService), typeof(MenuService));
+
+
+
+
+
+
+
 
             return services;
         }

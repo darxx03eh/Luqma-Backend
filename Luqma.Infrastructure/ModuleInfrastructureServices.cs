@@ -89,6 +89,8 @@ namespace Luqma.Infrastructure
             services.AddTransient(typeof(IMenuItemRepository), typeof(MenuItemRepository));
             services.AddTransient(typeof(IMenuContainsRepository), typeof(MenuContainsRepository));
             services.AddTransient(typeof(ICategoryItemRepository), typeof(CategoryItemRepository));
+            services.AddTransient(typeof(IMenuRepository), typeof(MenuRepository));
+
 
 
 

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 {
-    class MenuItemCommandHandler : ApiResponseHandler,
+    public class MenuItemCommandHandler : ApiResponseHandler,
         IRequestHandler<AddMenuItemCommand, ApiResponse>
     {
         private readonly IMapper _mapper;
@@ -37,7 +37,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
           var result= await  _menuItemService.AddMenuItemAsync(menuitem, request.Image,request.CategoryId,request.MenuId);
             return result switch
             {
-                "the menuitem is added successfully" => Created(null, message: SharedResponseKeys.SuccessMenuItem),
+                "the menuitem is added successfully" => Created(null, message:SharedResponseKeys.SuccessMenuItem),
                 _ => InternalServerError(SharedResponseKeys.AnErrorWhileAddMenuItem)
 
 

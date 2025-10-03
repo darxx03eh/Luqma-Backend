@@ -74,7 +74,14 @@
         {
             public const string prefix = $"{rule}Manager/MenuItems";
             public const string Add = $"{prefix}/Add";
+            public const string GetAll = $"{prefix}/GetAll";
 
+        }
+        public static class ManagerMenuRouting
+        {
+            public const string prefix = $"{rule}Manager/Menus";
+            public const string Add = $"{prefix}/Add";
+            public const string GetAll = $"{prefix}/GetAll";
         }
     }
 }
