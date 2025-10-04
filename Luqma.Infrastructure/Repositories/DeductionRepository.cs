@@ -92,5 +92,19 @@ namespace Luqma.Infrastructure.Repositories
             }
             return ("DeductionsFound", deduction);
         }
+
+        public async Task<(string, Dictionary<int, double>?)> GetTotalDeductionsForEachUser(int year, int month)
+        {
+            var deductions = await GetTableNoTracking().Where(
+                deduction => deduction.DeductionDate.Year.Equals(year) && deduction.DeductionDate.Month.Equals(month)
+                ).GroupBy(deduction => deduction.UserId).Select(group => new TotalDeductionsResponse()
+                {
+                    UserId = group.Key,
+                    TotalDeductions = group.Sum(deduction => Convert.ToDouble(deduction.DeductionRate))
+                }).ToDictionaryAsync(d => d.UserId, d => d.TotalDeductions);
+            if(deductions is null)
+                return ("DeductionsNotFound", null);
+            return ("DeductionsFound", deductions);
+        }
     }
 }

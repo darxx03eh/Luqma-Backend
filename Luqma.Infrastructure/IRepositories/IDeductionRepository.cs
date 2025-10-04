@@ -8,5 +8,6 @@ namespace Luqma.Infrastructure.IRepositories
     {
         public Task<(string, PaginatedResult<ViewDeductionsResponse>?)> GetAllDeductionsByDateAsync(int pageNumber, int year, int month);
         public Task<(string, PaginatedResult<ViewDeductionsResponse>?)> GetAllDeductionsForSpecificUser(int pageNumber, string name);
+        public Task<(string, Dictionary<int, double>?)> GetTotalDeductionsForEachUser(int year, int month);
     }
 }
