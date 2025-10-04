@@ -6,5 +6,6 @@
         public IRefreshTokenRepository RefreshTokenRepository { get; set; }
         public IUserAddressRepository UserAddressRepository { get; set; }
         public IDeductionRepository DeductionRepository { get; set; }
+        public ISalaryRepository SalaryRepository { get; set; }
     }
 }

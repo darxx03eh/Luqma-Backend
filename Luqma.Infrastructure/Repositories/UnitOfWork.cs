@@ -21,11 +21,13 @@ namespace Luqma.Infrastructure.Repositories
             UserRepository = new UserRepository(context, httpContextAccessor, userManager);
             UserAddressRepository = new UserAddressRepository(context, httpContextAccessor);
             DeductionRepository = new DeductionRepository(context, httpContextAccessor, userManager);
+            SalaryRepository = new SalaryRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
         public IRefreshTokenRepository RefreshTokenRepository { get; set; }
         public IUserAddressRepository UserAddressRepository { get; set; }
         public IDeductionRepository DeductionRepository { get; set; }
+        public ISalaryRepository SalaryRepository { get; set; }
     }
 }
