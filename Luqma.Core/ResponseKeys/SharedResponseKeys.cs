@@ -214,5 +214,7 @@
         public const string SalariesGeneratedSuccessfully = "Salaries have been generated successfully";
         public const string AnErrorOccurredWhileGeneratingSalaries = "An error occurred while generating salaries";
         public const string SalariesForThisYearAndMonthAlreadyGenerated = "Salaries for this year and month have already been generated";
+        public const string SalariesNotFound = "No salaries were found";
+        public const string SalariesFound = "Salaries have been found";
     }
 }
