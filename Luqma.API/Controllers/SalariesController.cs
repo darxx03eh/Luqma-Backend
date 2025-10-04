@@ -37,5 +37,17 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new DeleteSalaryCommand(id));
             return Result(result);
         }
+        [HttpPatch(Router.SalariesRouting.ChangeSalaryStatus)]
+        public async Task<IActionResult> ChangeSalaryStatus([FromBody] ChangeSalaryStatusCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [HttpPatch(Router.SalariesRouting.ChangeSalaryAmount)]
+        public async Task<IActionResult> ChangeSalaryAmount([FromBody] ChangeSalaryAmountCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }

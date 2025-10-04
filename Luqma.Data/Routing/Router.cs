@@ -88,6 +88,8 @@
             public const string GenerateSalaries = $"{prefix}";
             public const string GetSalaries = $"{prefix}";
             public const string DeleteSalary = $"{prefix}{singleRoute}";
+            public const string ChangeSalaryStatus = $"{prefix}/status";
+            public const string ChangeSalaryAmount = $"{prefix}/amount";
         }
     }
 }

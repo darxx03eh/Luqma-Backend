@@ -219,5 +219,10 @@
         public const string SalaryNotFound = "The specified salary was not found";
         public const string AnErrorOccurredWhileDeletingTheSalary = "An error occurred while deleting the salary";
         public const string SalaryDeletedSuccessfully = "The salary has been deleted successfully";
+        public const string AnErrorOccurredWhileUpdatingTheStatus = "An error occurred while updating the status";
+        public const string StatusUpdatedSuccessfully = "The status has been updated successfully";
+        public const string AnErrorOccurredWhileUpdatingTheSalary = "An error occurred while updating the salary";
+        public const string AmountUpdatedSuccessfully = "The amount has been updated successfully";
+
     }
 }
