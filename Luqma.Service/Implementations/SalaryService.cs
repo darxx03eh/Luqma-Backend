@@ -20,6 +20,42 @@ namespace Luqma.Service.Implementations
             this.userManager = userManager;
         }
 
+        public async Task<string> ChangeSalaryAmountAsync(int id, double amount)
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return "FinanceEmployeeNotFound";
+            var finance = await userManager.FindByIdAsync(financeId);
+            if (finance is null)
+                return "FinanceEmployeeNotFound";
+
+            var salary = await unitOfWork.SalaryRepository.GetByIdAsync(id);
+            if (salary is null)
+                return "SalaryNotFound";
+
+            salary.SalaryAmount = amount;
+            var result = await unitOfWork.SalaryRepository.UpdateAsync(salary);
+            return result <= 0 ? "AnErrorOccurredWhileUpdatingTheSalary" : "AmountUpdatedSuccessfully";
+        }
+
+        public async Task<string> ChangeSalaryStatusAsync(int id, string status)
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return "FinanceEmployeeNotFound";
+            var finance = await userManager.FindByIdAsync(financeId);
+            if (finance is null)
+                return "FinanceEmployeeNotFound";
+
+            var salary = await unitOfWork.SalaryRepository.GetByIdAsync(id);
+            if (salary is null)
+                return "SalaryNotFound";
+
+            salary.Status = status;
+            var result = await unitOfWork.SalaryRepository.UpdateAsync(salary);
+            return result <= 0 ? "AnErrorOccurredWhileUpdatingTheStatus" : "StatusUpdatedSuccessfully";
+        }
+
         public async Task<string> DeleteSalaryAsync(int id)
         {
             var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -54,7 +90,7 @@ namespace Luqma.Service.Implementations
                 return "SalariesForThisYearAndMonthAlreadyGenerated";
             IList<Salary> salaries = new List<Salary>();
             var users = await userManager.Users.ToListAsync();
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 var salary = (double)user.Salary;
                 if (deductions.TryGetValue(user.Id, out var deduction))
@@ -75,13 +111,13 @@ namespace Luqma.Service.Implementations
                 await unitOfWork.SalaryRepository.AddRangeAsync(salaries);
                 return "SalariesGeneratedSuccessfully";
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 return "AnErrorOccurredWhileGeneratingSalaries";
             }
         }
 
-        public async Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter, 
+        public async Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter,
                                                                                       int? year = 0, int? month = 0)
         {
             var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();

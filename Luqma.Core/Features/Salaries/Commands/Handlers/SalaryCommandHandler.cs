@@ -9,6 +9,8 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
     public class SalaryCommandHandler : ApiResponseHandler
         , IRequestHandler<GenerateSalariesCommand, ApiResponse>
         , IRequestHandler<DeleteSalaryCommand, ApiResponse>
+        , IRequestHandler<ChangeSalaryStatusCommand, ApiResponse>
+        , IRequestHandler<ChangeSalaryAmountCommand, ApiResponse>
     {
         private readonly ISalaryService salaryService;
 
@@ -39,6 +41,40 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
                 "AnErrorOccurredWhileDeletingTheSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheSalary),
                 "SalaryDeletedSuccessfully" => Deleted(SharedResponseKeys.SalaryDeletedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheSalary)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeSalaryStatusCommand request, CancellationToken cancellationToken)
+        {
+            var result = await salaryService.ChangeSalaryStatusAsync(request.SalaryId, request.Status);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "SalaryNotFound" => NotFound(SharedResponseKeys.SalaryNotFound),
+                "AnErrorOccurredWhileUpdatingTheStatus" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheStatus),
+                "StatusUpdatedSuccessfully" => Success(new
+                {
+                    SalaryId = request.SalaryId,
+                    Status = request.Status,
+                }, message: SharedResponseKeys.StatusUpdatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheStatus)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeSalaryAmountCommand request, CancellationToken cancellationToken)
+        {
+            var result = await salaryService.ChangeSalaryAmountAsync(request.SalaryId, request.SalaryAmount);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "SalaryNotFound" => NotFound(SharedResponseKeys.SalaryNotFound),
+                "AnErrorOccurredWhileUpdatingTheSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheSalary),
+                "AmountUpdatedSuccessfully" => Success(new
+                {
+                    SalaryId = request.SalaryId,
+                    SalaryAmount = request.SalaryAmount,
+                }, message: SharedResponseKeys.AmountUpdatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheSalary)
             };
         }
     }
