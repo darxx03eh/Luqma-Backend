@@ -211,6 +211,11 @@
         public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
         public const string ItemSuccessDelete = "the menu item is deleted successfully";
         public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
+
+       
+
+
+
         public const string SalariesGeneratedSuccessfully = "Salaries have been generated successfully";
         public const string AnErrorOccurredWhileGeneratingSalaries = "An error occurred while generating salaries";
         public const string SalariesForThisYearAndMonthAlreadyGenerated = "Salaries for this year and month have already been generated";
@@ -223,6 +228,10 @@
         public const string StatusUpdatedSuccessfully = "The status has been updated successfully";
         public const string AnErrorOccurredWhileUpdatingTheSalary = "An error occurred while updating the salary";
         public const string AmountUpdatedSuccessfully = "The amount has been updated successfully";
+      
+       public const string ItemSuccessUpdate = "the menu item is updated successfully";
+        public const string AnErrorWhileUpdateItem = "the menu item is not updated";
+
 
     }
 }
