@@ -1,7 +1,12 @@
-﻿namespace Luqma.Service.Interfaces
+﻿using Luqma.Data.Response.Salaries;
+using Luqma.Data.Wrappers;
+
+namespace Luqma.Service.Interfaces
 {
     public interface ISalaryService
     {
         public Task<string> GenerateSalaryAsync();
+        public Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter, 
+                                                                                      int? year = 0, int? month = 0);
     }
 }
