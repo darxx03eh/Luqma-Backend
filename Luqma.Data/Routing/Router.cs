@@ -75,6 +75,8 @@
             public const string prefix = $"{rule}Manager/MenuItems";
             public const string Add = $"{prefix}/Add";
             public const string GetAll = $"{prefix}/GetAll";
+            public const string Delete = $"{prefix}/Delete{singleRoute}";
+
 
         }
         public static class ManagerMenuRouting
