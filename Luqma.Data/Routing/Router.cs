@@ -76,6 +76,7 @@
             public const string Add = $"{prefix}/Add";
             public const string GetAll = $"{prefix}/GetAll";
             public const string Delete = $"{prefix}/Delete{singleRoute}";
+            public const string Update = $"{prefix}/Update";
 
 
         }

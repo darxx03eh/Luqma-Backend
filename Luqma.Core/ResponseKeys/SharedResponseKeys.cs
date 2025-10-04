@@ -211,7 +211,8 @@
         public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
         public const string ItemSuccessDelete = "the menu item is deleted successfully";
         public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
-
+        public const string ItemSuccessUpdate = "the menu item is updated successfully";
+        public const string AnErrorWhileUpdateItem = "the menu item is not updated";
 
 
 
