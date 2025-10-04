@@ -56,9 +56,6 @@
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
-
-       
-
         public static class DeductionsRouting
         {
             public const string name = "/{name}";
@@ -85,6 +82,15 @@
             public const string prefix = $"{rule}Manager/Menus";
             public const string Add = $"{prefix}/Add";
             public const string GetAll = $"{prefix}/GetAll";
+        }
+        public static class SalariesRouting
+        {
+            public const string prefix = $"{rule}salaries";
+            public const string GenerateSalaries = $"{prefix}";
+            public const string GetSalaries = $"{prefix}";
+            public const string DeleteSalary = $"{prefix}{singleRoute}";
+            public const string ChangeSalaryStatus = $"{prefix}/status";
+            public const string ChangeSalaryAmount = $"{prefix}/amount";
         }
     }
 }
