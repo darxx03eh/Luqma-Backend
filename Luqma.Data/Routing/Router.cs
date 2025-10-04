@@ -87,6 +87,7 @@
             public const string prefix = $"{rule}salaries";
             public const string GenerateSalaries = $"{prefix}";
             public const string GetSalaries = $"{prefix}";
+            public const string DeleteSalary = $"{prefix}{singleRoute}";
         }
     }
 }

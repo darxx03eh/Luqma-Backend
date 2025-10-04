@@ -216,5 +216,8 @@
         public const string SalariesForThisYearAndMonthAlreadyGenerated = "Salaries for this year and month have already been generated";
         public const string SalariesNotFound = "No salaries were found";
         public const string SalariesFound = "Salaries have been found";
+        public const string SalaryNotFound = "The specified salary was not found";
+        public const string AnErrorOccurredWhileDeletingTheSalary = "An error occurred while deleting the salary";
+        public const string SalaryDeletedSuccessfully = "The salary has been deleted successfully";
     }
 }

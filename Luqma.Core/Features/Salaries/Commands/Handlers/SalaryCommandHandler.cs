@@ -8,6 +8,7 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
 {
     public class SalaryCommandHandler : ApiResponseHandler
         , IRequestHandler<GenerateSalariesCommand, ApiResponse>
+        , IRequestHandler<DeleteSalaryCommand, ApiResponse>
     {
         private readonly ISalaryService salaryService;
 
@@ -25,6 +26,19 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
                 "SalariesGeneratedSuccessfully" => Success(null, message: SharedResponseKeys.SalariesGeneratedSuccessfully),
                 "AnErrorOccurredWhileGeneratingSalaries" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalaries),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalaries),
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeleteSalaryCommand request, CancellationToken cancellationToken)
+        {
+            var result = await salaryService.DeleteSalaryAsync(request.Id);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "SalaryNotFound" => NotFound(SharedResponseKeys.SalaryNotFound),
+                "AnErrorOccurredWhileDeletingTheSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheSalary),
+                "SalaryDeletedSuccessfully" => Deleted(SharedResponseKeys.SalaryDeletedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheSalary)
             };
         }
     }
