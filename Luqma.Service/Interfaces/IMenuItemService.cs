@@ -11,6 +11,7 @@ namespace Luqma.Service.Interfaces
     public interface IMenuItemService
     {
         public Task<string> AddMenuItemAsync(MenuItem menuItem, IFormFile file, ICollection<int> CategoryId, ICollection<int> MenuId);
+        public Task<string> DeleteMenuItemAsync(MenuItem menuItem);
 
 
     }

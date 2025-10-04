@@ -207,7 +207,13 @@
         public const string SuccessAddMenu = "the menu is added successfully";
         public const string NullMenu = "the menu is null";
         public const string AnErrorWhileAddMenu = "An error while adding the menu ";
-      
+        public const string ItemNotFound = "the item Id is not found";
+        public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
+        public const string ItemSuccessDelete = "the menu item is deleted successfully";
+        public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
+
+
+
 
     }
 }

@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 {
     public class MenuItemCommandHandler : ApiResponseHandler,
-        IRequestHandler<AddMenuItemCommand, ApiResponse>
+        IRequestHandler<AddMenuItemCommand, ApiResponse>,
+        IRequestHandler<DeleteMenuItemCommand,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly ICloudinaryService _cloudinaryService;
@@ -42,15 +43,22 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 
 
             };
+        }
 
+        public async Task<ApiResponse> Handle(DeleteMenuItemCommand request, CancellationToken cancellationToken)
+        {
+            var menuitem=_mapper.Map<MenuItem>(request);
+            var result=await _menuItemService.DeleteMenuItemAsync(menuitem);
+            return result switch
+            {
+                "the item Id is not found" => NotFound(SharedResponseKeys.ItemNotFound),
+                "An Error while delete photo from  Cloudinary " => InternalServerError(SharedResponseKeys.AnErrorWhileDeletePhotoFromCloudinary),
+                "the menu item is deleted successfully" => Deleted(SharedResponseKeys.ItemSuccessDelete),
+                "the menu item is not deleted" => InternalServerError(SharedResponseKeys.AnErrorWhileDeleteItem),
+                _ => InternalServerError(SharedResponseKeys.AnErrorWhileDeleteItem)
+
+            };
             
-       
-          
-            
-
-
-
-
         }
     }
 }

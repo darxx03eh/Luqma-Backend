@@ -34,7 +34,7 @@ namespace Luqma.Service.Implementations
             if (file != null)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var imageurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Menuitems", fileName);
+                var imageurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Luqma/MenuItems", fileName);
                 menuItem.ImageUrl = imageurl;
             }
          
@@ -56,17 +56,26 @@ namespace Luqma.Service.Implementations
             }
 
            await  _menuItemRepository.AddAsync(menuItem);
-            return "the menuitem is added successfully";
+            return "the menuitem is added successfully";  
 
-            
+        }
+        public async Task<string> DeleteMenuItemAsync(MenuItem menuItem)
+        {
+            var item = await _menuItemRepository.GetByIdAsync(menuItem.Id);
+            if (item is null) return "the item Id is not found";
+            if (item.ImageUrl != null)
+            {
+
+                var result = await _cloudinaryService.DeleteFileAsync(item.ImageUrl);
+
+                if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
+                    return "An Error while delete photo from  Cloudinary ";
+            }
 
 
-
-            
-
-
-          
-            
+                var count = await _menuItemRepository.DeleteAsync(item);
+           
+            return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
         }
     }

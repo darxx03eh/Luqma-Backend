@@ -14,6 +14,7 @@ namespace Luqma.Core.Mapping.MenuItems
         public MenuItemProfile()
         {
             CreateMap<AddMenuItemCommand, MenuItem>();
+            CreateMap<DeleteMenuItemCommand, MenuItem>();
         }
 
     }
