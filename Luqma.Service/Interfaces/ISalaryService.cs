@@ -6,6 +6,7 @@ namespace Luqma.Service.Interfaces
     public interface ISalaryService
     {
         public Task<string> GenerateSalaryAsync();
+        public Task<string> DeleteSalaryAsync(int id);
         public Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter, 
                                                                                       int? year = 0, int? month = 0);
     }

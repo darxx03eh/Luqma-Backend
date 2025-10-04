@@ -31,5 +31,11 @@ namespace Luqma.API.Controllers
             });
             return Result(result);
         }
+        [HttpDelete(Router.SalariesRouting.DeleteSalary)]
+        public async Task<IActionResult> DeleteSalary(int id)
+        {
+            var result = await mediator.Send(new DeleteSalaryCommand(id));
+            return Result(result);
+        }
     }
 }

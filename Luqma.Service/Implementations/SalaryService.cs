@@ -20,6 +20,23 @@ namespace Luqma.Service.Implementations
             this.userManager = userManager;
         }
 
+        public async Task<string> DeleteSalaryAsync(int id)
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return "FinanceEmployeeNotFound";
+            var finance = await userManager.FindByIdAsync(financeId);
+            if (finance is null)
+                return "FinanceEmployeeNotFound";
+
+            var salary = await unitOfWork.SalaryRepository.GetByIdAsync(id);
+            if (salary is null)
+                return "SalaryNotFound";
+
+            var result = await unitOfWork.SalaryRepository.DeleteAsync(salary);
+            return result <= 0 ? "AnErrorOccurredWhileDeletingTheSalary" : "SalaryDeletedSuccessfully";
+        }
+
         public async Task<string> GenerateSalaryAsync()
         {
             var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
