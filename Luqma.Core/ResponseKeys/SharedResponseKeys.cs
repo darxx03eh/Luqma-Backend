@@ -238,5 +238,6 @@
         public const string SuccessGetMenuItems = "the Items is viewed successfully";
         public const string NotFoundMenus = "the menus is not found";
         public const string SuccessGetMenus = "the menus is viewed successfully";
+        public const string ThereWasAProblemLoadingTheProfile = "There was a problem loading the profile";
     }
 }
