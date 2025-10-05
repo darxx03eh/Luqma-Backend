@@ -223,6 +223,9 @@
         public const string StatusUpdatedSuccessfully = "The status has been updated successfully";
         public const string AnErrorOccurredWhileUpdatingTheSalary = "An error occurred while updating the salary";
         public const string AmountUpdatedSuccessfully = "The amount has been updated successfully";
-
+        public const string SalaryForThisYearAndMonthAlreadyGenerated = "The salary for this year and month has already been generated";
+        public const string AnErrorOccurredWhileGeneratingSalary = "An error occurred while generating the salary";
+        public const string SalaryGeneratedSuccessfully = "The salary has been generated successfully";
+        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";
     }
 }
