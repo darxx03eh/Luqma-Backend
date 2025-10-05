@@ -376,5 +376,33 @@ namespace Luqma.Service.Implementations
                 Street = address.Street
             });
         }
+
+        public async Task<(string, ProfileResponse?)> GetUserProfileAsync(string username)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            if (user is null)
+                return ("UserNotFound", null);
+            try
+            {
+                var profile = new ProfileResponse()
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    ImageUrl = user.ImageUrl,
+                    Role = string.Join(", ", await userManager.GetRolesAsync(user)),
+                    IsActive = user.IsActive,
+                    Gender = user.Gender.ToString(),
+                    BirthDate = user.BirthDate.ToString("MMMM dd, yyyy"),
+                    JoinDate = user.CreatedAt.ToString("MMMM dd, yyyy")
+                };
+                return ("UserFound", profile);
+            }catch(Exception exp)
+            {
+                return ("ThereWasAProblemLoadingTheProfile", null);
+            }
+        }
     }
 }

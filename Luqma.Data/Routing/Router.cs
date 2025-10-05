@@ -24,6 +24,7 @@
         }
         public static class UsersRouting
         {
+            public const string UserName = "/{username}";
             public const string prefix = $"{rule}users";
             public const string settings = $"settings";
             public const string ChangePassword = $"{prefix}/{settings}/change-password";
@@ -40,6 +41,7 @@
             public const string DeleteUserAddress = $"{prefix}/address{singleRoute}";
             public const string ShowUserAddresses = $"{prefix}/address";
             public const string ShowSpecificAddress = $"{prefix}/address{singleRoute}";
+            public const string Profile = $"{prefix}/profile{UserName}";
         }
         public static class ManagerCategoriesRouting
         {
@@ -75,10 +77,6 @@
             public const string GetAll = $"{prefix}/GetAll";
             public const string Delete = $"{prefix}/Delete{singleRoute}";
             public const string Update = $"{prefix}/Update";
-          
-
-
-
         }
         public static class ManagerMenuRouting
         {
