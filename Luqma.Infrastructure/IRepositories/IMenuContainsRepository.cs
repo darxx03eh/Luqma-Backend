@@ -9,5 +9,6 @@ namespace Luqma.Infrastructure.IRepositories
 {
     public interface IMenuContainsRepository:IGenericRepository<MenuContains>
     {
+        public  Task<IQueryable<MenuContains>> GetItemsByMenuIdAsync(int id);
     }
 }

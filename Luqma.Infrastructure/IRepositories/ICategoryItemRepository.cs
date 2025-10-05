@@ -9,5 +9,6 @@ namespace Luqma.Infrastructure.IRepositories
 {
    public interface ICategoryItemRepository:IGenericRepository<CategoryItem>
     {
+        public Task<IQueryable<CategoryItem>> GetItemsByCategoryIdAsync(int id);
     }
 }

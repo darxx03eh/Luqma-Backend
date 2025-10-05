@@ -100,5 +100,16 @@
             public const string ChangeSalaryStatus = $"{prefix}/status";
             public const string ChangeSalaryAmount = $"{prefix}/amount";
         }
+        public static class CategoryItemsRouting
+        {
+            public const string prefix = $"{rule}CategoryItems";
+            public const string GetItemsByCategoryId = $"{prefix}/GetItemsByCategoryId{singleRoute}";
+        }
+        public static class MenuContainsRouting
+        {
+            public const string prefix = $"{rule}MenuContains";
+            public const string GetItemsByMenuId = $"{prefix}/GetItemsByMenuId{singleRoute}";
+
+        }
     }
 }

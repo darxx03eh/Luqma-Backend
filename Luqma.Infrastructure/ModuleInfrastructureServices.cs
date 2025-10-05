@@ -94,6 +94,11 @@ namespace Luqma.Infrastructure
             services.AddTransient(typeof(IDeductionRepository), typeof(DeductionRepository));
             services.AddTransient(typeof(ISalaryRepository), typeof(SalaryRepository));
             services.AddTransient(typeof(IUserAddressRepository), typeof(UserAddressRepository));
+            services.AddTransient(typeof(ICategoryItemRepository), typeof(CategoryItemRepository));
+            services.AddTransient(typeof(IMenuContainsRepository), typeof(MenuContainsRepository));
+
+
+
             #endregion
 
             return services;

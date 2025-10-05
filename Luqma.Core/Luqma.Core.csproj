@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\CategoryItems\Commands\" />
+    <Folder Include="Features\MenuContains\Commands\NewFolder\" />
     <Folder Include="Features\Salaries\Commands\Validators\" />
   </ItemGroup>
 
