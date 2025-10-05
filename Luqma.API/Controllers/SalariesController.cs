@@ -18,6 +18,17 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new GenerateSalariesCommand());
             return Result(result);
         }
+        [HttpPost(Router.SalariesRouting.GenerateSalariesForUser)]
+        public async Task<IActionResult> GenerateSalariesForUser(int id, int? year = 0, int? month = 0) 
+        {
+            var result = await mediator.Send(new GenerateSalaryForUserCommand()
+            {
+                Id = id,
+                Year = year,
+                Month = month
+            });
+            return Result(result);
+        }
         [HttpGet(Router.SalariesRouting.GetSalaries)]
         public async Task<IActionResult> GetSalaries(string? name, string? status, int pageNumber = 1, int year = 0, int month = 0)
         {

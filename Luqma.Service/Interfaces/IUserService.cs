@@ -23,5 +23,6 @@ namespace Luqma.Service.Interfaces
         public Task<string> DeleteAddressAsync(int id);
         public Task<(string, PaginatedResult<ShowUserAddressResponse>?)> ShowUserAddressesAsync(int pageNumber);
         public Task<(string, ShowUserAddressResponse?)> ViewSpecificAddressAsync(int id);
+        public Task<(string, ProfileResponse?)> GetUserProfileAsync(string username);
     }
 }

@@ -96,7 +96,7 @@ namespace Luqma.Service.Implementations
                 if (deductions.TryGetValue(user.Id, out var deduction))
                     salary = salary - (salary * (deduction / 100));
 
-                var UserSalary = new Salary()
+                var userSalary = new Salary()
                 {
                     UserId = user.Id,
                     FinanceId = int.Parse(financeId),
@@ -104,7 +104,7 @@ namespace Luqma.Service.Implementations
                     SalaryDate = DateTime.UtcNow,
                     SalaryAmount = salary
                 };
-                salaries.Add(UserSalary);
+                salaries.Add(userSalary);
             }
             try
             {
@@ -115,6 +115,47 @@ namespace Luqma.Service.Implementations
             {
                 return "AnErrorOccurredWhileGeneratingSalaries";
             }
+        }
+
+        public async Task<string> GenerateSalaryForUserAsync(int userId, int? year = 0, int? month = 0)
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return "FinanceEmployeeNotFound";
+            var finance = await userManager.FindByIdAsync(financeId);
+            if (finance is null)
+                return "FinanceEmployeeNotFound";
+
+            var user = await userManager.FindByIdAsync(userId.ToString());
+            if (user is null)
+                return "UserNotFound";
+            var date = DateTime.UtcNow;
+            if (year.Equals(0) && month.Equals(0))
+                (year, month) = (date.Year, date.Month);
+
+            var (deductionResult, deduction) = await unitOfWork.DeductionRepository.GetTotalDeductionsForUser(userId, year, month);
+            var salariesDate = await unitOfWork.SalaryRepository.GetTableNoTracking()
+                               .Where(salary => salary.SalaryDate.Year.Equals(date.Year) && salary.SalaryDate.Month.Equals(date.Month)
+                               && salary.UserId.Equals(userId))
+                               .FirstOrDefaultAsync();
+            if (salariesDate is not null)
+                return "SalaryForThisYearAndMonthAlreadyGeneratedForThisUser";
+
+            var salary = (double)user.Salary;
+            if (deduction.TryGetValue(userId, out var d))
+                salary = salary - (salary * (d / 100));
+
+            var userSalary = new Salary()
+            {
+                UserId = user.Id,
+                FinanceId = int.Parse(financeId),
+                Status = "Pending",
+                SalaryDate = DateTime.UtcNow,
+                SalaryAmount = salary
+            };
+
+            var result = await unitOfWork.SalaryRepository.AddAsync(userSalary);
+            return result is null ? "AnErrorOccurredWhileGeneratingSalary" : "SalaryGeneratedSuccessfully";
         }
 
         public async Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter,

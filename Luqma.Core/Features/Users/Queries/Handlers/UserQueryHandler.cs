@@ -6,14 +6,15 @@ using MediatR;
 
 namespace Luqma.Core.Features.Users.Queries.Handlers
 {
-    public class UsersManagementQueryHandler : ApiResponseHandler
+    public class UserQueryHandler : ApiResponseHandler
         , IRequestHandler<ViewUsersQuery, ApiResponse>
         , IRequestHandler<ShowUserAddressesQuery, ApiResponse>
         , IRequestHandler<ViewSpecificAddressQuery, ApiResponse>
+        , IRequestHandler<GetUserProfileQuery, ApiResponse>
     {
         private readonly IUserService userService;
 
-        public UsersManagementQueryHandler(IUserService userService)
+        public UserQueryHandler(IUserService userService)
         {
             this.userService = userService;
         }
@@ -50,6 +51,18 @@ namespace Luqma.Core.Features.Users.Queries.Handlers
                 "ThisAddressDoesNotBelongToYou" => BadRequest(SharedResponseKeys.ThisAddressDoesNotBelongToYou),
                 "AddressFound" => Success(address, message: SharedResponseKeys.AddressFound),
                 _ => NotFound(SharedResponseKeys.AddressNotFound)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
+        {
+            var (result, profile) = await userService.GetUserProfileAsync(request.UserName);
+            return result switch
+            {
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "UserFound" => Success(profile, message: SharedResponseKeys.UsersFound),
+                "ThereWasAProblemLoadingTheProfile" => InternalServerError(SharedResponseKeys.ThereWasAProblemLoadingTheProfile),
+                _ => InternalServerError(SharedResponseKeys.ThereWasAProblemLoadingTheProfile)
             };
         }
     }

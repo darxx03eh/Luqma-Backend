@@ -11,6 +11,7 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
         , IRequestHandler<DeleteSalaryCommand, ApiResponse>
         , IRequestHandler<ChangeSalaryStatusCommand, ApiResponse>
         , IRequestHandler<ChangeSalaryAmountCommand, ApiResponse>
+        , IRequestHandler<GenerateSalaryForUserCommand, ApiResponse>
     {
         private readonly ISalaryService salaryService;
 
@@ -75,6 +76,21 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
                     SalaryAmount = request.SalaryAmount,
                 }, message: SharedResponseKeys.AmountUpdatedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheSalary)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(GenerateSalaryForUserCommand request, CancellationToken cancellationToken)
+        {
+            var result = await salaryService.GenerateSalaryForUserAsync(request.Id, request.Year, request.Month);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "SalaryForThisYearAndMonthAlreadyGeneratedForThisUser" => 
+                Conflict(SharedResponseKeys.SalaryForThisYearAndMonthAlreadyGeneratedForThisUser),
+                "AnErrorOccurredWhileGeneratingSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalary),
+                "SalaryGeneratedSuccessfully" => Success(null, message: SharedResponseKeys.SalaryGeneratedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalary)
             };
         }
     }
