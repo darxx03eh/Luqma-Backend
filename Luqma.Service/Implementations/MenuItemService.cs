@@ -17,20 +17,26 @@ namespace Luqma.Service.Implementations
     {
         private readonly IMenuItemRepository _menuItemRepository;
         private readonly ICloudinaryService _cloudinaryService;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMenuRepository _menuRepository;
         private readonly ICategoryItemRepository _categoryItemRepository;
         private readonly IMenuContainsRepository _menuContainsRepository;
 
         public MenuItemService(IMenuItemRepository menuItemRepository 
-            ,ICloudinaryService cloudinaryService
+            ,ICloudinaryService cloudinaryService,
+            ICategoryRepository categoryRepository,
+            IMenuRepository menuRepository
            )
         {
             _menuItemRepository = menuItemRepository;
             _cloudinaryService = cloudinaryService;
-          
+            _categoryRepository = categoryRepository;
+            _menuRepository = menuRepository;
         }
         public async Task<string> AddMenuItemAsync(MenuItem menuItem,IFormFile file, ICollection<int> CategoryId,ICollection<int>MenuId)
         {
            
+
             if (file != null)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);

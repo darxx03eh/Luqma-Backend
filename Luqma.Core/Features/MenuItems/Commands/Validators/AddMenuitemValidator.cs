@@ -2,6 +2,7 @@
 using Luqma.Core.Features.Categories.Commands.Models;
 using Luqma.Core.Features.MenuItems.Commands.Models;
 using Luqma.Core.ResponseKeys;
+using Luqma.Infrastructure.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,17 @@ using System.Threading.Tasks;
 
 namespace Luqma.Core.Features.MenuItems.Commands.Validators
 {
-   public class AddMenuitemValidator : AbstractValidator<AddMenuItemCommand>
+    public class AddMenuitemValidator : AbstractValidator<AddMenuItemCommand>
     {
-        public AddMenuitemValidator()
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IMenuRepository _menuRepository;
+
+        public AddMenuitemValidator(ICategoryRepository categoryRepository,IMenuRepository menuRepository)
         {
             ApplyValidationRules();
             ApplyCustomValidationRules();
+            _categoryRepository = categoryRepository;
+            _menuRepository = menuRepository;
         }
         public void ApplyValidationRules()
         {
@@ -35,13 +41,24 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
                 .LessThanOrEqualTo(100).WithMessage(SharedResponseKeys.DiscountGreaterzeroandless100);
             RuleFor(mi => mi.IsVegetarian)
                 .NotNull().WithMessage(SharedResponseKeys.IsVegetarianNotNull);
-         
+
         }
         public void ApplyCustomValidationRules()
         {
+            RuleFor(mi => mi.CategoryId)
+                 .MustAsync(async (key, cancellation) =>
+                 {
+                     return await _categoryRepository.IsIdExistInCategoryAsync(key);
 
+                 }).WithMessage(SharedResponseKeys.CategoryIdNotFound);
+
+            RuleFor(mi => mi.MenuId)
+                 .MustAsync(async (key, cancellation) =>
+                 {
+                     return await _menuRepository.IsIdInMenuAsync(key);
+
+                 }).WithMessage(SharedResponseKeys.NotFoundMenuId);
         }
-
 
     }
 }

@@ -235,6 +235,10 @@
         public const string SuccessGetMenuItems = "the Items is viewed successfully";
         public const string NotFoundMenus = "the menus is not found";
         public const string SuccessGetMenus = "the menus is viewed successfully";
+        public const string CategoryIdNotFound = "the category id is not found";
+        public const string SuccessViewItemsForCategory = "the items for category is viewed successfully";
+        public const string NotFoundMenuId = "the menu id is not found";
+        public const string NotFounItemId = "the item id is not found";
 
 
     }

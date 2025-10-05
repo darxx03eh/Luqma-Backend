@@ -27,5 +27,26 @@ namespace Luqma.Infrastructure.Repositories
             if (category is null) return false;
             return true;
         }
+        public async Task<bool> IsIdExistInCategoryAsync(ICollection<int>Id)
+        {
+            foreach(var i in Id)
+            {
+                var category=_context.Categories.FirstOrDefault(c => c.Id == i);
+                if(category is null)
+                {
+
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        public async Task<bool> IsIdExistAsync(int id)
+        {
+            var category=_context.Categories.FirstOrDefault(c => c.Id == id);
+            if (category is null) return false;
+            return true;
+           
+        }
     }
 }

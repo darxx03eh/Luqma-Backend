@@ -9,5 +9,8 @@ namespace Luqma.Infrastructure.IRepositories
 {
    public interface IMenuRepository:IGenericRepository<Menu>
     {
-    }
+        public Task<bool> IsIdInMenuAsync(ICollection<int> MenuId);
+        public Task<bool> IsIdExistInMenuAsync(int id);
+        
+        }
 }

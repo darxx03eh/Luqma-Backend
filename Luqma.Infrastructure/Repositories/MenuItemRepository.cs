@@ -22,6 +22,12 @@ namespace Luqma.Infrastructure.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
-
+        public async Task<bool> IsIdExistAsync(int id)
+        {
+           var menuitem= _context.MenuItems.FirstOrDefault(mi => mi.Id == id);
+            if (menuitem is null) return false;
+            return true;
+           
+        }
     }
 }

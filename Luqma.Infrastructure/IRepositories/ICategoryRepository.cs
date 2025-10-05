@@ -10,5 +10,7 @@ namespace Luqma.Infrastructure.IRepositories
    public interface ICategoryRepository:IGenericRepository<Category>
     {
      public Task<bool> IsTitleExistAsync(string Title);
+        public Task<bool> IsIdExistInCategoryAsync(ICollection<int> Id);
+        public  Task<bool> IsIdExistAsync(int id);
     }
 }
