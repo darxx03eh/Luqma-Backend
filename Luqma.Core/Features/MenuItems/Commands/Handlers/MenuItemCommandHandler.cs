@@ -16,7 +16,8 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 {
     public class MenuItemCommandHandler : ApiResponseHandler,
         IRequestHandler<AddMenuItemCommand, ApiResponse>,
-        IRequestHandler<DeleteMenuItemCommand,ApiResponse>
+        IRequestHandler<DeleteMenuItemCommand,ApiResponse>,
+        IRequestHandler<UpdateMenuItemCommand,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly ICloudinaryService _cloudinaryService;
@@ -38,7 +39,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
           var result= await  _menuItemService.AddMenuItemAsync(menuitem, request.Image,request.CategoryId,request.MenuId);
             return result switch
             {
-                "the menuitem is added successfully" => Created(null, message:SharedResponseKeys.SuccessMenuItem),
+                "the menuitem is added successfully" => Created(null, message:SharedResponseKeys.SuccessAddMenuItem),
                 _ => InternalServerError(SharedResponseKeys.AnErrorWhileAddMenuItem)
 
 
@@ -59,6 +60,21 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 
             };
             
+        }
+
+        public async Task<ApiResponse> Handle(UpdateMenuItemCommand request, CancellationToken cancellationToken)
+        {
+             var menuitem=_mapper.Map<MenuItem>(request);
+           var result= await _menuItemService.UpdateMenuItemAsync(menuitem, request.Image);
+            return result switch
+            {
+                "the item Id is not found" => NotFound(SharedResponseKeys.ItemNotFound),
+                "An Error while delete photo from  Cloudinary " => InternalServerError(SharedResponseKeys.AnErrorWhileDeletePhotoFromCloudinary),
+                "the menu item is updated successfully" => Success(null, message: SharedResponseKeys.ItemSuccessUpdate),
+                "the menu item is not updated" => InternalServerError(SharedResponseKeys.AnErrorWhileUpdateItem),
+                _ => InternalServerError(SharedResponseKeys.AnErrorWhileUpdateItem)
+
+            };
         }
     }
 }

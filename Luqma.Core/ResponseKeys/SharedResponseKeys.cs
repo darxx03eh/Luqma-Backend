@@ -172,7 +172,7 @@
         public const string PriceGreaterorEqualZero="the price must be greater than or equal zero";
         public const string DiscountHasPrecision = "the discount precision is (5,2)";
         public const string DiscountGreaterzeroandless100 = "the discount must be greater then zero and less than 100";
-        public const string SuccessMenuItem = "the menuitem is added successfully";
+        public const string SuccessAddMenuItem = "the menuitem is added successfully";
         public const string AnErrorWhileAddMenuItem = "An Error while adding the menuitem";
         public const string AnErrorOccurredWhileAddingTheAddress = "An error occurred while adding the address";
         public const string TheAddressHasBeenAddedSuccessfully = "The address has been added successfully";
@@ -211,6 +211,11 @@
         public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
         public const string ItemSuccessDelete = "the menu item is deleted successfully";
         public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
+
+       
+
+
+
         public const string SalariesGeneratedSuccessfully = "Salaries have been generated successfully";
         public const string AnErrorOccurredWhileGeneratingSalaries = "An error occurred while generating salaries";
         public const string SalariesForThisYearAndMonthAlreadyGenerated = "Salaries for this year and month have already been generated";
@@ -226,6 +231,12 @@
         public const string SalaryForThisYearAndMonthAlreadyGenerated = "The salary for this year and month has already been generated";
         public const string AnErrorOccurredWhileGeneratingSalary = "An error occurred while generating the salary";
         public const string SalaryGeneratedSuccessfully = "The salary has been generated successfully";
-        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";
+        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";      
+        public const string ItemSuccessUpdate = "the menu item is updated successfully";
+        public const string AnErrorWhileUpdateItem = "the menu item is not updated";
+        public const string MenuItemsNotFound = " the items is not found";
+        public const string SuccessGetMenuItems = "the Items is viewed successfully";
+        public const string NotFoundMenus = "the menus is not found";
+        public const string SuccessGetMenus = "the menus is viewed successfully";
     }
 }

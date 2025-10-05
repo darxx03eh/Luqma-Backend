@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Luqma.Core.Features.Categories.Commands.Models;
 using Luqma.Core.Features.MenuItems.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using System;
@@ -10,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Luqma.Core.Features.MenuItems.Commands.Validators
 {
-   public class AddMenuitemValidator : AbstractValidator<AddMenuItemCommand>
+    public class UpdateMenuItemValidator : AbstractValidator<UpdateMenuItemCommand>
     {
-        public AddMenuitemValidator()
+
+        public UpdateMenuItemValidator()
         {
             ApplyValidationRules();
             ApplyCustomValidationRules();
@@ -34,8 +34,9 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.DiscountGreaterzeroandless100)
                 .LessThanOrEqualTo(100).WithMessage(SharedResponseKeys.DiscountGreaterzeroandless100);
             RuleFor(mi => mi.IsVegetarian)
+                
                 .NotNull().WithMessage(SharedResponseKeys.IsVegetarianNotNull);
-         
+
         }
         public void ApplyCustomValidationRules()
         {

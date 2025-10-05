@@ -28,5 +28,16 @@ namespace Luqma.Service.Implementations
             return "the menu is added successfully";
 
         }
+        public async Task<(IQueryable<Menu>?, string)> GetAllMenusAsync()
+        {
+           var menus= _menuRepository.GetTableNoTracking();
+            if (!menus.Any())
+            {
+                return (null, "the menus is not found");
+            }
+            return (menus, "the menus is viewed successfully");
+
+
+        }
     }
 }

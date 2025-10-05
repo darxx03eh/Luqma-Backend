@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Principal;
 
 namespace Luqma.Infrastructure.Repositories
 {
@@ -21,7 +22,7 @@ namespace Luqma.Infrastructure.Repositories
             }
             return await context.Set<T>().AsNoTracking().ToListAsync();
         }
-      
+     
         public virtual async Task<T> GetByIdAsync(Int32 id)
             => await context.Set<T>().FindAsync(id);
         public IQueryable<T> GetTableNoTracking()
@@ -94,6 +95,7 @@ namespace Luqma.Infrastructure.Repositories
                 return null;
             }
         }
-    
+     
+
     }
 }

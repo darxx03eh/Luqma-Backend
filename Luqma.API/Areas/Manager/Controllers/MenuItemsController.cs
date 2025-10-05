@@ -1,5 +1,6 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.MenuItems.Commands.Models;
+using Luqma.Core.Features.MenuItems.Queries.Models;
 using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Luqma.Infrastructure.Migrations;
@@ -26,6 +27,20 @@ namespace Luqma.API.Areas.Manager.Controllers
         {
             var result = await mediator.Send(new DeleteMenuItemCommand(id));
             return Result(result);
+        }
+        [HttpPatch(Router.ManagerMenuItemsRouting.Update)]
+        public async Task<IActionResult> UpdateMenuItem([FromForm]UpdateMenuItemCommand request)
+        {
+
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [HttpGet(Router.ManagerMenuItemsRouting.GetAll)]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await mediator.Send(new GetAllMenuItemQuery());
+            return Result(result);
+
         }
 
 

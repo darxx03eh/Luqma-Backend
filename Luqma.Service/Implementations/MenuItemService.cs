@@ -78,5 +78,63 @@ namespace Luqma.Service.Implementations
             return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
         }
+        public async Task<string> UpdateMenuItemAsync(MenuItem menuItem,IFormFile? file)
+        {
+            
+            var item=await _menuItemRepository.GetByIdAsync(menuItem.Id);
+            if (item is null) return "the item Id is not found";
+            item.Item = menuItem.Item;
+            item.Description = menuItem.Description;
+            item.Price = menuItem.Price;
+            item.Discount = menuItem.Discount;
+            item.IsVegetarian = menuItem.IsVegetarian;
+
+           
+            if (file == null && item.ImageUrl!=null)
+            {
+                var result = await _cloudinaryService.DeleteFileAsync(item.ImageUrl);
+                if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
+                    return "An Error while delete photo from  Cloudinary ";
+                item.ImageUrl = null;
+
+                
+            }
+
+                
+            if ( file!=null && item.ImageUrl != null)
+            {
+               var result= await _cloudinaryService.DeleteFileAsync(item.ImageUrl);
+                if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
+                    return "An Error while delete photo from  Cloudinary ";
+
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var fileurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Luqma/MenuItems", fileName);
+                item.ImageUrl = fileurl;
+                
+            }
+            if(file!=null && item.ImageUrl==null)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var fileurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Luqma/MenuItems", fileName);
+                item.ImageUrl = fileurl;
+            }
+         
+
+
+                var count = await _menuItemRepository.UpdateAsync(item);
+            return count > 0 ? "the menu item is updated successfully" : "the menu item is not updated";
+          
+
+
+        }
+        public async Task<(IQueryable<MenuItem>?, string)> GetAllAsync()
+        {
+             var menuitems=_menuItemRepository.GetTableNoTracking();
+            if (!menuitems.Any())
+            {
+                return (null, "the menuitems is not found");
+            }
+            return (menuitems, "the menuItems is viewed successfully");
+        }
     }
 }
