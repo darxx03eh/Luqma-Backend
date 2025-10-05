@@ -228,14 +228,15 @@
         public const string StatusUpdatedSuccessfully = "The status has been updated successfully";
         public const string AnErrorOccurredWhileUpdatingTheSalary = "An error occurred while updating the salary";
         public const string AmountUpdatedSuccessfully = "The amount has been updated successfully";
-      
-       public const string ItemSuccessUpdate = "the menu item is updated successfully";
+        public const string SalaryForThisYearAndMonthAlreadyGenerated = "The salary for this year and month has already been generated";
+        public const string AnErrorOccurredWhileGeneratingSalary = "An error occurred while generating the salary";
+        public const string SalaryGeneratedSuccessfully = "The salary has been generated successfully";
+        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";      
+        public const string ItemSuccessUpdate = "the menu item is updated successfully";
         public const string AnErrorWhileUpdateItem = "the menu item is not updated";
         public const string MenuItemsNotFound = " the items is not found";
         public const string SuccessGetMenuItems = "the Items is viewed successfully";
         public const string NotFoundMenus = "the menus is not found";
         public const string SuccessGetMenus = "the menus is viewed successfully";
-
-
     }
 }
