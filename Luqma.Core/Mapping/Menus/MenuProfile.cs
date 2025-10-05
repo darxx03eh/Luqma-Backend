@@ -2,6 +2,7 @@
 using Luqma.Core.Features.Menus.Commands.Models;
 using Luqma.Core.Features.Menus.Commands.Models;
 using Luqma.Data.Entities;
+using Luqma.Data.Response.Menus;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Luqma.Core.Mapping.Menus
         public MenuProfile()
         {
             CreateMap<AddMenuCommand,Menu>();
+            CreateMap<Menu, MenuResponse>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Luqma.Core.Features.MenuItems.Commands.Models;
 using Luqma.Data.Entities;
+using Luqma.Data.Response.MenuItems;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Luqma.Core.Mapping.MenuItems
             CreateMap<AddMenuItemCommand, MenuItem>();
             CreateMap<DeleteMenuItemCommand, MenuItem>();
             CreateMap<UpdateMenuItemCommand, MenuItem>();
+            CreateMap<MenuItem, MenuItemResponse>();
            
 
         }

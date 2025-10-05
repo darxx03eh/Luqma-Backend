@@ -10,5 +10,6 @@ namespace Luqma.Service.Interfaces
    public interface IMenuService
     {
         public  Task<string> AddMenuAsync(Menu menu);
+        public  Task<(IQueryable<Menu>?, string)> GetAllMenusAsync();
     }
 }
