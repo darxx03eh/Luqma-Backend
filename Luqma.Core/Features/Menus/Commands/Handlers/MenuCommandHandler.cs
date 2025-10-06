@@ -16,7 +16,9 @@ using Luqma.Core.ResponseKeys;
 namespace Luqma.Core.Features.Menus.Commands.Handlers
 {
     public class MenuCommandHandler : ApiResponseHandler,
-         IRequestHandler<AddMenuCommand, ApiResponse>
+         IRequestHandler<AddMenuCommand, ApiResponse>,
+        IRequestHandler<DeleteMenuCommand,ApiResponse>,
+        IRequestHandler<UpdateMenuCommand,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly IMenuService _menuService;
@@ -39,6 +41,34 @@ namespace Luqma.Core.Features.Menus.Commands.Handlers
 
 
             
+        }
+
+        public async Task<ApiResponse> Handle(DeleteMenuCommand request, CancellationToken cancellationToken)
+        {
+          
+           var result= await _menuService.DeleteMenuAsync(request.Id);
+            return result switch
+            {
+                "the menu id is not found"=>NotFound(SharedResponseKeys.NotFoundMenuId),
+ 
+                 "the menu is deleted successfully" => Deleted(SharedResponseKeys.SuccessDeleteMenu),
+                "the menu is not deleted" => InternalServerError(SharedResponseKeys.FailDeleteMenu)
+            };
+
+
+        }
+
+        public async Task<ApiResponse> Handle(UpdateMenuCommand request, CancellationToken cancellationToken)
+        {
+         
+           var result= await _menuService.updateMenuAsync(request.Id,request.Title,request.Description);
+            return result switch
+            {
+                "the menu id is not found"=>NotFound(SharedResponseKeys.NotFoundMenuId),
+ 
+                 "the menu is updated successfully" => Success(null, message: SharedResponseKeys.SuccessUpdateMenu),
+                "the menu is not updated" => InternalServerError(SharedResponseKeys.FailUpdateMenu)
+            };
         }
     }
 }

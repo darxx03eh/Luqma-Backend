@@ -65,9 +65,10 @@ namespace Luqma.Service.Implementations
             return "the menuitem is added successfully";  
 
         }
-        public async Task<string> DeleteMenuItemAsync(MenuItem menuItem)
+        public async Task<string> DeleteMenuItemAsync(int id)
         {
-            var item = await _menuItemRepository.GetByIdAsync(menuItem.Id);
+
+            var item = await _menuItemRepository.GetByIdAsync(id);
             if (item is null) return "the item Id is not found";
             if (item.ImageUrl != null)
             {
@@ -84,50 +85,50 @@ namespace Luqma.Service.Implementations
             return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
         }
-        public async Task<string> UpdateMenuItemAsync(MenuItem menuItem,IFormFile? file)
+        public async Task<string> UpdateMenuItemAsync(int id,string item,string description,double? discount,double price,bool isvegetarian,IFormFile? file)
         {
-            
-            var item=await _menuItemRepository.GetByIdAsync(menuItem.Id);
-            if (item is null) return "the item Id is not found";
-            item.Item = menuItem.Item;
-            item.Description = menuItem.Description;
-            item.Price = menuItem.Price;
-            item.Discount = menuItem.Discount;
-            item.IsVegetarian = menuItem.IsVegetarian;
+
+            var menuitem = await _menuItemRepository.GetByIdAsync(id);
+            if (menuitem is null) return "the item Id is not found";
+            menuitem.Item = item;
+            menuitem.Description = description;
+            menuitem.Price = price;
+            menuitem.Discount = discount;
+            menuitem.IsVegetarian = isvegetarian;
 
            
-            if (file == null && item.ImageUrl!=null)
+            if (file == null && menuitem.ImageUrl!=null)
             {
-                var result = await _cloudinaryService.DeleteFileAsync(item.ImageUrl);
+                var result = await _cloudinaryService.DeleteFileAsync(menuitem.ImageUrl);
                 if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
                     return "An Error while delete photo from  Cloudinary ";
-                item.ImageUrl = null;
+                menuitem.ImageUrl = null;
 
                 
             }
 
                 
-            if ( file!=null && item.ImageUrl != null)
+            if ( file!=null && menuitem.ImageUrl != null)
             {
-               var result= await _cloudinaryService.DeleteFileAsync(item.ImageUrl);
+               var result= await _cloudinaryService.DeleteFileAsync(menuitem.ImageUrl);
                 if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
                     return "An Error while delete photo from  Cloudinary ";
 
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 var fileurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Luqma/MenuItems", fileName);
-                item.ImageUrl = fileurl;
+                menuitem.ImageUrl = fileurl;
                 
             }
-            if(file!=null && item.ImageUrl==null)
+            if(file!=null && menuitem.ImageUrl==null)
             {
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                 var fileurl = await _cloudinaryService.UploadFileAsync(file.OpenReadStream(), "Luqma/MenuItems", fileName);
-                item.ImageUrl = fileurl;
+                menuitem.ImageUrl = fileurl;
             }
          
 
 
-                var count = await _menuItemRepository.UpdateAsync(item);
+                var count = await _menuItemRepository.UpdateAsync(menuitem);
             return count > 0 ? "the menu item is updated successfully" : "the menu item is not updated";
           
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twilio.Rest.Trunking.V1;
 
 namespace Luqma.Service.Implementations
 {
@@ -35,20 +36,19 @@ namespace Luqma.Service.Implementations
             await _categoryRepository.AddAsync(category);
             return "the category is created successfully";
         }
-        public async Task<string>UpdateAsync(Category category)
+        public async Task<string>UpdateAsync(int id,string title)
         {
-            if (category is null)
-            {
-                throw new Exception("can not add null");
-            }
+         var category=  await  _categoryRepository.GetByIdAsync(id);
+            if (category is null) return "the category id is not found";
+            category.Title = title;
           var count=  await _categoryRepository.UpdateAsync(category);
             return count > 0 ? "the category is updated successfully" : "the category is not updated";
         }
-        public async Task<string> DeleteAsync(Category category)
+        public async Task<string> DeleteAsync(int id)
         {
-            var cat = await _categoryRepository.GetByIdAsync(category.Id);
-            if (cat is null) return "the category is not found";
-           
+            var category = await _categoryRepository.GetByIdAsync(id);
+            if (category is null) return "the category id is not found";
+
            var count= await _categoryRepository.DeleteAsync(category);
             return count>0? "the category is deleted successfully": "the category is not deleted";
         }

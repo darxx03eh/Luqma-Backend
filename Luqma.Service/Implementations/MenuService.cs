@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Luqma.Service.Implementations
 {
-   public class MenuService :IMenuService
+   public class MenuService : IMenuService
     {
         private readonly IMenuRepository _menuRepository;
 
@@ -39,5 +39,29 @@ namespace Luqma.Service.Implementations
 
 
         }
+        public async Task<string> DeleteMenuAsync(int id)
+        {
+            var menu = await _menuRepository.GetByIdAsync(id);
+            if (menu is null) return "the menu id is not found";
+           
+          var count= await  _menuRepository.DeleteAsync(menu);
+            return count > 0 ? "the menu is deleted successfully" : "the menu is not deleted";
+        }
+        public async Task<string> updateMenuAsync(int id,string title,string description)
+        {
+
+            var menu = await _menuRepository.GetByIdAsync(id);
+            if(menu is null)
+            {
+                return "the menu id is not found";
+            }
+            menu.Title = title;
+            menu.Description = description;
+           int count= await _menuRepository.UpdateAsync(menu);
+
+            return count > 0 ? "the menu is updated successfully" : "the menu is not updated";
+        }
+
+      
     }
 }
