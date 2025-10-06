@@ -11,5 +11,7 @@ namespace Luqma.Service.Interfaces
     {
         public  Task<string> AddMenuAsync(Menu menu);
         public  Task<(IQueryable<Menu>?, string)> GetAllMenusAsync();
+        public  Task<string> DeleteMenuAsync(int id);
+        public Task<string> updateMenuAsync(int id, string title, string description);
     }
 }

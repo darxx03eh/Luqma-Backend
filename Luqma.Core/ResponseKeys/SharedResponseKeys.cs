@@ -1,4 +1,6 @@
-﻿namespace Luqma.Core.ResponseKeys
+﻿using Microsoft.Identity.Client;
+
+namespace Luqma.Core.ResponseKeys
 {
     public static class SharedResponseKeys
     {
@@ -249,6 +251,12 @@
         public const string SuccessViewItemsForCategory = "the items for category is viewed successfully";
         public const string NotFoundMenuId = "the menu id is not found";
         public const string NotFounItemId = "the item id is not found";
+        public const string SuccessDeleteMenu = "the menu is deleted successfully";
+        public const string FailDeleteMenu = "the menu is not deleted";
+        public const string SuccessUpdateMenu = "the menu is updated successfully";
+        public const string FailUpdateMenu = "the menu is not updated";
+
+
 
 
     }

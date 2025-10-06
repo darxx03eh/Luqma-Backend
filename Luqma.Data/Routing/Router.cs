@@ -82,7 +82,10 @@
         {
             public const string prefix = $"{rule}Manager/Menus";
             public const string Add = $"{prefix}/Add";
-          
+            public const string Delete = $"{prefix}/Delete{singleRoute}";
+            public const string Update = $"{prefix}/Update";
+
+
         }
         public static class MenuRouting
         {

@@ -39,10 +39,11 @@ namespace Luqma.Core.Features.Categories.Commands.Handlers
 
         public async Task<ApiResponse> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
         {
-             var category=_mapper.Map<Category>(request);
-           var result= await _categoryService.UpdateAsync(category);
+           
+           var result= await _categoryService.UpdateAsync(request.Id,request.Title);
             return result switch
             {
+                "the category id is not found"=>NotFound(SharedResponseKeys.CategoryIdNotFound),
                 "the category is updated successfully" => Success(null,message:SharedResponseKeys.SuccessUpdateCategory),
                 "the category is not updated" => InternalServerError(SharedResponseKeys.FailUpdateCategory),
                _ => InternalServerError(SharedResponseKeys.AnErrorOccurewhileUpdateCategory)
@@ -53,12 +54,10 @@ namespace Luqma.Core.Features.Categories.Commands.Handlers
         public async Task<ApiResponse> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
 
-            var category = _mapper.Map<Category>(request);
-            
-            var result = await  _categoryService.DeleteAsync(category);
+            var result = await  _categoryService.DeleteAsync(request.Id);
             return result switch
             {
-                "the category is not found" => NotFound(SharedResponseKeys.CategoryNotFound),
+                "the category id is not found" => NotFound(SharedResponseKeys.CategoryNotFound),
                 "the category is deleted successfully" => Success(null, message: SharedResponseKeys.SucessDeleteCategory),
                 "the category is not deleted" => InternalServerError(SharedResponseKeys.FailDeleteCategory),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccuredwhileDeletingTheCategory)

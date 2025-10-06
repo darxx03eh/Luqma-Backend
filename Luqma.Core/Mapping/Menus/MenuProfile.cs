@@ -17,6 +17,8 @@ namespace Luqma.Core.Mapping.Menus
         {
             CreateMap<AddMenuCommand,Menu>();
             CreateMap<Menu, MenuResponse>();
+            CreateMap<DeleteMenuCommand, Menu>();
+            CreateMap<UpdateMenuCommand, Menu>();
         }
     }
 }
