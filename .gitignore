@@ -55,3 +55,5 @@ nunit-*.xml
 
 # Ignore Visual Studio chace files
 .vs/
+
+Properties/PublishProfiles
