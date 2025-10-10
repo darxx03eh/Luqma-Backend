@@ -15,6 +15,7 @@ namespace Luqma.Data.Entities
             get => code is null ? null : EncryptionHelper.Decrypt(code);
             set => code = value is null ? null : EncryptionHelper.Encrypt(value);
         }
+        public DateTime? ExpireDate { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
         public Gender gender { get; set; }
         public virtual ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
