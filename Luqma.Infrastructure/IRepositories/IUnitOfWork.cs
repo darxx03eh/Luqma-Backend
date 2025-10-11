@@ -7,5 +7,6 @@
         public IUserAddressRepository UserAddressRepository { get; set; }
         public IDeductionRepository DeductionRepository { get; set; }
         public ISalaryRepository SalaryRepository { get; set; }
+        public IBillRepository BillRepository { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace Luqma.Infrastructure.Repositories
             UserAddressRepository = new UserAddressRepository(context, httpContextAccessor);
             DeductionRepository = new DeductionRepository(context, httpContextAccessor, userManager);
             SalaryRepository = new SalaryRepository(context, httpContextAccessor, userManager);
+            BillRepository = new BillRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
@@ -29,5 +30,6 @@ namespace Luqma.Infrastructure.Repositories
         public IUserAddressRepository UserAddressRepository { get; set; }
         public IDeductionRepository DeductionRepository { get; set; }
         public ISalaryRepository SalaryRepository { get; set; }
+        public IBillRepository BillRepository { get; set; }
     }
 }
