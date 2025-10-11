@@ -35,7 +35,7 @@ namespace Luqma.API.Controllers
         }
         [Authorize(Roles = Roles.Finance)]
         [HttpPut(Router.BillsRouting.UpdateBill)]
-        public async Task<IActionResult> UpdateBill([FromForm] UpdateBillCommand request)
+        public async Task<IActionResult> UpdateBill([FromBody] UpdateBillCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
