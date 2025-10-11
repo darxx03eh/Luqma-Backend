@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.19">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,7 +36,6 @@
     <Folder Include="Areas\chef\Controllers\" />
     <Folder Include="Areas\Delivery\Controllers\" />
     <Folder Include="Areas\FinanceStaff\Controllers\" />
-    <Folder Include="wwwroot\images\Menuitems\" />
   </ItemGroup>
 
 </Project>
