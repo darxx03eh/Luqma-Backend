@@ -112,7 +112,15 @@
         {
             public const string prefix = $"{rule}MenuContains";
             public const string GetItemsByMenuId = $"{prefix}/GetItemsByMenuId{singleRoute}";
-
+        }
+        public static class BillsRouting
+        {
+            public const string prefix = $"{rule}bills";
+            public const string GetBills = $"{prefix}";
+            public const string AddBills = $"{prefix}";
+            public const string DeleteBills = $"{prefix}{singleRoute}";
+            public const string UpdateBillStatus = $"{prefix}{singleRoute}/status";
+            public const string UpdateBill = $"{prefix}";
         }
         public static class CustomerRouting
         {

@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace Luqma.Core.ResponseKeys
+﻿namespace Luqma.Core.ResponseKeys
 {
     public static class SharedResponseKeys
     {
@@ -59,10 +57,10 @@ namespace Luqma.Core.ResponseKeys
         public const string AnErrorOccurredWhileSavingTheCode = "An error occurred while saving the code";
         public const string ForgetPasswordEmailHasBeenSent = "A password reset email has been sent to your email address";
         public const string AnErrorOccurredWhileSendingTheForgetPasswordEmailPleaseTryAgain = "An error occurred while sending the password reset email. Please try again";
-        public const string CodeNotEmpty = "Code must not be empty"; 
+        public const string CodeNotEmpty = "Code must not be empty";
         public const string CodeNotNull = "Code is required";
         public const string CodeGreaterThan6 = "Code must not be greater than 6 digits";
-        public const string CodeLessThan6 = "Code must not be less than 6 digits"; 
+        public const string CodeLessThan6 = "Code must not be less than 6 digits";
         public const string TheCodeHasExpired = "The code has expired";
         public const string TheCodeEnteredIsIncorrect = "The code entered is incorrect";
         public const string AnErrorOccurredWhileDeletingTheCode = "An error occurred while deleting the code";
@@ -171,7 +169,7 @@ namespace Luqma.Core.ResponseKeys
         public const string IsVegetarianNotNull = "the IsVigration must not be null";
         public const string PriceNotNull = "the price must not be null";
         public const string PriceNotEmpty = "the price must not be empty";
-        public const string PriceGreaterorEqualZero="the price must be greater than or equal zero";
+        public const string PriceGreaterorEqualZero = "the price must be greater than or equal zero";
         public const string DiscountHasPrecision = "the discount precision is (5,2)";
         public const string DiscountGreaterzeroandless100 = "the discount must be greater then zero and less than 100";
         public const string SuccessAddMenuItem = "the menuitem is added successfully";
@@ -213,11 +211,6 @@ namespace Luqma.Core.ResponseKeys
         public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
         public const string ItemSuccessDelete = "the menu item is deleted successfully";
         public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
-
-       
-
-
-
         public const string SalariesGeneratedSuccessfully = "Salaries have been generated successfully";
         public const string AnErrorOccurredWhileGeneratingSalaries = "An error occurred while generating salaries";
         public const string SalariesForThisYearAndMonthAlreadyGenerated = "Salaries for this year and month have already been generated";
@@ -233,20 +226,14 @@ namespace Luqma.Core.ResponseKeys
         public const string SalaryForThisYearAndMonthAlreadyGenerated = "The salary for this year and month has already been generated";
         public const string AnErrorOccurredWhileGeneratingSalary = "An error occurred while generating the salary";
         public const string SalaryGeneratedSuccessfully = "The salary has been generated successfully";
-        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";      
+        public const string SalaryForThisYearAndMonthAlreadyGeneratedForThisUser = "The salary for this year and month has already been generated for this user";
         public const string ItemSuccessUpdate = "the menu item is updated successfully";
         public const string AnErrorWhileUpdateItem = "the menu item is not updated";
         public const string MenuItemsNotFound = " the items is not found";
         public const string SuccessGetMenuItems = "the Items is viewed successfully";
         public const string NotFoundMenus = "the menus is not found";
         public const string SuccessGetMenus = "the menus is viewed successfully";
-
-      
-
-
         public const string ThereWasAProblemLoadingTheProfile = "There was a problem loading the profile";
-      
-      
         public const string CategoryIdNotFound = "the category id is not found";
         public const string SuccessViewItemsForCategory = "the items for category is viewed successfully";
         public const string NotFoundMenuId = "the menu id is not found";
@@ -255,7 +242,42 @@ namespace Luqma.Core.ResponseKeys
         public const string FailDeleteMenu = "the menu is not deleted";
         public const string SuccessUpdateMenu = "the menu is updated successfully";
         public const string FailUpdateMenu = "the menu is not updated";
-        public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public const string AnErrorOccurredWhileAddingTheBill = "An error occurred while adding the bill";
+        public const string TheBillHasBeenAddedSuccessfully = "The bill has been added successfully";
+        public const string BillNotFound = "The specified bill was not found";
+        public const string AnErrorOccurredWhileDeletingTheBill = "An error occurred while deleting the bill";
+        public const string TheBillHasBeenDeletedSuccessfully = "The bill has been deleted successfully";
+        public const string AnErrorOccurredWhileEditingTheStatus = "An error occurred while editing the status";
+        public const string TheStatusHasBeenModifiedSuccessfully = "The status has been modified successfully";
+        public const string AnErrorOccurredWhileEditingTheBill = "An error occurred while editing the bill";
+        public const string TheBillHasBeenModifiedSuccessfully = "The bill has been modified successfully";
+        public const string BillsNotFound = "No bills were found";
+        public const string BillsFound = "Bills have been found";
+      
+       public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
         public const string SuccessAddCustomer = "the customer is added successfully";
         public const string NotFoundCustomer = "the customer phonenumber is not found";
         public const string FoundCustomerPhonenumber= "the custmoer phonenumber is found";
@@ -271,25 +293,6 @@ namespace Luqma.Core.ResponseKeys
         public const string NotEmptyCity = "the city must not be empty";
         public const string NotEmptyState = "the state must not be empty";
         public const string NotEmptyStreet = "the street must not be empty";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
