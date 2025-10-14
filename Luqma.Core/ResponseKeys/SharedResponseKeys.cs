@@ -255,6 +255,38 @@ namespace Luqma.Core.ResponseKeys
         public const string FailDeleteMenu = "the menu is not deleted";
         public const string SuccessUpdateMenu = "the menu is updated successfully";
         public const string FailUpdateMenu = "the menu is not updated";
+        public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
+        public const string SuccessAddCustomer = "the customer is added successfully";
+        public const string NotFoundCustomer = "the customer phonenumber is not found";
+        public const string FoundCustomerPhonenumber= "the custmoer phonenumber is found";
+        public const string NotNullFirstName = "the firstname must not be null";
+        public const string NotEmptyFirstName = "the firstname must not be empty";
+        public const string NotNullLastName = "the lastname must not be null";
+        public const string NotEmptyLastName = "the lastname must not be empty";
+        public const string NotNullGender = "the gender must not be null";
+        public const string NotEmptyGender = "the gender must not be empty";
+        public const string NotNullCity = "the city must not be null";
+        public const string NotNullState = "the state must not be null";
+        public const string NotNullStreet = "the street must not be null";
+        public const string NotEmptyCity = "the city must not be empty";
+        public const string NotEmptyState = "the state must not be empty";
+        public const string NotEmptyStreet = "the street must not be empty";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

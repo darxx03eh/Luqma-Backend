@@ -22,11 +22,11 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(address => address.CustomerId);
 
             builder.Property(address => address.City)
-                .IsRequired().HasMaxLength(50);
+                .HasMaxLength(50);
             builder.Property(address => address.State)
-                .IsRequired().HasMaxLength(50);
+               .HasMaxLength(50);
             builder.Property(address => address.Street)
-                .IsRequired().HasMaxLength(50);
+                .HasMaxLength(50);
         }
     }
 }

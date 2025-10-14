@@ -35,8 +35,11 @@ namespace Luqma.Core.Middlewares
             Router.MenuRouting.GetAll,
           Router.CategoryItemsRouting.GetItemsByCategoryId.Replace("/{id}", ""),
           Router.MenuContainsRouting.GetItemsByMenuId.Replace("/{id}", ""),
-           Router.CustomerCategoriesRouting.GetAll,
-           Router.CustomerCategoriesRouting.GetById.Replace("/{id}", ""),
+           Router.CategoriesRouting.GetAll,
+           Router.CategoriesRouting.GetById.Replace("/{id}", ""),
+          Router.CustomerRouting.ConfirmPhoneNumberCode,
+          Router.CustomerRouting.AddPhoneNumberThenSend,
+          Router.CustomerRouting.UpdateCustomerDetails
         };
         public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
         {
