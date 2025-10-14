@@ -24,7 +24,15 @@ namespace Luqma.Service
             services.AddTransient(typeof(ISalaryService), typeof(SalaryService));
             services.AddTransient(typeof(ICategoryItemService), typeof(CategoryItemService));
             services.AddTransient(typeof(IMenuContainService), typeof(MenuContainService));
+
+           
+
+
+
+
             services.AddTransient(typeof(IBillService), typeof(BillService));
+           services.AddTransient(typeof(ICustomerService), typeof(CustomerService));
+
             return services;
         }
     }

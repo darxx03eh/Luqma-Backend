@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace Luqma.API
 {
@@ -54,7 +55,15 @@ namespace Luqma.API
             #endregion
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+     .AddJsonOptions(options =>
+     {
+         
+         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+      
+         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+     });
 
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {

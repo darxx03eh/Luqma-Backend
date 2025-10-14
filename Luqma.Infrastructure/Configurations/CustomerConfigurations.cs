@@ -39,9 +39,9 @@ namespace Luqma.Infrastructure.Configurations
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(customer => customer.FirstName)
-                .IsRequired().HasMaxLength(50);
+                .HasMaxLength(50);
             builder.Property(customer => customer.LastName)
-                .IsRequired().HasMaxLength(50);
+               .HasMaxLength(50);
             builder.Property(customer => customer.PhoneNumber)
                 .IsRequired().HasMaxLength(13);
             builder.HasIndex(customer => customer.PhoneNumber)

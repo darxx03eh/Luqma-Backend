@@ -1,4 +1,6 @@
-﻿namespace Luqma.Data.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Luqma.Data.Entities
 {
     public class CustomerAddress
     {
@@ -7,6 +9,7 @@
         public string City { get; set; }
         public string State { get; set; }
         public string Street { get; set; }
+      
         public virtual Customer? Customer { get; set; }
     }
 }

@@ -242,6 +242,29 @@
         public const string FailDeleteMenu = "the menu is not deleted";
         public const string SuccessUpdateMenu = "the menu is updated successfully";
         public const string FailUpdateMenu = "the menu is not updated";
+
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public const string AnErrorOccurredWhileAddingTheBill = "An error occurred while adding the bill";
         public const string TheBillHasBeenAddedSuccessfully = "The bill has been added successfully";
         public const string BillNotFound = "The specified bill was not found";
@@ -253,5 +276,23 @@
         public const string TheBillHasBeenModifiedSuccessfully = "The bill has been modified successfully";
         public const string BillsNotFound = "No bills were found";
         public const string BillsFound = "Bills have been found";
+      
+       public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
+        public const string SuccessAddCustomer = "the customer is added successfully";
+        public const string NotFoundCustomer = "the customer phonenumber is not found";
+        public const string FoundCustomerPhonenumber= "the custmoer phonenumber is found";
+        public const string NotNullFirstName = "the firstname must not be null";
+        public const string NotEmptyFirstName = "the firstname must not be empty";
+        public const string NotNullLastName = "the lastname must not be null";
+        public const string NotEmptyLastName = "the lastname must not be empty";
+        public const string NotNullGender = "the gender must not be null";
+        public const string NotEmptyGender = "the gender must not be empty";
+        public const string NotNullCity = "the city must not be null";
+        public const string NotNullState = "the state must not be null";
+        public const string NotNullStreet = "the street must not be null";
+        public const string NotEmptyCity = "the city must not be empty";
+        public const string NotEmptyState = "the state must not be empty";
+        public const string NotEmptyStreet = "the street must not be empty";
+
     }
 }

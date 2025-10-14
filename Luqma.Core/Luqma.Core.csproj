@@ -24,7 +24,9 @@
   <ItemGroup>
     <Folder Include="Features\Bills\Commands\Validators\" />
     <Folder Include="Features\CategoryItems\Commands\" />
+    <Folder Include="Features\Customers\Queries\" />
     <Folder Include="Features\MenuContains\Commands\NewFolder\" />
+    <Folder Include="Features\Orders\Queries\" />
     <Folder Include="Features\Salaries\Commands\Validators\" />
   </ItemGroup>
 

@@ -52,9 +52,9 @@
             public const string Delete = $"{prefix}/Delete{singleRoute}";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
-        public static class CustomerCategoriesRouting
+        public static class CategoriesRouting
         {
-            public const string prefix = $"{rule}Customer/Categories";
+            public const string prefix = $"{rule}Categories";
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
@@ -121,6 +121,15 @@
             public const string DeleteBills = $"{prefix}{singleRoute}";
             public const string UpdateBillStatus = $"{prefix}{singleRoute}/status";
             public const string UpdateBill = $"{prefix}";
+        }
+        public static class CustomerRouting
+        {
+            public const string prefix = $"{rule}Customers";
+            public const string AddPhoneNumberThenSend = $"{prefix}/AddPhoneNumberThenSend";
+            public const string ConfirmPhoneNumberCode = $"{prefix}/ConfirmPhoneNumberCode";
+            public const string UpdateCustomerDetails = $"{prefix}/UpdateCustomerDetails";
+            
+
         }
     }
 }
