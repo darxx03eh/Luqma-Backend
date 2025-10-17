@@ -86,7 +86,6 @@ namespace Luqma.Infrastructure.Repositories
             var handler = new JwtSecurityTokenHandler();
             try
             {
-
                 var jwtToken = handler.ReadJwtToken(token);
                 return jwtToken.Claims.FirstOrDefault(token => token.Type.Equals(nameof(UserClaimModel.Id)))?.Value;
             }
@@ -95,7 +94,5 @@ namespace Luqma.Infrastructure.Repositories
                 return null;
             }
         }
-     
-
     }
 }

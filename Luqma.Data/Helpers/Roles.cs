@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Xml.Linq;
-
-namespace Luqma.Data.Helpers
+﻿namespace Luqma.Data.Helpers
 {
     public static class Roles
     {
