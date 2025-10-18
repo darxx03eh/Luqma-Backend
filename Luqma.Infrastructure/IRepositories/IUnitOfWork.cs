@@ -8,5 +8,6 @@
         public IDeductionRepository DeductionRepository { get; set; }
         public ISalaryRepository SalaryRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
+        public IKitchenItemsRepository KitchenItemsRepository { get; set; }
     }
 }

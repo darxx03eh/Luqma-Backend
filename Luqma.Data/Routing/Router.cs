@@ -131,5 +131,15 @@
             
 
         }
+        public static class KitchenItemsRouting
+        {
+            public const string prefix = $"{rule}kitchen-items";
+            public const string GetKitchenItems = prefix;
+            public const string AddKitchenItems = prefix;
+            public const string GetKitchenItemById = $"{prefix}{singleRoute}";
+            public const string DeleteKitchenItem = $"{prefix}{singleRoute}";
+            public const string UpdateKitchenItemStatus = $"{prefix}/status";
+            public const string UpdateKitchenItem = prefix;
+        }
     }
 }
