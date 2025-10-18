@@ -38,6 +38,12 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(feedback => feedback.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(customer => customer.Carts)
+                    .WithOne(cart => cart.Customer)
+                    .HasForeignKey(cart => cart.CustomerId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+
             builder.Property(customer => customer.FirstName)
                 .HasMaxLength(50);
             builder.Property(customer => customer.LastName)

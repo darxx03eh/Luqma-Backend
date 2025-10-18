@@ -15,5 +15,6 @@
         public virtual ICollection<OrderItem>? OrderItems { get; set; } = new HashSet<OrderItem>();
         public virtual ICollection<Prediction>? Predictions { get; set; } = new HashSet<Prediction>();
         public virtual ICollection<WasteReport> WasteReports { get; set; } = new HashSet<WasteReport>();
+        public virtual ICollection<Cart> Carts { get; set; } = new HashSet<Cart>();
     }
 }

@@ -32,7 +32,7 @@ namespace Luqma.Service
 
             services.AddTransient(typeof(IBillService), typeof(BillService));
            services.AddTransient(typeof(ICustomerService), typeof(CustomerService));
-
+            services.AddHttpClient<WeatherService>();
             return services;
         }
     }
