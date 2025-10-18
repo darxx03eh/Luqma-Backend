@@ -21,6 +21,8 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasOne(oi => oi.MenuItem)
                 .WithMany(menuitem => menuitem.OrderItems)
                 .HasForeignKey(oi => oi.ItemId);
+             
+            
 
             builder.Property(oi => oi.Quantity)
                    .IsRequired().HasPrecision(10, 2);

@@ -44,16 +44,21 @@ namespace Luqma.Infrastructure
             var jwtSettings = new JwtSettings();
             var encryptionSettings = new EncryptionSettings();
             var whatsAppSettings = new WhatsAppSettings();
+            var OpenWeather = new OpenWeatherSettings();
             configuration.GetSection(nameof(emailSettings)).Bind(emailSettings);
             configuration.GetSection(nameof(cloudinarySettings)).Bind(cloudinarySettings);
             configuration.GetSection(nameof(jwtSettings)).Bind(jwtSettings);
             configuration.GetSection(nameof(encryptionSettings)).Bind(encryptionSettings);
             configuration.GetSection(nameof(whatsAppSettings)).Bind(whatsAppSettings);
+            configuration.GetSection("OpenWeather").Bind(OpenWeather);
+
             services.AddSingleton(emailSettings);
             services.AddSingleton(cloudinarySettings);
             services.AddSingleton(jwtSettings);
             services.AddSingleton(encryptionSettings);
             services.AddSingleton(whatsAppSettings);
+            services.AddSingleton(OpenWeather);
+
             #endregion
 
             #region Authentication and JWT Settings

@@ -38,6 +38,7 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Prediction> Predictions { get; set; }
         public DbSet<WasteReport> WasteReports { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
         #endregion
         public LuqmaDbContext(DbContextOptions<LuqmaDbContext> options)
             : base(options) { }

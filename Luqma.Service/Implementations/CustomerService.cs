@@ -15,11 +15,13 @@ namespace Luqma.Service.Implementations
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IWhatsAppService _whatsAppService;
+        private readonly ITokenService _tokenService;
 
-        public CustomerService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService)
+        public CustomerService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,ITokenService tokenService)
         {
             _customerRepository = customerRepository;
             _whatsAppService = whatsAppService;
+            _tokenService = tokenService;
         }
         /* public async Task<string> ConfirmPhoneNemberCode(string phoneNumber,string code)
          {
@@ -31,7 +33,7 @@ namespace Luqma.Service.Implementations
              }
 
          }*/
-        public async Task<string> UpdateCustomerAsync(string phonenumber,string firstname,string lastname,Gender gender, string city, string state, string street)
+        public async Task<(Customer,string)> UpdateCustomerAsync(string phonenumber,string firstname,string lastname,Gender gender, string city, string state, string street)
         {
             var cust = await _customerRepository.IsPhoneNumberExistAsync(phonenumber);
                 cust.FirstName = firstname;
@@ -44,7 +46,7 @@ namespace Luqma.Service.Implementations
                     {
                         await _customerRepository.SaveChangesAsync();
                        
-                        return "the customer is updated suuccessfully";
+                        return (cust,"the customer is updated suuccessfully");
 
                     }
                 }
@@ -58,7 +60,7 @@ namespace Luqma.Service.Implementations
                 await _customerRepository.SaveChangesAsync();
                
               
-                return "the customer is updated suuccessfully";
+                return (cust,"the customer is updated suuccessfully");
             }
           
 
@@ -66,16 +68,18 @@ namespace Luqma.Service.Implementations
 
 
         
-        public async Task<string> ConfirmPhoneNumberCodeAsync(string phonenumber,string code)
+        public async Task<(string?,string)> ConfirmPhoneNumberCodeAsync(string phonenumber,string code)
         {
            var customer= await _customerRepository.getByPhoneNumberAsync(phonenumber);
-            if (customer is null) return "the customer phonenumber is not found";
-            if (!code.Equals(customer.Code)) return "the code is not correct";
-            if (DateTime.UtcNow >= customer.ExpireDate) return "the code has expired";
+            if (customer is null) return (null,"the customer phonenumber is not found");
+            if (!code.Equals(customer.Code)) return (null,"the code is not correct");
+            if (DateTime.UtcNow >= customer.ExpireDate) return (null,"the code has expired");
             customer.Code = null;
             customer.ExpireDate = null;
             await _customerRepository.SaveChangesAsync();
-            return "TheCodeHasbeenVerified";
+            var token = await _tokenService.GenerateJwtTokenForCustomerAsync(customer);
+
+            return (token,"TheCodeHasbeenVerified");
 
 
         }

@@ -135,6 +135,8 @@ namespace Luqma.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+           
+
             app.UseResponseCaching();
             app.UseCors(CORS);
             app.UseMiddleware<ErrorHandlerMiddleWare>();

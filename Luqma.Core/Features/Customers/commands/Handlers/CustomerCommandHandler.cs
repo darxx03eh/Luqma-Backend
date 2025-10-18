@@ -33,22 +33,22 @@ namespace Luqma.Core.Features.Customers.commands.Handlers
         public async Task<ApiResponse> Handle(UpdateCustomerDetailsCommand request, CancellationToken cancellationToken)
         {
             var customer=_mapper.Map<Customer>(request);
-          var result= await  _customerService.UpdateCustomerAsync(request.PhoneNumber,request.FirstName,request.LastName,request.gender, request.City, request.State, request.Street);
+          var( cust,result)= await  _customerService.UpdateCustomerAsync(request.PhoneNumber,request.FirstName,request.LastName,request.gender, request.City, request.State, request.Street);
             return result switch {
-                "the customer is updated suuccessfully" => Success(null, message:SharedResponseKeys.SuccessUpdateCutomer),
+                "the customer is updated suuccessfully" => Success(cust, message:SharedResponseKeys.SuccessUpdateCutomer),
                
             };
         }
 
         public async Task<ApiResponse> Handle(ConfirmPhoneNumberCodeCommand request, CancellationToken cancellationToken)
         {
-           var result= await _customerService.ConfirmPhoneNumberCodeAsync(request.PhoneNumber, request.Code);
+           var (token,result)= await _customerService.ConfirmPhoneNumberCodeAsync(request.PhoneNumber, request.Code);
             return result switch
             {
                 "the customer phonenumber is not found" => NotFound(SharedResponseKeys.NotFoundCustomer),
                 "the code is not correct" => BadRequest(SharedResponseKeys.TheCodeEnteredIsIncorrect),
                 "the code has expired" => BadRequest(SharedResponseKeys.TheCodeHasExpired),
-                "TheCodeHasbeenVerified" => Success(null,message:SharedResponseKeys.TheCodeHasbeenVerified)
+                "TheCodeHasbeenVerified" => Success(token,message:SharedResponseKeys.TheCodeHasbeenVerified)
             };
         }
 

@@ -18,10 +18,6 @@ namespace Luqma.Infrastructure.Configurations
                 .WithOne(delivery => delivery.Order)
                 .HasForeignKey(delivery => delivery.OrderId);
 
-            builder.HasOne(order => order.Cashier)
-                .WithMany(user => user.Orders)
-                .HasForeignKey(order => order.CashierId);
-
             builder.HasOne(order => order.Customer)
                 .WithMany(customer => customer.Orders)
                 .HasForeignKey(order => order.CustomerId);

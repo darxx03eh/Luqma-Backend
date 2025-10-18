@@ -45,6 +45,11 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(wastereport => wastereport.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(menuitem => menuitem.Carts)
+                    .WithOne(cart => cart.MenuItem)
+                    .HasForeignKey(cart => cart.ItemId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(mi => mi.Item)
                    .IsRequired()
                    .HasMaxLength(100);
