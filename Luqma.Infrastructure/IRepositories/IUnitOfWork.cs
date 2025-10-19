@@ -1,4 +1,6 @@
-﻿namespace Luqma.Infrastructure.IRepositories
+﻿using Luqma.Data.Entities;
+
+namespace Luqma.Infrastructure.IRepositories
 {
     public interface IUnitOfWork
     {
@@ -9,5 +11,6 @@
         public ISalaryRepository SalaryRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
+        public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
     }
 }

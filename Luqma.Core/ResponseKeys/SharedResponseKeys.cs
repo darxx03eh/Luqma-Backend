@@ -293,5 +293,12 @@
         public const string AnErrorOccurredWhileDeletingOldItemImage = "An error occurred while deleting the old item image";
         public const string AnErrorOccurredWhileUpdatingKitchenItem = "An error occurred while updating the kitchen item";
         public const string KitchenItemUpdatingSuccessfully = "The kitchen item has been updated successfully";
+        public const string RequirmentItemsNotFound = "No requirement items were found";
+        public const string SomeKitchenItemNotFound = "Some kitchen items were not found";
+        public const string AnErrorOccurredWhileAddingKitchenRequirment = "An error occurred while adding the kitchen requirement";
+        public const string KitchenRequirmentAddedSuccessfully = "The kitchen requirement has been added successfully";
+        public const string RequirmentItemsAreRequired = "Requirement items are required";
+        public const string ItemIdMustBeGreaterThanZero = "Item ID must be greater than zero";
+        public const string QuantityMustBeGreaterThanZero = "Quantity must be greater than zero";
     }
 }

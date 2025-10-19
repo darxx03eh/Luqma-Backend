@@ -1,4 +1,5 @@
-﻿using Luqma.Data.Entities.Identity;
+﻿using Luqma.Data.Entities;
+using Luqma.Data.Entities.Identity;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace Luqma.Infrastructure.Repositories
             SalaryRepository = new SalaryRepository(context, httpContextAccessor, userManager);
             BillRepository = new BillRepository(context, httpContextAccessor);
             KitchenItemsRepository = new KitchenItemsRepository(context, httpContextAccessor);
+            KitchenRequirmentsRepository = new KitchenRequirmentsRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
@@ -33,5 +35,6 @@ namespace Luqma.Infrastructure.Repositories
         public ISalaryRepository SalaryRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
+        public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
     }
 }
