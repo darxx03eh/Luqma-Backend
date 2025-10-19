@@ -1,4 +1,6 @@
 ﻿using Luqma.Data.DTOs.RequirmentItems;
+using Luqma.Data.Response.KitchenRequirments;
+using Luqma.Data.Wrappers;
 
 namespace Luqma.Service.Interfaces
 {
@@ -6,5 +8,7 @@ namespace Luqma.Service.Interfaces
     {
         public Task<string> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems);
         public Task<string> ChangeKitchenRequirmentsAsync(int id, string status);
+        public Task<(string, PaginatedResult<GetKitchenRequirmentsResponse>?)> GetKitchenRequirmentsAsync(int pageNumber);
+        public Task<(string, GetKitchenRequirmentsResponse?)> GetKitchenRequirmentsByIdAsync(int id);
     }
 }

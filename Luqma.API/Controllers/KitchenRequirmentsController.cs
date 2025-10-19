@@ -1,5 +1,6 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.KitchenRequirments.Commands.Models;
+using Luqma.Core.Features.KitchenRequirments.Queries.Models;
 using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace Luqma.API.Controllers
     [ApiController]
     public class KitchenRequirmentsController : AppBaseController
     {
-        [Authorize(Roles = Roles.Manager)]
+        [Authorize(Roles = Roles.Chef)]
         [HttpPost(Router.KitchenRequirmentsRouting.PlaceNewKitchenRequirments)]
         public async Task<IActionResult> PlaceNewKitchenRequirments([FromBody] PlaceNewKitchenRequirmentsCommand request)
         {
@@ -23,6 +24,23 @@ namespace Luqma.API.Controllers
         public async Task<IActionResult> ChangeKitchenRequirmentsStatus([FromBody] ChangeKitchenRequirmentsStatusCommand request)
         {
             var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [HttpGet(Router.KitchenRequirmentsRouting.GetPaginatedKitchenRequirements)]
+        public async Task<IActionResult> GetPaginatedKitchenRequirements(int pageNumber = 1)
+        {
+            var result = await mediator.Send(new GetKitchenRequirementsQuery()
+            {
+                PageNumber = pageNumber
+            });
+            return Result(result);
+        }
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [HttpGet(Router.KitchenRequirmentsRouting.GetKitchenRequirementsById)]
+        public async Task<IActionResult> GetKitchenRequirementsById(int id)
+        {
+            var result = await mediator.Send(new GetKitchenRequirementsByIdQuery(id));
             return Result(result);
         }
     }
