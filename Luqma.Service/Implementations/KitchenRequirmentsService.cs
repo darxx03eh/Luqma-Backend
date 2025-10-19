@@ -1,6 +1,8 @@
 ﻿using Luqma.Data.DTOs.RequirmentItems;
 using Luqma.Data.Entities;
 using Luqma.Data.Entities.Identity;
+using Luqma.Data.Response.KitchenRequirments;
+using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
@@ -43,6 +45,56 @@ namespace Luqma.Service.Implementations
             kitchenRequirments.Status = status;
             var result = await unitOfWork.KitchenRequirmentsRepository.UpdateAsync(kitchenRequirments);
             return result <= 0 ? "AnErrorOccurredWhileEditingTheStatus" : "TheStatusHasBeenModifiedSuccessfully";
+        }
+
+        public async Task<(string, PaginatedResult<GetKitchenRequirmentsResponse>?)> GetKitchenRequirmentsAsync(int pageNumber)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(userId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
+
+            var kitchenRequirements = unitOfWork.KitchenRequirmentsRepository.GetTableNoTracking().AsQueryable();
+            if (kitchenRequirements is null)
+                return ("KitchenRequirmentsNotFound", null);
+
+            var requirements = await kitchenRequirements.Select(req => new GetKitchenRequirmentsResponse()
+            {
+                Id = req.Id,
+                ChefName = $"{req.Chef.FirstName} {req.Chef.LastName}",
+                TotalPrice = req.TotalPrice,
+                Status = req.Status,
+                Note = req.Note,
+                Date = req.Date.ToString("yyyy-MM-dd hh:mm tt")
+            }).ToPaginatedListAsync(pageNumber, 5);
+            if (requirements.Data.Count().Equals(0))
+                return ("KitchenRequirmentsNotFound", null);
+            return ("KitchenRequirmentsFound", requirements);
+        }
+
+        public async Task<(string, GetKitchenRequirmentsResponse?)> GetKitchenRequirmentsByIdAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(userId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
+
+            var kitchenRequirements = await unitOfWork.KitchenRequirmentsRepository.GetByIdAsync(id);
+            if (kitchenRequirements is null)
+                return ("KitchenRequirmentsNotFound", null);
+            return ("KitchenRequirmentsFound", new GetKitchenRequirmentsResponse()
+            {
+                Id = kitchenRequirements.Id,
+                ChefName = $"{kitchenRequirements.Chef.FirstName} {kitchenRequirements.Chef.LastName}",
+                TotalPrice = kitchenRequirements.TotalPrice,
+                Status = kitchenRequirements.Status,
+                Note = kitchenRequirements.Note,
+                Date = kitchenRequirements.Date.ToString("yyyy-MM-dd hh:mm tt")
+            });
         }
 
         public async Task<string> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)

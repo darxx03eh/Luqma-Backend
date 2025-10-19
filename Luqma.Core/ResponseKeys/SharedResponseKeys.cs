@@ -304,5 +304,7 @@
         public const string KitchenRequirmentsNotFound = "No kitchen requirements were found";
         public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted = "You cannot change the status for this kitchen requirement because it has already been accepted";
         public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected = "You cannot change the status for this kitchen requirement because it has already been rejected";
+        public const string FinanceOrManagerNotFound = "The specified finance employee or manager was not found";
+        public const string KitchenRequirmentsFound = "Kitchen requirements have been found";
     }
 }

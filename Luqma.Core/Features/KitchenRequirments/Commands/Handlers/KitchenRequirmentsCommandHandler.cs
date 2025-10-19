@@ -41,9 +41,9 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
                 "KitchenRequirmentsNotFound" => NotFound(SharedResponseKeys.KitchenRequirmentsNotFound),
                 "AnErrorOccurredWhileEditingTheStatus" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheStatus),
                 "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted" =>
-                BadRequest(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted),
+                Forbidden(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted),
                 "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected" => 
-                BadRequest(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected),
+                Forbidden(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected),
                 "TheStatusHasBeenModifiedSuccessfully" => Success(new
                 {
                     NewStatus = request.Status,
