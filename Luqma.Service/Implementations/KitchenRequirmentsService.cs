@@ -115,6 +115,49 @@ namespace Luqma.Service.Implementations
             });
         }
 
+        public async Task<(string, GetKitchenRequirmentsInfoResponse?)> GetKitchenRequirmentsInfoAsync(int id)
+        {
+            var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(userId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(userId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
+
+            var kitchenRequirements = await unitOfWork.KitchenRequirmentsRepository.GetByIdAsync(id);
+            if (kitchenRequirements is null)
+                return ("KitchenRequirmentsNotFound", null);
+
+            var requirmentItems = unitOfWork.RequirmentItemsRepository.GetTableNoTracking()
+                .Where(item => item.RequirmentId.Equals(id)).ToList();
+
+            var items = requirmentItems.Select(item => new Items()
+            {
+                ItemId = item.KitchenItems.Id,
+                Item = item.KitchenItems.Item,
+                ImageUrl = item.KitchenItems.ImageUrl,
+                Unit = item.KitchenItems.Unit,
+                RequirmentInfo = new RequirmentInfo()
+                {
+                    Price = item.Price,
+                    Quantity = item.Quantity,
+                    Discount = item.Discount
+                }
+            }).ToList();
+            if (items is null || items.Count().Equals(0))
+                return ("RequirmentItemsNotFound", null);
+            return ("KitchenRequirmentsFound", new GetKitchenRequirmentsInfoResponse
+            {
+                Id = kitchenRequirements.Id,
+                ChefName = $"{kitchenRequirements.Chef.FirstName} {kitchenRequirements.Chef.LastName}",
+                TotalPrice = kitchenRequirements.TotalPrice,
+                Status = kitchenRequirements.Status,
+                Note = kitchenRequirements.Note,
+                Date = kitchenRequirements.Date.ToString("yyyy-MM-dd hh:mm tt"),
+                Items = items,
+            });
+        }
+
         public async Task<string> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();

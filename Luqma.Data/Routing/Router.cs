@@ -149,6 +149,7 @@
             public const string PlaceNewKitchenRequirments = prefix;
             public const string ChangeKitchenRequirmentsStatus = $"{prefix}/status";
             public const string DeleteKitchenRequirments = $"{prefix}{singleRoute}";
+            public const string GetKitchenRequirmentsInfo = $"{prefix}{singleRoute}/info";
         }
     }
 }
