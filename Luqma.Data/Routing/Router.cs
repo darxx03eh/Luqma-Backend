@@ -141,5 +141,10 @@
             public const string UpdateKitchenItemStatus = $"{prefix}/status";
             public const string UpdateKitchenItem = prefix;
         }
+        public static class KitchenRequirmentsRouting
+        {
+            public const string prefix = $"{rule}kitchen-requirments";
+            public const string PlaceNewKitchenRequirments = prefix;
+        }
     }
 }
