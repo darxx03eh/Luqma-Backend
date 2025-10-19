@@ -28,7 +28,7 @@ namespace Luqma.API.Areas.Manager.Controllers
             var result = await mediator.Send(new DeleteMenuItemCommand(id));
             return Result(result);
         }
-        [HttpPatch(Router.ManagerMenuItemsRouting.Update)]
+        [HttpPut(Router.ManagerMenuItemsRouting.Update)]
         public async Task<IActionResult> UpdateMenuItem([FromForm]UpdateMenuItemCommand request)
         {
 

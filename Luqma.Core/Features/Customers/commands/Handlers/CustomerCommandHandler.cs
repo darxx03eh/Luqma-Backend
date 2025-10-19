@@ -33,9 +33,10 @@ namespace Luqma.Core.Features.Customers.commands.Handlers
         public async Task<ApiResponse> Handle(UpdateCustomerDetailsCommand request, CancellationToken cancellationToken)
         {
             var customer=_mapper.Map<Customer>(request);
-          var( cust,result)= await  _customerService.UpdateCustomerAsync(request.PhoneNumber,request.FirstName,request.LastName,request.gender, request.City, request.State, request.Street);
+        var result= await  _customerService.UpdateCustomerAsync(request.FirstName,request.LastName,request.gender, request.City, request.State, request.Street);
             return result switch {
-                "the customer is updated suuccessfully" => Success(cust, message:SharedResponseKeys.SuccessUpdateCutomer),
+                "Error while extract userid from token"=>InternalServerError(SharedResponseKeys.ErrorExtractUseridfromToken),
+                "the customer is updated suuccessfully" => Success (null,message:SharedResponseKeys.SuccessUpdateCutomer),
                
             };
         }

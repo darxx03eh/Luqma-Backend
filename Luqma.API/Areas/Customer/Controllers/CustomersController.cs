@@ -1,6 +1,7 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Customers.commands.Models;
 using Luqma.Data.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Twilio.Rest.Trunking.V1;
@@ -18,7 +19,8 @@ namespace Luqma.API.Areas.Customer.Controllers
             return Result(result);
         }
 
-        [HttpPatch(Router.CustomerRouting.UpdateCustomerDetails)]
+        [Authorize]
+        [HttpPut(Router.CustomerRouting.UpdateCustomerDetails)]
         public async Task<IActionResult> UpdateCustomer(UpdateCustomerDetailsCommand request)
         {
 

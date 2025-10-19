@@ -16,12 +16,14 @@ namespace Luqma.Service.Implementations
         private readonly ICustomerRepository _customerRepository;
         private readonly IWhatsAppService _whatsAppService;
         private readonly ITokenService _tokenService;
+      
 
         public CustomerService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,ITokenService tokenService)
         {
             _customerRepository = customerRepository;
             _whatsAppService = whatsAppService;
             _tokenService = tokenService;
+          
         }
         /* public async Task<string> ConfirmPhoneNemberCode(string phoneNumber,string code)
          {
@@ -33,9 +35,11 @@ namespace Luqma.Service.Implementations
              }
 
          }*/
-        public async Task<(Customer,string)> UpdateCustomerAsync(string phonenumber,string firstname,string lastname,Gender gender, string city, string state, string street)
+        public async Task<string> UpdateCustomerAsync(string firstname,string lastname,Gender gender, string city, string state, string street)
         {
-            var cust = await _customerRepository.IsPhoneNumberExistAsync(phonenumber);
+            var customerid = _customerRepository.ExtractUserIdFromToken();
+            if (customerid is null) return "Error while extract userid from token";
+            var cust = await _customerRepository.GetByIdAsync(int.Parse(customerid));      
                 cust.FirstName = firstname;
                 cust.LastName = lastname;
                 cust.gender = gender;
@@ -46,7 +50,7 @@ namespace Luqma.Service.Implementations
                     {
                         await _customerRepository.SaveChangesAsync();
                        
-                        return (cust,"the customer is updated suuccessfully");
+                        return "the customer is updated suuccessfully";
 
                     }
                 }
@@ -60,7 +64,7 @@ namespace Luqma.Service.Implementations
                 await _customerRepository.SaveChangesAsync();
                
               
-                return (cust,"the customer is updated suuccessfully");
+                return"the customer is updated suuccessfully";
             }
           
 
