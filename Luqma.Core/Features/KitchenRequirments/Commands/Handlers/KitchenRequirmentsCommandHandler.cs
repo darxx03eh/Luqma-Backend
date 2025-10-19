@@ -8,6 +8,7 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
 {
     public class KitchenRequirmentsCommandHandler : ApiResponseHandler
         , IRequestHandler<PlaceNewKitchenRequirmentsCommand, ApiResponse>
+        , IRequestHandler<ChangeKitchenRequirmentsStatusCommand, ApiResponse>
     {
         private readonly IKitchenRequirmentsService kitchenRequirmentsService;
 
@@ -28,6 +29,26 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenRequirment),
                 "KitchenRequirmentAddedSuccessfully" => Success(null, message: SharedResponseKeys.KitchenRequirmentAddedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenRequirment)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeKitchenRequirmentsStatusCommand request, CancellationToken cancellationToken)
+        {
+            var result = await kitchenRequirmentsService.ChangeKitchenRequirmentsAsync(request.Id, request.Status);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "KitchenRequirmentsNotFound" => NotFound(SharedResponseKeys.KitchenRequirmentsNotFound),
+                "AnErrorOccurredWhileEditingTheStatus" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheStatus),
+                "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted" =>
+                BadRequest(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted),
+                "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected" => 
+                BadRequest(SharedResponseKeys.YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected),
+                "TheStatusHasBeenModifiedSuccessfully" => Success(new
+                {
+                    NewStatus = request.Status,
+                }, message: SharedResponseKeys.TheStatusHasBeenModifiedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheStatus)
             };
         }
     }

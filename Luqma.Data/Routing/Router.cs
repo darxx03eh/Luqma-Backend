@@ -145,6 +145,7 @@
         {
             public const string prefix = $"{rule}kitchen-requirments";
             public const string PlaceNewKitchenRequirments = prefix;
+            public const string ChangeKitchenRequirmentsStatus = $"{prefix}/status";
         }
     }
 }
