@@ -39,7 +39,7 @@ namespace Luqma.API.Areas.Manager.Controllers
              var result=await mediator.Send(request);
             return Result(result);
         }
-        [HttpPatch(Router.ManagerCategoriesRouting.Update)]
+        [HttpPut(Router.ManagerCategoriesRouting.Update)]
        
         public async Task<IActionResult> Update([FromBody]UpdateCategoryCommand request)
         {

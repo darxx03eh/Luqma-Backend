@@ -253,7 +253,7 @@
         public const string TheBillHasBeenModifiedSuccessfully = "The bill has been modified successfully";
         public const string BillsNotFound = "No bills were found";
         public const string BillsFound = "Bills have been found";
-        public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
+        public const string SuccessUpdateCutomer = "the customer is updated successfully";
         public const string SuccessAddCustomer = "the customer is added successfully";
         public const string NotFoundCustomer = "the customer phonenumber is not found";
         public const string FoundCustomerPhonenumber= "the custmoer phonenumber is found";
@@ -269,6 +269,15 @@
         public const string NotEmptyCity = "the city must not be empty";
         public const string NotEmptyState = "the state must not be empty";
         public const string NotEmptyStreet = "the street must not be empty";
+
+     
+
+
+
+
+
+
+
         public const string KitchenItemsNotFound = "No kitchen items were found";
         public const string KitchenItemsFound = "Kitchen items have been found";
         public const string ItemNameIsRequired = "Item name is required";
@@ -308,5 +317,18 @@
         public const string KitchenRequirmentsFound = "Kitchen requirements have been found";
         public const string AnErrorOccurredWhileDeletingKitchenRequirments = "An error occurred while deleting the kitchen requirements";
         public const string KitchenRequirmentsDeletedSuccessfully = "The kitchen requirements have been deleted successfully";
+      
+         public const string ErrorExtractUseridfromToken = "Error while extract userid from token";
+        public const string SuccessAddCartFromCustomer = "the item is added to cart by customer successfully";
+        public const string SuccessGetCartForCustomer = "the cart for customer is fetched successfully";
+        public const string NotFoundCart = " the cart is not found";
+        public const string SuccessIncreaseQuantity = "the quantity is increased succsessfully";
+        public const string FailIncreaseQuantity = "the quantity is not increased";
+        public const string SuccessDecreaseQuantity = "the quantity is decreased succsessfully";
+        public const string FailDecreaseQuantity = "the quantity is not decreased";
+        public const string NoDecreaseQuantity = "the quantity is 1 ,so you are not able to decrease quantity";
+        public const string SuccessDeleteItemFromCartForCustomer = "the item is deleted from cart for customer successfully";
+        public const string FailDeleteItemFromCartForCustomer = "the item is not deleted from cart for customer";
+
     }
 }

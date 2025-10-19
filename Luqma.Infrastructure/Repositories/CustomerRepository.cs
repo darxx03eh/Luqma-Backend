@@ -30,7 +30,6 @@ namespace Luqma.Infrastructure.Repositories
         public async Task<Customer?> IsPhoneNumberExistAsync(string phonenumber)
         {
            var customer= _context.Customers.FirstOrDefault(c => c.PhoneNumber == phonenumber);
-            if (customer is null) return null;
             return customer;
         }
 

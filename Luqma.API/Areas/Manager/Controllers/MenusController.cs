@@ -32,7 +32,7 @@ namespace Luqma.API.Areas.Manager.Controllers
 
 
         }
-        [HttpPatch(Router.ManagerMenuRouting.Update)]
+        [HttpPut(Router.ManagerMenuRouting.Update)]
         public async Task<IActionResult> UpdateMenu([FromBody]UpdateMenuCommand request)
         {
             var result = await mediator.Send(request);
