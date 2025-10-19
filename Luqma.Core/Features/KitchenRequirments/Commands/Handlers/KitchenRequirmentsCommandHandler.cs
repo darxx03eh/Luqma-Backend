@@ -9,6 +9,7 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
     public class KitchenRequirmentsCommandHandler : ApiResponseHandler
         , IRequestHandler<PlaceNewKitchenRequirmentsCommand, ApiResponse>
         , IRequestHandler<ChangeKitchenRequirmentsStatusCommand, ApiResponse>
+        , IRequestHandler<DeleteKitchenRequirmentsCommand, ApiResponse>
     {
         private readonly IKitchenRequirmentsService kitchenRequirmentsService;
 
@@ -49,6 +50,20 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
                     NewStatus = request.Status,
                 }, message: SharedResponseKeys.TheStatusHasBeenModifiedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileEditingTheStatus)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeleteKitchenRequirmentsCommand request, CancellationToken cancellationToken)
+        {
+            var result = await kitchenRequirmentsService.DeleteKitchenRequirmentsAsync(request.Id);
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "KitchenRequirmentsNotFound" => NotFound(SharedResponseKeys.KitchenRequirmentsNotFound),
+                "AnErrorOccurredWhileDeletingKitchenRequirments" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirments),
+                "KitchenRequirmentsDeletedSuccessfully" => Success(null, message: SharedResponseKeys.KitchenRequirmentsDeletedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirments)
             };
         }
     }

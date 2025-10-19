@@ -10,5 +10,6 @@ namespace Luqma.Service.Interfaces
         public Task<string> ChangeKitchenRequirmentsAsync(int id, string status);
         public Task<(string, PaginatedResult<GetKitchenRequirmentsResponse>?)> GetKitchenRequirmentsAsync(int pageNumber);
         public Task<(string, GetKitchenRequirmentsResponse?)> GetKitchenRequirmentsByIdAsync(int id);
+        public Task<string> DeleteKitchenRequirmentsAsync(int id);
     }
 }
