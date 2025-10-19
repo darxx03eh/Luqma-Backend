@@ -50,5 +50,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new DeleteKitchenRequirmentsCommand(id));
             return Result(result);
         }
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [HttpGet(Router.KitchenRequirmentsRouting.GetKitchenRequirmentsInfo)]
+        public async Task<IActionResult> GetKitchenRequirmentsInfo(int id)
+        {
+            var result = await mediator.Send(new GetKitchenRequirmentsInfoQuery(id));
+            return Result(result);
+        }
     }
 }

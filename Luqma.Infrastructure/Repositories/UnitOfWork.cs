@@ -26,6 +26,7 @@ namespace Luqma.Infrastructure.Repositories
             BillRepository = new BillRepository(context, httpContextAccessor);
             KitchenItemsRepository = new KitchenItemsRepository(context, httpContextAccessor);
             KitchenRequirmentsRepository = new KitchenRequirmentsRepository(context, httpContextAccessor);
+            RequirmentItemsRepository = new RequirmentItemsRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
@@ -36,5 +37,6 @@ namespace Luqma.Infrastructure.Repositories
         public IBillRepository BillRepository { get; set; }
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
         public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
+        public IRequirmentItemsRepository RequirmentItemsRepository { get; set; }
     }
 }
