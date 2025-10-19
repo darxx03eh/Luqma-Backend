@@ -300,5 +300,9 @@
         public const string RequirmentItemsAreRequired = "Requirement items are required";
         public const string ItemIdMustBeGreaterThanZero = "Item ID must be greater than zero";
         public const string QuantityMustBeGreaterThanZero = "Quantity must be greater than zero";
+        public const string StatusMustBeEitherAcceptedOrRejectede = "Status must be either 'Accepted' or 'Rejected'";
+        public const string KitchenRequirmentsNotFound = "No kitchen requirements were found";
+        public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted = "You cannot change the status for this kitchen requirement because it has already been accepted";
+        public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected = "You cannot change the status for this kitchen requirement because it has already been rejected";
     }
 }

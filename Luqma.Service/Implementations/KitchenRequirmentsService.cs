@@ -22,6 +22,29 @@ namespace Luqma.Service.Implementations
             this.context = context;
         }
 
+        public async Task<string> ChangeKitchenRequirmentsAsync(int id, string status)
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return "FinanceEmployeeNotFound";
+
+            var finance = await userManager.FindByIdAsync(financeId);
+            if (finance is null)
+                return "FinanceEmployeeNotFound";
+
+            var kitchenRequirments = await unitOfWork.KitchenRequirmentsRepository.GetByIdAsync(id);
+            if (kitchenRequirments is null)
+                return "KitchenRequirmentsNotFound";
+
+            if (kitchenRequirments.Status.ToLower().Equals("accepted"))
+                return "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted";
+            if (kitchenRequirments.Status.ToLower().Equals("rejected"))
+                return "YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected";
+            kitchenRequirments.Status = status;
+            var result = await unitOfWork.KitchenRequirmentsRepository.UpdateAsync(kitchenRequirments);
+            return result <= 0 ? "AnErrorOccurredWhileEditingTheStatus" : "TheStatusHasBeenModifiedSuccessfully";
+        }
+
         public async Task<string> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
