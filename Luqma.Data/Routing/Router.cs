@@ -131,7 +131,35 @@
             
 
         }
-        public static class CustomerCartsRouting
+
+       
+
+
+
+
+=======
+        public static class KitchenItemsRouting
+        {
+            public const string prefix = $"{rule}kitchen-items";
+            public const string GetKitchenItems = prefix;
+            public const string AddKitchenItems = prefix;
+            public const string GetKitchenItemById = $"{prefix}{singleRoute}";
+            public const string DeleteKitchenItem = $"{prefix}{singleRoute}";
+            public const string UpdateKitchenItemStatus = $"{prefix}/status";
+            public const string UpdateKitchenItem = prefix;
+        }
+        public static class KitchenRequirmentsRouting
+        {
+            public const string prefix = $"{rule}kitchen-requirments";
+            public const string GetPaginatedKitchenRequirements = prefix;
+            public const string GetKitchenRequirementsById = $"{prefix}{singleRoute}";
+            public const string PlaceNewKitchenRequirments = prefix;
+            public const string ChangeKitchenRequirmentsStatus = $"{prefix}/status";
+            public const string DeleteKitchenRequirments = $"{prefix}{singleRoute}";
+            public const string GetKitchenRequirmentsInfo = $"{prefix}{singleRoute}/info";
+
+        }
+       public static class CustomerCartsRouting
         {
             public const string prefix = $"{rule}Customer/Carts";
             public const string AddToCart = $"{prefix}/AddTocart";
@@ -139,11 +167,6 @@
             public const string IncreaseQuantity = $"{prefix}/IncreaseQuantity";
             public const string DecreaseQuantity = $"{prefix}/DecreaseQuantity";
             public const string DeleteItemFormCartForCustomerByItemId = $"{prefix}/DeleteItemFormCartForCustomerByItemId{singleRoute}";
-
-
-
-
-
-        }
+       }
     }
 }

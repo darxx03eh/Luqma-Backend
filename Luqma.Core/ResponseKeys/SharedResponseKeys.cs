@@ -242,29 +242,6 @@
         public const string FailDeleteMenu = "the menu is not deleted";
         public const string SuccessUpdateMenu = "the menu is updated successfully";
         public const string FailUpdateMenu = "the menu is not updated";
-
-       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public const string AnErrorOccurredWhileAddingTheBill = "An error occurred while adding the bill";
         public const string TheBillHasBeenAddedSuccessfully = "The bill has been added successfully";
         public const string BillNotFound = "The specified bill was not found";
@@ -276,8 +253,7 @@
         public const string TheBillHasBeenModifiedSuccessfully = "The bill has been modified successfully";
         public const string BillsNotFound = "No bills were found";
         public const string BillsFound = "Bills have been found";
-      
-       public const string SuccessUpdateCutomer = "the customer is updated suuccessfully";
+        public const string SuccessUpdateCutomer = "the customer is updated successfully";
         public const string SuccessAddCustomer = "the customer is added successfully";
         public const string NotFoundCustomer = "the customer phonenumber is not found";
         public const string FoundCustomerPhonenumber= "the custmoer phonenumber is found";
@@ -293,7 +269,56 @@
         public const string NotEmptyCity = "the city must not be empty";
         public const string NotEmptyState = "the state must not be empty";
         public const string NotEmptyStreet = "the street must not be empty";
-        public const string ErrorExtractUseridfromToken = "Error while extract userid from token";
+
+     
+
+
+
+
+
+
+
+        public const string KitchenItemsNotFound = "No kitchen items were found";
+        public const string KitchenItemsFound = "Kitchen items have been found";
+        public const string ItemNameIsRequired = "Item name is required";
+        public const string ItemNameMustNotExceed100Characters = "Item name must not exceed 100 characters";
+        public const string StatusIsRequired = "Status is required";
+        public const string StatusMustBeEitherAvailableOrUnavailable = "Status must be either 'Available' or 'Unavailable'";
+        public const string UnitIsRequired = "Unit is required";
+        public const string UnitMustNotExceed50Characters = "Unit must not exceed 50 characters";
+        public const string QuantityMustBe0OrGreater = "Quantity must be 0 or greater";
+        public const string NoteMustNotExceed500Characters = "Note must not exceed 500 characters";
+        public const string AnErrorOccurredWhileProcessingItemImageUploadingRequest = "An error occurred while processing the item image upload request";
+        public const string AnErrorOccurredWhileAddingKitchenItem = "An error occurred while adding the kitchen item";
+        public const string KitchenItemAddedSuccessfully = "The kitchen item has been added successfully";
+        public const string ChefOrManagerNotFound = "The specified chef or manager was not found";
+        public const string KitchenItemNotFound = "The specified kitchen item was not found";
+        public const string KitchenItemFound = "The kitchen item has been found";
+        public const string ChefNotFound = "The specified chef was not found";
+        public const string AnErrorOccurredWhileDeletingKitchenItem = "An error occurred while deleting the kitchen item";
+        public const string KitchenItemDeletedSuccessfully = "The kitchen item has been deleted successfully";
+        public const string AnErrorOccurredWhileUpdatingKitchenItemStatus = "An error occurred while updating the kitchen item status";
+        public const string KitchenItemStatusUpdatingSuccessfully = "The kitchen item status has been updated successfully";
+        public const string AnErrorOccurredWhileDeletingOldItemImage = "An error occurred while deleting the old item image";
+        public const string AnErrorOccurredWhileUpdatingKitchenItem = "An error occurred while updating the kitchen item";
+        public const string KitchenItemUpdatingSuccessfully = "The kitchen item has been updated successfully";
+        public const string RequirmentItemsNotFound = "No requirement items were found";
+        public const string SomeKitchenItemNotFound = "Some kitchen items were not found";
+        public const string AnErrorOccurredWhileAddingKitchenRequirment = "An error occurred while adding the kitchen requirement";
+        public const string KitchenRequirmentAddedSuccessfully = "The kitchen requirement has been added successfully";
+        public const string RequirmentItemsAreRequired = "Requirement items are required";
+        public const string ItemIdMustBeGreaterThanZero = "Item ID must be greater than zero";
+        public const string QuantityMustBeGreaterThanZero = "Quantity must be greater than zero";
+        public const string StatusMustBeEitherAcceptedOrRejectede = "Status must be either 'Accepted' or 'Rejected'";
+        public const string KitchenRequirmentsNotFound = "No kitchen requirements were found";
+        public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyAccepted = "You cannot change the status for this kitchen requirement because it has already been accepted";
+        public const string YouCanNotChangeStatusForThisKitchenRequirmentsAlreadyRejected = "You cannot change the status for this kitchen requirement because it has already been rejected";
+        public const string FinanceOrManagerNotFound = "The specified finance employee or manager was not found";
+        public const string KitchenRequirmentsFound = "Kitchen requirements have been found";
+        public const string AnErrorOccurredWhileDeletingKitchenRequirments = "An error occurred while deleting the kitchen requirements";
+        public const string KitchenRequirmentsDeletedSuccessfully = "The kitchen requirements have been deleted successfully";
+      
+         public const string ErrorExtractUseridfromToken = "Error while extract userid from token";
         public const string SuccessAddCartFromCustomer = "the item is added to cart by customer successfully";
         public const string SuccessGetCartForCustomer = "the cart for customer is fetched successfully";
         public const string NotFoundCart = " the cart is not found";
@@ -304,12 +329,6 @@
         public const string NoDecreaseQuantity = "the quantity is 1 ,so you are not able to decrease quantity";
         public const string SuccessDeleteItemFromCartForCustomer = "the item is deleted from cart for customer successfully";
         public const string FailDeleteItemFromCartForCustomer = "the item is not deleted from cart for customer";
-
-
-
-
-
-
 
     }
 }

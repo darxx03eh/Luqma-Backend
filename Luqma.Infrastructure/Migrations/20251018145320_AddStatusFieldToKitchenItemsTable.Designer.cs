@@ -4,6 +4,7 @@ using Luqma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Luqma.Infrastructure.Migrations
 {
     [DbContext(typeof(LuqmaDbContext))]
-    partial class LuqmaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251018145320_AddStatusFieldToKitchenItemsTable")]
+    partial class AddStatusFieldToKitchenItemsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -537,9 +540,6 @@ namespace Luqma.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
                     b.Property<double>("Quantity")
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
@@ -935,9 +935,6 @@ namespace Luqma.Infrastructure.Migrations
                     b.Property<double>("Price")
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
-
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
 
                     b.Property<int>("RequirmentId")
                         .HasColumnType("int");
