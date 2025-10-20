@@ -33,7 +33,6 @@
             public const string ChangeUserName = $"{prefix}/{settings}/change-username";
             public const string DeleteProfileImage = $"{prefix}/{settings}/profile-image";
             public const string ChangeBirthDate = $"{prefix}/{settings}/change-birth-date";
-
             public const string DeactiveUser = $"{prefix}/deactive";
             public const string ActivateUser = $"{prefix}/active";
             public const string ViewUsers = $"{prefix}";
@@ -42,6 +41,7 @@
             public const string ShowUserAddresses = $"{prefix}/address";
             public const string ShowSpecificAddress = $"{prefix}/address{singleRoute}";
             public const string Profile = $"{prefix}/profile{UserName}";
+            public const string ChangeUserRoles = $"{prefix}/roles";
         }
         public static class ManagerCategoriesRouting
         {
@@ -131,13 +131,6 @@
             
 
         }
-
-       
-
-
-
-
-=======
         public static class KitchenItemsRouting
         {
             public const string prefix = $"{rule}kitchen-items";
