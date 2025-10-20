@@ -43,6 +43,7 @@
             public const string Profile = $"{prefix}/profile{UserName}";
             public const string ChangeUserRoles = $"{prefix}/roles";
             public const string UpdateUserData = prefix;
+            public const string ChangePasswordForUserByManager = $"{prefix}/user-management/password";
         }
         public static class ManagerCategoriesRouting
         {

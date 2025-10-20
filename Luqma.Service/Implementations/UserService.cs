@@ -465,5 +465,41 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredWhileUpdatingUserData";
             return "UserDataUpdatedSuccessfully";
         }
+
+        public async Task<string> ChangePasswordForUserByManagerAsync(int userId, string password)
+        {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+            var user = await userManager.FindByIdAsync(Convert.ToString(userId));
+            if (user is null)
+                return "UserNotFound";
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var deleteResult = await userManager.RemovePasswordAsync(user);
+                    if (!deleteResult.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "AnErrorOccurredWhileDeletingTheOldPassword";
+                    }
+                    var addResult = await userManager.AddPasswordAsync(user, password);
+                    if (!addResult.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "AnErrorOccurredWhileAddingTheNewPassword";
+                    }
+                    await transaction.CommitAsync();
+                    return "PasswordChangedSuccessfully";
+                }
+                catch (Exception exp)
+                {
+                    if (transaction.GetDbTransaction().Connection is not null)
+                        await transaction.RollbackAsync();
+                    return "AnErrorOccurredWhileChangingThePassword";
+                }
+            }
+        }
     }
 }
