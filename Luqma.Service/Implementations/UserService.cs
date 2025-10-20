@@ -1,4 +1,5 @@
-﻿using Luqma.Data.Entities;
+﻿using Luqma.Data.DTOs.Users;
+using Luqma.Data.Entities;
 using Luqma.Data.Entities.Identity;
 using Luqma.Data.Response.Users;
 using Luqma.Data.Wrappers;
@@ -402,6 +403,44 @@ namespace Luqma.Service.Implementations
             }catch(Exception exp)
             {
                 return ("ThereWasAProblemLoadingTheProfile", null);
+            }
+        }
+
+        public async Task<string> ChangeUserRolesAsync(int userId, IList<UserRoles> roles)
+        {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+
+            var user = await userManager.FindByIdAsync(Convert.ToString(userId));
+            if (user is null)
+                return "UserNotFound";
+            using (var transaction = await context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var oldRoles = await userManager.GetRolesAsync(user);
+                    var deletedResult = await userManager.RemoveFromRolesAsync(user, oldRoles);
+                    if (!deletedResult.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "AnErrorOccurredWhileDeletingOldRoles";
+                    }
+                    var selectedRoles = roles.Where(role => role.HasRole).Select(role => role.RoleName);
+                    var roleResult = await userManager.AddToRolesAsync(user, selectedRoles);
+                    if (!roleResult.Succeeded)
+                    {
+                        await transaction.RollbackAsync();
+                        return "FailedToAddUserRoles";
+                    }
+                    await transaction.CommitAsync();
+                    return "AddedToUserRolesSuccessfully";
+                }catch(Exception exp)
+                {
+                    if(transaction.GetDbTransaction().Connection is not null)
+                        await transaction.RollbackAsync();
+                    return "AnErrorOccurredWhileAddingTheUserToRoles";
+                }
             }
         }
     }

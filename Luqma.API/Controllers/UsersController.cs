@@ -105,5 +105,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new ViewUsersQuery() { PageNumber = pageNumber });
             return Result(result);
         }
+        [Authorize(Roles = Roles.Manager)]
+        [HttpPatch(Router.UsersRouting.ChangeUserRoles)]
+        public async Task<IActionResult> ChangeUserRoles([FromBody] ChangeUserRolesCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Luqma.Data.Response.Users;
+﻿using Luqma.Data.DTOs.Users;
+using Luqma.Data.Response.Users;
 using Luqma.Data.Wrappers;
 using Microsoft.AspNetCore.Http;
 
@@ -24,5 +25,6 @@ namespace Luqma.Service.Interfaces
         public Task<(string, PaginatedResult<ShowUserAddressResponse>?)> ShowUserAddressesAsync(int pageNumber);
         public Task<(string, ShowUserAddressResponse?)> ViewSpecificAddressAsync(int id);
         public Task<(string, ProfileResponse?)> GetUserProfileAsync(string username);
+        public Task<string> ChangeUserRolesAsync(int userId, IList<UserRoles> roles);
     }
 }

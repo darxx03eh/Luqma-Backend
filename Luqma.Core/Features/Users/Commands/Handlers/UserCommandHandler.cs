@@ -18,6 +18,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<AddUserAddressCommand, ApiResponse>
         , IRequestHandler<UpdateUserAddressCommand, ApiResponse>
         , IRequestHandler<DeleteUserAddressCommand, ApiResponse>
+        , IRequestHandler<ChangeUserRolesCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -201,6 +202,21 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "AnErrorOccurredWhileDeletingTheAddress" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheAddress),
                 "TheAddressHasBeenSuccessfullyDeleted" => Success(null, message: SharedResponseKeys.TheAddressHasBeenSuccessfullyDeleted),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheAddress)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeUserRolesCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.ChangeUserRolesAsync(request.UserId, request.UserRoles);
+            return result switch
+            {
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AnErrorOccurredWhileDeletingOldRoles" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingOldRoles),
+                "FailedToAddUserRoles" => InternalServerError(SharedResponseKeys.FailedToAddUserRoles),
+                "AddedToUserRolesSuccessfully" => Success(null, message: SharedResponseKeys.AddedToUserRolesSuccessfully),
+                "AnErrorOccurredWhileAddingTheUserToRoles" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheUserToRoles),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheUserToRoles)
             };
         }
     }

@@ -1,5 +1,3 @@
-
-using CloudinaryDotNet.Actions;
 using Luqma.Core;
 using Luqma.Core.Bases;
 using Luqma.Core.Middlewares;
@@ -56,15 +54,14 @@ namespace Luqma.API
             // Add services to the container.
 
             builder.Services.AddControllers()
-     .AddJsonOptions(options =>
-     {
-         
-         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+             .AddJsonOptions(options =>
+             {
 
-      
-         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-     });
+                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
+
+                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+             });
             builder.Services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.InvalidModelStateResponseFactory = context =>
@@ -135,7 +132,7 @@ namespace Luqma.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-           
+
 
             app.UseResponseCaching();
             app.UseCors(CORS);
