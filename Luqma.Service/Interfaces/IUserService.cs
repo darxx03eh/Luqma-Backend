@@ -25,6 +25,7 @@ namespace Luqma.Service.Interfaces
         public Task<(string, PaginatedResult<ShowUserAddressResponse>?)> ShowUserAddressesAsync(int pageNumber);
         public Task<(string, ShowUserAddressResponse?)> ViewSpecificAddressAsync(int id);
         public Task<(string, ProfileResponse?)> GetUserProfileAsync(string username);
-        public Task<string> ChangeUserRolesAsync(int userId, IList<UserRoles> roles);
+        public Task<string> ChangeUserRolesAsync(int userId, IList<UserRolesDTO> roles);
+        public Task<string> UpdateUserDataAsync(UpdateUserDataDTO request);
     }
 }

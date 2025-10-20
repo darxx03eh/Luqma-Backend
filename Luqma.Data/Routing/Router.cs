@@ -42,6 +42,7 @@
             public const string ShowSpecificAddress = $"{prefix}/address{singleRoute}";
             public const string Profile = $"{prefix}/profile{UserName}";
             public const string ChangeUserRoles = $"{prefix}/roles";
+            public const string UpdateUserData = prefix;
         }
         public static class ManagerCategoriesRouting
         {

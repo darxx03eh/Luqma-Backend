@@ -19,6 +19,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<UpdateUserAddressCommand, ApiResponse>
         , IRequestHandler<DeleteUserAddressCommand, ApiResponse>
         , IRequestHandler<ChangeUserRolesCommand, ApiResponse>
+        , IRequestHandler<UpdateUserDataCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -217,6 +218,19 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "AddedToUserRolesSuccessfully" => Success(null, message: SharedResponseKeys.AddedToUserRolesSuccessfully),
                 "AnErrorOccurredWhileAddingTheUserToRoles" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheUserToRoles),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheUserToRoles)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(UpdateUserDataCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.UpdateUserDataAsync(request.UserData);
+            return result switch
+            {
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AnErrorOccurredWhileUpdatingUserData" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingUserData),
+                "UserDataUpdatedSuccessfully" => Success(request.UserData, message: SharedResponseKeys.UserDataUpdatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingUserData)
             };
         }
     }

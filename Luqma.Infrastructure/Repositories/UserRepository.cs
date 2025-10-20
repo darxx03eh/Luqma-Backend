@@ -31,6 +31,7 @@ namespace Luqma.Infrastructure.Repositories
             {
                 Id = user.Id,
                 ImageUrl = user.ImageUrl,
+                UserName = user.UserName,
                 Name = $"{user.FirstName} {user.LastName}",
                 Email = user.Email,
                 Status = user.IsActive ? "Active" : "InActive",

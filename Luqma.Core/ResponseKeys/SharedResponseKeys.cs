@@ -324,5 +324,7 @@
         public const string FailedToAddUserRoles = "Failed to add user roles";
         public const string AddedToUserRolesSuccessfully = "User roles have been added successfully";
         public const string AnErrorOccurredWhileAddingTheUserToRoles = "An error occurred while adding the user to the specified roles";
+        public const string AnErrorOccurredWhileUpdatingUserData = "An error occurred while updating the user data";
+        public const string UserDataUpdatedSuccessfully = "The user data has been updated successfully";
     }
 }
