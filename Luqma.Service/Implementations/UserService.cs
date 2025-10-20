@@ -406,7 +406,7 @@ namespace Luqma.Service.Implementations
             }
         }
 
-        public async Task<string> ChangeUserRolesAsync(int userId, IList<UserRoles> roles)
+        public async Task<string> ChangeUserRolesAsync(int userId, IList<UserRolesDTO> roles)
         {
             var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(managerId))
@@ -442,6 +442,28 @@ namespace Luqma.Service.Implementations
                     return "AnErrorOccurredWhileAddingTheUserToRoles";
                 }
             }
+        }
+
+        public async Task<string> UpdateUserDataAsync(UpdateUserDataDTO request)
+        {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+
+            var user = await userManager.FindByIdAsync(Convert.ToString(request.UserId));
+            if (user is null)
+                return "UserNotFound";
+
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.Email = request.Email;
+            user.UserName = request.UserName;
+            user.Gender = request.Gender;
+            user.BirthDate = request.BirthDate;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+                return "AnErrorOccurredWhileUpdatingUserData";
+            return "UserDataUpdatedSuccessfully";
         }
     }
 }

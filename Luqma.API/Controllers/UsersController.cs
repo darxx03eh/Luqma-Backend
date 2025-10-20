@@ -112,5 +112,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [Authorize(Roles = Roles.Manager)]
+        [HttpPut(Router.UsersRouting.UpdateUserData)]
+        public async Task<IActionResult> UpdateUserData([FromBody] UpdateUserDataCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }
