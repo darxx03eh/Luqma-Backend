@@ -28,5 +28,6 @@ namespace Luqma.Service.Interfaces
         public Task<string> ChangeUserRolesAsync(int userId, IList<UserRolesDTO> roles);
         public Task<string> UpdateUserDataAsync(UpdateUserDataDTO request);
         public Task<string> ChangePasswordForUserByManagerAsync(int userId, string password);
+        public Task<string> ChangeSalaryAsync(int userId, double salary);
     }
 }

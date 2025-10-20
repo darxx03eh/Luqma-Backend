@@ -126,5 +126,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [HttpPatch(Router.UsersRouting.ChangeSalary)]
+        public async Task<IActionResult> ChangeSalary([FromBody] ChangeSalaryCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }

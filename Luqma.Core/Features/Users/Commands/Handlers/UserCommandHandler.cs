@@ -21,6 +21,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<ChangeUserRolesCommand, ApiResponse>
         , IRequestHandler<UpdateUserDataCommand, ApiResponse>
         , IRequestHandler<ChangePasswordForUserByManagerCommand, ApiResponse>
+        , IRequestHandler<ChangeSalaryCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -250,6 +251,23 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "AnErrorOccurredWhileChangingThePassword" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeSalaryCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.ChangeSalaryAsync(request.UserId, request.Salary);
+            return result switch
+            {
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AnErrorOccurredWhileUpdatingSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingSalary),
+                "SalaryForSpecificUserUpdatedSuccessfully" => 
+                Success(new
+                {
+                    Salary = request.Salary
+                }, message: SharedResponseKeys.SalaryForSpecificUserUpdatedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingSalary)
             };
         }
     }
