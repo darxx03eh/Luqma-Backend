@@ -18,6 +18,10 @@ namespace Luqma.Core.Features.Users.Commands.Validators
         }
         private void ApplyValidationRules()
         {
+            RuleFor(user => user.UserData.UserId)
+                .NotEmpty().WithMessage(SharedResponseKeys.UserIdIsRequired)
+                .NotNull().WithMessage(SharedResponseKeys.UserIdNotNull);
+
             RuleFor(user => user.UserData.FirstName)
                 .NotEmpty().WithMessage(SharedResponseKeys.FirstNameNotEmpty)
                 .NotNull().WithMessage(SharedResponseKeys.FirstNameNotNull);

@@ -27,5 +27,6 @@ namespace Luqma.Service.Interfaces
         public Task<(string, ProfileResponse?)> GetUserProfileAsync(string username);
         public Task<string> ChangeUserRolesAsync(int userId, IList<UserRolesDTO> roles);
         public Task<string> UpdateUserDataAsync(UpdateUserDataDTO request);
+        public Task<string> ChangePasswordForUserByManagerAsync(int userId, string password);
     }
 }

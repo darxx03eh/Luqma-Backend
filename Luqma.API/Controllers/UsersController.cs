@@ -119,5 +119,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [Authorize(Roles = Roles.Manager)]
+        [HttpPatch(Router.UsersRouting.ChangePasswordForUserByManager)]
+        public async Task<IActionResult> ChangePasswordForUserByManager([FromBody] ChangePasswordForUserByManagerCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         , IRequestHandler<DeleteUserAddressCommand, ApiResponse>
         , IRequestHandler<ChangeUserRolesCommand, ApiResponse>
         , IRequestHandler<UpdateUserDataCommand, ApiResponse>
+        , IRequestHandler<ChangePasswordForUserByManagerCommand, ApiResponse>
     {
         private readonly IUserService userService;
 
@@ -231,6 +232,24 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "AnErrorOccurredWhileUpdatingUserData" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingUserData),
                 "UserDataUpdatedSuccessfully" => Success(request.UserData, message: SharedResponseKeys.UserDataUpdatedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingUserData)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangePasswordForUserByManagerCommand request, CancellationToken cancellationToken)
+        {
+            var result = await userService.ChangePasswordForUserByManagerAsync(request.UserId, request.Password);
+            return result switch
+            {
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
+                "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "AnErrorOccurredWhileDeletingTheOldPassword" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingTheOldPassword),
+                "AnErrorOccurredWhileAddingTheNewPassword" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingTheNewPassword),
+                "PasswordChangedSuccessfully" => Success(null, message: SharedResponseKeys.PasswordChangedSuccessfully),
+                "AnErrorOccurredWhileChangingThePassword" =>
+                InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingThePassword)
             };
         }
     }
