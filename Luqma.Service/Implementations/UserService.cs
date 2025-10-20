@@ -501,5 +501,19 @@ namespace Luqma.Service.Implementations
                 }
             }
         }
+
+        public async Task<string> ChangeSalaryAsync(int userId, double salary)
+        {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+            var user = await userManager.FindByIdAsync(Convert.ToString(userId));
+            if (user is null)
+                return "UserNotFound";
+
+            user.Salary = Convert.ToDecimal(salary);
+            var result = await userManager.UpdateAsync(user);
+            return !result.Succeeded ? "AnErrorOccurredWhileUpdatingSalary" : "SalaryForSpecificUserUpdatedSuccessfully";
+        }
     }
 }

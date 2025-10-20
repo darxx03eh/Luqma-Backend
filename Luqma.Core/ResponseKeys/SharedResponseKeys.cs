@@ -326,5 +326,7 @@
         public const string AnErrorOccurredWhileAddingTheUserToRoles = "An error occurred while adding the user to the specified roles";
         public const string AnErrorOccurredWhileUpdatingUserData = "An error occurred while updating the user data";
         public const string UserDataUpdatedSuccessfully = "The user data has been updated successfully";
+        public const string AnErrorOccurredWhileUpdatingSalary = "An error occurred while updating the salary";
+        public const string SalaryForSpecificUserUpdatedSuccessfully = "The salary for the specific user has been updated successfully";
     }
 }

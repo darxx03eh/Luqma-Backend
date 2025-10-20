@@ -44,6 +44,7 @@
             public const string ChangeUserRoles = $"{prefix}/roles";
             public const string UpdateUserData = prefix;
             public const string ChangePasswordForUserByManager = $"{prefix}/user-management/password";
+            public const string ChangeSalary = $"{prefix}/change-salary";
         }
         public static class ManagerCategoriesRouting
         {
