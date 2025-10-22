@@ -235,11 +235,11 @@ namespace Luqma.Service.Implementations
             return "TokenRevokedSuccessfully";
         }
 
-        public async Task<string> SendConfirmationEmailAsync(string email)
+        public async Task<string> SendConfirmationEmailAsync(string username)
         {
             try
             {
-                var user = await userManager.FindByEmailAsync(email);
+                var user = await userManager.FindByNameAsync(username);
                 if (user is null)
                     return "UserNotFound";
                 if (user.EmailConfirmed)
@@ -247,7 +247,7 @@ namespace Luqma.Service.Implementations
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 var httpRequest = httpContextAccessor.HttpContext.Request;
                 var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationsRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
-                var send = await emailService.SendAuthenticationsEmailAsync(email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
+                var send = await emailService.SendAuthenticationsEmailAsync(user.Email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
                 if (send.Equals("Failed"))
                     return "AnErrorOccurredWhileSendingTheConfirmationEmailPleaseTryAgain";
                 return "EmailConfirmationEmailHasBeenSent";
@@ -374,7 +374,7 @@ namespace Luqma.Service.Implementations
                     var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                     var httpRequest = httpContextAccessor.HttpContext.Request;
                     var link = $"{httpRequest.Scheme}://{httpRequest.Host}/{Router.AuthenticationsRouting.EmailConfirmation}?email={user.Email}&token={Uri.EscapeDataString(token)}";
-                    var sendEmail = emailService.SendAuthenticationsEmailAsync(user.Email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
+                    var sendEmail = await emailService.SendAuthenticationsEmailAsync(user.Email, link, "Verification Email", $"{user.FirstName} {user.LastName}");
                     if (sendEmail.Equals("Failed"))
                     {
                         await transaction.RollbackAsync();
