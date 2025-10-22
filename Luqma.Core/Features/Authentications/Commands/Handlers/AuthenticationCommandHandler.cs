@@ -64,7 +64,7 @@ namespace Luqma.Core.Features.Authentications.Commands.Handlers
 
         public async Task<ApiResponse> Handle(SendConfirmationEmailCommand request, CancellationToken cancellationToken)
         {
-            var result = await authenticationService.SendConfirmationEmailAsync(request.Email);
+            var result = await authenticationService.SendConfirmationEmailAsync(request.UserName);
             return result switch
             {
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),

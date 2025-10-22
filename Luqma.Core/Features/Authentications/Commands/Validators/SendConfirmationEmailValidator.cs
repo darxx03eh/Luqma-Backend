@@ -18,18 +18,17 @@ namespace Luqma.Core.Features.Authentications.Commands.Validators
         }
         private void ApplyValidationRules()
         {
-            RuleFor(user => user.Email)
-                .NotEmpty().WithMessage(SharedResponseKeys.EmailNotEmpty)
-                .NotNull().WithMessage(SharedResponseKeys.EmailNotNull)
-                .EmailAddress().WithMessage(SharedResponseKeys.NotValidEmail);
+            RuleFor(user => user.UserName)
+                .NotEmpty().WithMessage(SharedResponseKeys.UserNameNotEmpty)
+                .NotNull().WithMessage(SharedResponseKeys.UserNameNotNull);
         }
         private void ApplyCustomValidationRules()
         {
-            RuleFor(user => user.Email)
+            RuleFor(user => user.UserName)
                 .MustAsync(async (key, cancellation) =>
                 {
-                    var email = await userManager.FindByEmailAsync(key);
-                    return email is not null;
+                    var username = await userManager.FindByNameAsync(key);
+                    return username is not null;
                 }).WithMessage(SharedResponseKeys.UserNotFound);
         }
     }
