@@ -59,6 +59,11 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(delivery => delivery.DeliveryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(user => user.Orders)
+                .WithOne(order => order.Cashier)
+                .HasForeignKey(order => order.CashierId)
+                .OnDelete(DeleteBehavior.Cascade);
+
            
 
             builder.Property(u => u.FirstName)
