@@ -21,12 +21,12 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
         }
         public async Task<ApiResponse> Handle(GenerateSalariesCommand request, CancellationToken cancellationToken)
         {
-            var result = await salaryService.GenerateSalaryAsync();
+            var (result, salaries) = await salaryService.GenerateSalaryAsync();
             return result switch
             {
                 "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
                 "SalariesForThisYearAndMonthAlreadyGenerated" => Conflict(SharedResponseKeys.SalariesForThisYearAndMonthAlreadyGenerated),
-                "SalariesGeneratedSuccessfully" => Success(null, message: SharedResponseKeys.SalariesGeneratedSuccessfully),
+                "SalariesGeneratedSuccessfully" => Success(salaries, message: SharedResponseKeys.SalariesGeneratedSuccessfully),
                 "AnErrorOccurredWhileGeneratingSalaries" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalaries),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalaries),
             };
@@ -81,7 +81,7 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
 
         public async Task<ApiResponse> Handle(GenerateSalaryForUserCommand request, CancellationToken cancellationToken)
         {
-            var result = await salaryService.GenerateSalaryForUserAsync(request.Id, request.Year, request.Month);
+            var (result, salary) = await salaryService.GenerateSalaryForUserAsync(request.Id, request.Year, request.Month);
             return result switch
             {
                 "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
@@ -89,7 +89,7 @@ namespace Luqma.Core.Features.Salaries.Commands.Handlers
                 "SalaryForThisYearAndMonthAlreadyGeneratedForThisUser" => 
                 Conflict(SharedResponseKeys.SalaryForThisYearAndMonthAlreadyGeneratedForThisUser),
                 "AnErrorOccurredWhileGeneratingSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalary),
-                "SalaryGeneratedSuccessfully" => Success(null, message: SharedResponseKeys.SalaryGeneratedSuccessfully),
+                "SalaryGeneratedSuccessfully" => Success(salary, message: SharedResponseKeys.SalaryGeneratedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileGeneratingSalary)
             };
         }

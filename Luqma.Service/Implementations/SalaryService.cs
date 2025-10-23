@@ -1,5 +1,6 @@
 ﻿using Luqma.Data.Entities;
 using Luqma.Data.Entities.Identity;
+using Luqma.Data.Response.Deductions;
 using Luqma.Data.Response.Salaries;
 using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.IRepositories;
@@ -73,21 +74,21 @@ namespace Luqma.Service.Implementations
             return result <= 0 ? "AnErrorOccurredWhileDeletingTheSalary" : "SalaryDeletedSuccessfully";
         }
 
-        public async Task<string> GenerateSalaryAsync()
+        public async Task<(string, IList<GetSalariesResponse>?)> GenerateSalaryAsync()
         {
             var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(financeId))
-                return "FinanceEmployeeNotFound";
+                return ("FinanceEmployeeNotFound", null);
             var finance = await userManager.FindByIdAsync(financeId);
             if (finance is null)
-                return "FinanceEmployeeNotFound";
+                return ("FinanceEmployeeNotFound", null);
             var date = DateTime.UtcNow;
             var (deductionResult, deductions) = await unitOfWork.DeductionRepository.GetTotalDeductionsForEachUser(date.Year, date.Month);
             var salariesDate = await unitOfWork.SalaryRepository.GetTableNoTracking()
                                .Where(salary => salary.SalaryDate.Year.Equals(date.Year) && salary.SalaryDate.Month.Equals(date.Month))
                                .FirstOrDefaultAsync();
             if (salariesDate is not null)
-                return "SalariesForThisYearAndMonthAlreadyGenerated";
+                return ("SalariesForThisYearAndMonthAlreadyGenerated", null);
             IList<Salary> salaries = new List<Salary>();
             var users = await userManager.Users.ToListAsync();
             foreach (var user in users)
@@ -109,40 +110,65 @@ namespace Luqma.Service.Implementations
             try
             {
                 await unitOfWork.SalaryRepository.AddRangeAsync(salaries);
-                return "SalariesGeneratedSuccessfully";
+                var result = unitOfWork.SalaryRepository.GetTableNoTracking()
+                             .Where(salary => salary.Status.ToLower().Equals("pending")
+                             && salary.SalaryDate.Year.Equals(DateTime.UtcNow.Year)
+                             && salary.SalaryDate.Month.Equals(DateTime.UtcNow.Month)
+                             ).AsQueryable();
+                var returnedSalary = await result.Select(salary => new GetSalariesResponse()
+                {
+                    Id = salary.Id,
+                    User = new User()
+                    {
+                        Id = salary.UserId,
+                        ImageUrl = salary.User.ImageUrl,
+                        Name = $"{salary.User.FirstName} {salary.User.LastName}",
+                        Email = salary.User.Email,
+                    },
+                    FinanceName = $"{salary.Finance.FirstName} {salary.Finance.LastName}",
+                    Status = salary.Status,
+                    SalarayAdmount = salary.SalaryAmount,
+                    SalaryDate = salary.SalaryDate.ToString("yyyy-MM-dd") ?? "N/A"
+                }).ToListAsync();
+                foreach (var user in returnedSalary)
+                {
+                    var roles = await userManager.GetRolesAsync(await userManager.FindByIdAsync(user.User.Id.ToString()));
+                    user.User.Role = roles.FirstOrDefault() ?? "NoRole";
+                }
+                return ("SalariesGeneratedSuccessfully", returnedSalary);
             }
             catch (Exception exp)
             {
-                return "AnErrorOccurredWhileGeneratingSalaries";
+                return ("AnErrorOccurredWhileGeneratingSalaries", null);
             }
         }
 
-        public async Task<string> GenerateSalaryForUserAsync(int userId, int? year = 0, int? month = 0)
+        public async Task<(string, GetSalariesResponse?)> GenerateSalaryForUserAsync(int userId, int? year = 0, int? month = 0)
         {
             var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(financeId))
-                return "FinanceEmployeeNotFound";
+                return ("FinanceEmployeeNotFound", null);
             var finance = await userManager.FindByIdAsync(financeId);
             if (finance is null)
-                return "FinanceEmployeeNotFound";
+                return ("FinanceEmployeeNotFound", null);
 
             var user = await userManager.FindByIdAsync(userId.ToString());
             if (user is null)
-                return "UserNotFound";
+                return ("UserNotFound", null);
             var date = DateTime.UtcNow;
             if (year.Equals(0) && month.Equals(0))
                 (year, month) = (date.Year, date.Month);
 
             var (deductionResult, deduction) = await unitOfWork.DeductionRepository.GetTotalDeductionsForUser(userId, year, month);
             var salariesDate = await unitOfWork.SalaryRepository.GetTableNoTracking()
-                               .Where(salary => salary.SalaryDate.Year.Equals(date.Year) && salary.SalaryDate.Month.Equals(date.Month)
+                               .Where(salary => salary.SalaryDate.Year.Equals(year) && salary.SalaryDate.Month.Equals(month)
                                && salary.UserId.Equals(userId))
                                .FirstOrDefaultAsync();
             if (salariesDate is not null)
-                return "SalaryForThisYearAndMonthAlreadyGeneratedForThisUser";
+                return ("SalaryForThisYearAndMonthAlreadyGeneratedForThisUser", null);
 
-            var salary = (double)user.Salary;
-            if (deduction.TryGetValue(userId, out var d))
+            var salary = Convert.ToDouble(user.Salary);
+            if (deduction is not null && deduction.TryGetValue(userId, out var d))
                 salary = salary - (salary * (d / 100));
 
             var userSalary = new Salary()
@@ -150,12 +176,32 @@ namespace Luqma.Service.Implementations
                 UserId = user.Id,
                 FinanceId = int.Parse(financeId),
                 Status = "Pending",
-                SalaryDate = DateTime.UtcNow,
+                SalaryDate = new DateTime(new DateOnly(Convert.ToInt32(year), Convert.ToInt32(month), 1), new TimeOnly()),
                 SalaryAmount = salary
             };
 
             var result = await unitOfWork.SalaryRepository.AddAsync(userSalary);
-            return result is null ? "AnErrorOccurredWhileGeneratingSalary" : "SalaryGeneratedSuccessfully";
+
+            if (result is null)
+                return ("AnErrorOccurredWhileGeneratingSalary", null);
+            var returnedSalary = new GetSalariesResponse()
+            {
+                Id = result.Id,
+                User = new User()
+                {
+                    Id = result.UserId,
+                    ImageUrl = result.User.ImageUrl,
+                    Name = $"{result.User.FirstName} {result.User.LastName}",
+                    Email = result.User.Email,
+                },
+                FinanceName = $"{result.Finance.FirstName} {result.Finance.LastName}",
+                Status = result.Status,
+                SalarayAdmount = result.SalaryAmount,
+                SalaryDate = result.SalaryDate.ToString("yyyy-MM-dd") ?? "N/A"
+            };
+            var roles = await userManager.GetRolesAsync(await userManager.FindByIdAsync(returnedSalary.User.Id.ToString()));
+            returnedSalary.User.Role = roles.FirstOrDefault() ?? "NoRole";
+            return ("SalaryGeneratedSuccessfully", returnedSalary);
         }
 
         public async Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter,
