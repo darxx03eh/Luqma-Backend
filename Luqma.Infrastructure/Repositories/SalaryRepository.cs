@@ -57,6 +57,7 @@ namespace Luqma.Infrastructure.Repositories
                 FinanceName = $"{salary.Finance.FirstName} {salary.Finance.LastName}",
                 Status = salary.Status,
                 SalarayAdmount = salary.SalaryAmount,
+                SalaryDate = salary.SalaryDate.ToString("yyyy-MM-dd") ?? "N/A"
             }).ToPaginatedListAsync(pageNumber, 5);
 
             if (salaries.Data.Count().Equals(0))

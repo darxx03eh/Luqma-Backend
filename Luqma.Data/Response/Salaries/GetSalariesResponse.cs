@@ -9,6 +9,6 @@ namespace Luqma.Data.Response.Salaries
         public string FinanceName { get; set; }
         public string Status { get; set; }
         public double SalarayAdmount { get; set; }
-
+        public string SalaryDate { get; set; }
     }
 }
