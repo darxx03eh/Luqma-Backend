@@ -13,7 +13,7 @@ namespace Luqma.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Cart> builder)
         {
-            builder.ToTable("carts", c =>
+            builder.ToTable("Carts", c =>
             {
                c.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0");
             });

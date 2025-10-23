@@ -4,6 +4,7 @@ using Luqma.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Luqma.Infrastructure.Migrations
 {
     [DbContext(typeof(LuqmaDbContext))]
-    partial class LuqmaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251023155600_RemoveCheckAndFromIntToDouble")]
+    partial class RemoveCheckAndFromIntToDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,10 +96,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("Carts", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0");
-                        });
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Category", b =>
@@ -785,8 +785,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.ToTable("OrderItems", null, t =>
                         {
-                            t.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0")
-                                .HasName("CK_OrderItem_Quantity_Positive1");
+                            t.HasCheckConstraint("CK_OrderItem_Quantity_Positive", "[Quantity] > 0");
                         });
                 });
 
