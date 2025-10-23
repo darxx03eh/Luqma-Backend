@@ -7,7 +7,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA8wd2VgT7W0uvIvwUrh7t8gAAAAACAAAAAAAQZgAAAAEAACAAAACjg/7va7S1ceU6J4KonqQZ/rABwsrGexNwj/1FSmW5dQAAAAAOgAAAAAIAACAAAACpQKk3GUHIAvqRpSkOrvQ3XSMdH8tCbkK5jGvcw6sDkCAAAADTcBX8Q/bWcladJgNLQYbi1mbTxs5qYd9vHnMIjsaT8kAAAAALC/UOhXm48vfpcDWA/KYOUF7dPuWrqrebPU+K3qDwi4GyATN0TFgDgHmQoimG2SZtpDfcYhx4FIZ3gtxyXGWN</EncryptedPassword>
+<<<<<<< Updated upstream
     <History>True|2025-10-22T10:59:41.2668574Z||;True|2025-10-20T17:01:55.4305933+03:00||;True|2025-10-19T16:55:01.3784899+03:00||;True|2025-10-19T16:01:04.1083173+03:00||;True|2025-10-11T20:14:24.1889073+03:00||;True|2025-10-06T13:29:59.8846447+03:00||;</History>
+=======
+<<<<<<< Updated upstream
+    <History>True|2025-10-20T14:01:55.4305933Z||;True|2025-10-19T16:55:01.3784899+03:00||;True|2025-10-19T16:01:04.1083173+03:00||;True|2025-10-11T20:14:24.1889073+03:00||;True|2025-10-06T13:29:59.8846447+03:00||;</History>
+=======
+    <History>True|2025-10-23T13:12:01.4892821Z||;True|2025-10-22T13:59:41.2668574+03:00||;True|2025-10-20T17:01:55.4305933+03:00||;True|2025-10-19T16:55:01.3784899+03:00||;True|2025-10-19T16:01:04.1083173+03:00||;True|2025-10-11T20:14:24.1889073+03:00||;True|2025-10-06T13:29:59.8846447+03:00||;</History>
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

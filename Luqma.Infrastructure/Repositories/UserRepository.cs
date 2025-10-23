@@ -35,7 +35,8 @@ namespace Luqma.Infrastructure.Repositories
                 Name = $"{user.FirstName} {user.LastName}",
                 Email = user.Email,
                 Status = user.IsActive ? "Active" : "InActive",
-                LastLogin = user.LastLogin.Value.ToString("yyyy-MM-dd hh:mm tt") ?? "N/A"
+                LastLogin = user.LastLogin.Value.ToString("yyyy-MM-dd hh:mm tt") ?? "N/A",
+                Salary = user.Salary
             }).ToPaginatedListAsync(pageNumber, pageSize);
             if (users.Data.Count().Equals(0))
                 return ("UsersNotFound", null);
