@@ -11,11 +11,7 @@ namespace Luqma.Core.Features.Orders.Commands.Models
 {
    public  class AddOrderCommand :IRequest<ApiResponse>
     {
-        public double TotalPrice { get; set; }
-        public ICollection<(int id,int quantity)> items { get; set; } = new HashSet<(int,int)>();
-         public int CustomerId { get; set; }
-        public string PaymentMethode { get; set; }
-        public bool isHoliday { get; set; }
+     public string? Note { get; set; }
 
 
     }

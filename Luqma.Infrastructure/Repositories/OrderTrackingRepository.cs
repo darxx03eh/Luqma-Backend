@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Luqma.Infrastructure.Repositories
 {
-    public class OrderTrackingRepository : GenericRepository<OrderTracking>, IOrderTrackingRepository
+    public class OrderTrackingRepository : GenericRepository<OrderTracking>,IOrderTrackingRepository
     {
         private readonly LuqmaDbContext _context;
 
@@ -18,11 +18,6 @@ namespace Luqma.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<string> ISCustomerVipOrNormalAsync(int customerid)
-        {
-           var count= _context.OrderTrackings.Count(c => c.CustomerId == customerid);
-            if (count >=3) return "VIP";
-            return "Normal";
-        }
+       
     }
 }
