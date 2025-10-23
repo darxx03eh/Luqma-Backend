@@ -164,5 +164,10 @@
             public const string DecreaseQuantity = $"{prefix}/DecreaseQuantity";
             public const string DeleteItemFormCartForCustomerByItemId = $"{prefix}/DeleteItemFormCartForCustomerByItemId{singleRoute}";
        }
+        public static class CustomerOrderRouting
+        {
+            public const string prefix = $"{rule}Customer/Orders";
+            public const string AddOrder = $"{prefix}/PlaceOrder";
+        }
     }
 }

@@ -328,5 +328,8 @@
         public const string UserDataUpdatedSuccessfully = "The user data has been updated successfully";
         public const string AnErrorOccurredWhileUpdatingSalary = "An error occurred while updating the salary";
         public const string SalaryForSpecificUserUpdatedSuccessfully = "The salary for the specific user has been updated successfully";
+        public const string UnKnownWeather = "the weather is unknown";
+        public const string EmptyCart = "the cart is empty";
+        public const string SuccessAddOrder = "the order is added successfully";
     }
 }

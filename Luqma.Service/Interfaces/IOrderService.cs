@@ -8,5 +8,6 @@ namespace Luqma.Service.Interfaces
 {
    public  interface IOrderService
     {
+        public Task<(int? id, string)> AddOrderAsync(string? Note);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Luqma.Core.Bases;
 using Luqma.Core.Features.Orders.Commands.Models;
+using Luqma.Core.ResponseKeys;
 using Luqma.Service.Interfaces;
 using MediatR;
 using System;
@@ -10,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace Luqma.Core.Features.Orders.Commands.Handlers
 {
-    public class OrderCommandHandler : ApiResponseHandler
+    public class OrderCommandHandler : ApiResponseHandler,
+        IRequestHandler<AddOrderCommand,ApiResponse>
        
        
     {
@@ -21,11 +23,17 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             _orderService = orderService;
         }
 
-      /*  public async Task<ApiResponse> Handle(AddOrderCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(AddOrderCommand request, CancellationToken cancellationToken)
         {
-           
 
+          var(orderid,result)=  await _orderService.AddOrderAsync(request.Note);
+            return result switch
+            {
+                "the weather is unknown" => InternalServerError(SharedResponseKeys.UnKnownWeather),
+                "the cart is empty" => NotFound(SharedResponseKeys.EmptyCart),
+                "the order is added successfully" => Success(orderid, message: SharedResponseKeys.SuccessAddOrder)
+            };
 
-        }*/
+        }
     }
 }
