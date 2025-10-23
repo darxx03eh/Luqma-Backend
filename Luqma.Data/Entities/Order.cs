@@ -5,7 +5,8 @@ namespace Luqma.Data.Entities
     public class Order
     {
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
+        public int? CashierId { get; set; }
         public double TotalPrice { get; set; }
         public string Status { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
@@ -23,5 +24,6 @@ namespace Luqma.Data.Entities
         public virtual ICollection<OrderTracking>? OrderTrackings { get; set; } = new HashSet<OrderTracking>();
         public virtual ICollection<OrderItem>? OrderItems { get; set; } = new HashSet<OrderItem>();
         public virtual Customer? Customer { get; set; }
+        public virtual LuqmaUser? Cashier { get; set; }
     }
 }
