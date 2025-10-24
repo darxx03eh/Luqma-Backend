@@ -22,7 +22,7 @@ namespace Luqma.Core.Features.Deductions.Queries.Handlers
             var (result, deductions) = await deductionService.ShowAllDeductionsAsync(request.PageNumber);
             return result switch
             {
-                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "FinanceOrManagerNotFound" => NotFound(SharedResponseKeys.FinanceOrManagerNotFound),
                 "DeductionsNotFound" => NotFound(SharedResponseKeys.DeductionsNotFound),
                 "DeductionsFound" => Success(deductions, message: SharedResponseKeys.DeductionsFound),
                 _ => NotFound(SharedResponseKeys.DeductionsNotFound)
@@ -34,7 +34,7 @@ namespace Luqma.Core.Features.Deductions.Queries.Handlers
             var (result, deductions) = await deductionService.GetAllDeductionsByDateAsync(request.PageNumber, request.Year, request.Month);
             return result switch
             {
-                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "FinanceOrManagerNotFound" => NotFound(SharedResponseKeys.FinanceOrManagerNotFound),
                 "DeductionsNotFound" => NotFound(SharedResponseKeys.DeductionsNotFound),
                 "DeductionsFound" => Success(deductions, message: SharedResponseKeys.DeductionsFound),
                 _ => NotFound(SharedResponseKeys.DeductionsNotFound)
@@ -46,7 +46,7 @@ namespace Luqma.Core.Features.Deductions.Queries.Handlers
             var (result, deductions) = await deductionService.GetAllDeductionsForSpecificUser(request.PageNumber, request.Name);
             return result switch
             {
-                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "FinanceOrManagerNotFound" => NotFound(SharedResponseKeys.FinanceOrManagerNotFound),
                 "DeductionsNotFound" => NotFound(SharedResponseKeys.DeductionsNotFound),
                 "DeductionsFound" => Success(deductions, message: SharedResponseKeys.DeductionsFound),
                 _ => NotFound(SharedResponseKeys.DeductionsNotFound)

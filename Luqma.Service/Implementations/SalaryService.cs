@@ -207,12 +207,12 @@ namespace Luqma.Service.Implementations
         public async Task<(string, PaginatedResult<GetSalariesResponse>?)> GetSalariesAsync(int pageNumber, string search, string filter,
                                                                                       int? year = 0, int? month = 0)
         {
-            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
-            if (string.IsNullOrWhiteSpace(financeId))
-                return ("FinanceEmployeeNotFound", null);
-            var finance = await userManager.FindByIdAsync(financeId);
-            if (finance is null)
-                return ("FinanceEmployeeNotFound", null);
+            var financeOrManagerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeOrManagerId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(financeOrManagerId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
 
             var (result, salaries) = await unitOfWork.SalaryRepository.GetSalariesAsync(pageNumber, search, filter, year, month);
             return result switch

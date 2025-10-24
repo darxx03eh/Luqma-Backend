@@ -41,12 +41,12 @@ namespace Luqma.Service.Implementations
 
         public async Task<(string, PaginatedResult<ViewDeductionsResponse>?)> GetAllDeductionsByDateAsync(int pageNumber, int year, int month)
         {
-            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
-            if (string.IsNullOrWhiteSpace(financeId))
-                return ("FinanceEmployeeNotFound", null);
-            var finance = await userManager.FindByIdAsync(financeId);
-            if (finance is null)
-                return ("FinanceEmployeeNotFound", null);
+            var financeOrManagerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeOrManagerId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(financeOrManagerId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
 
             var (result, deductions) = await unitOfWork.DeductionRepository.GetAllDeductionsByDateAsync(pageNumber, year, month);
             return result switch
@@ -59,12 +59,12 @@ namespace Luqma.Service.Implementations
 
         public async Task<(string, PaginatedResult<ViewDeductionsResponse>?)> GetAllDeductionsForSpecificUser(int pageNumber, string name)
         {
-            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
-            if (string.IsNullOrWhiteSpace(financeId))
-                return ("FinanceEmployeeNotFound", null);
-            var finance = await userManager.FindByIdAsync(financeId);
-            if (finance is null)
-                return ("FinanceEmployeeNotFound", null);
+            var financeOrManagerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeOrManagerId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(financeOrManagerId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
 
             var (result, deductions) = await unitOfWork.DeductionRepository.GetAllDeductionsForSpecificUser(pageNumber, name);
             return result switch
@@ -92,12 +92,12 @@ namespace Luqma.Service.Implementations
 
         public async Task<(string, PaginatedResult<ViewDeductionsResponse>?)> ShowAllDeductionsAsync(int pageNumber)
         {
-            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
-            if (string.IsNullOrWhiteSpace(financeId))
-                return ("FinanceEmployeeNotFound", null);
-            var finance = await userManager.FindByIdAsync(financeId);
-            if (finance is null)
-                return ("FinanceEmployeeNotFound", null);
+            var financeOrManagerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeOrManagerId))
+                return ("FinanceOrManagerNotFound", null);
+            var financeOrManager = await userManager.FindByIdAsync(financeOrManagerId);
+            if (financeOrManager is null)
+                return ("FinanceOrManagerNotFound", null);
 
             var deductionsQueryable = unitOfWork.DeductionRepository.GetTableNoTracking()
                                       .OrderByDescending(deduction => deduction.DeductionDate)

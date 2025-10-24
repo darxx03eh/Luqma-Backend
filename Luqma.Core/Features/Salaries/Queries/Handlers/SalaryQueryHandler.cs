@@ -22,7 +22,7 @@ namespace Luqma.Core.Features.Salaries.Queries.Handlers
                                                                          request.Year, request.Month);
             return result switch
             {
-                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "FinanceOrManagerNotFound" => NotFound(SharedResponseKeys.FinanceOrManagerNotFound),
                 "SalariesNotFound" => NotFound(SharedResponseKeys.SalariesNotFound),
                 "SalariesFound" => Success(salaries, message: SharedResponseKeys.SalariesFound),
                 _ => NotFound(SharedResponseKeys.SalariesNotFound)
