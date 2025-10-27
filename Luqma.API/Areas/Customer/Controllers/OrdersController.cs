@@ -19,9 +19,6 @@ namespace Luqma.API.Areas.Customer.Controllers
         {
             var result = await mediator.Send(request);
             return Result(result);
-
-
-
         }
             
 
