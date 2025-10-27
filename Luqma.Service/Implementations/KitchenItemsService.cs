@@ -1,12 +1,13 @@
 ﻿using Luqma.Data.Entities;
 using Luqma.Data.Entities.Identity;
-using Luqma.Data.Response.Deductions;
 using Luqma.Data.Response.KitchenItems;
 using Luqma.Data.Wrappers;
+using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Luqma.Service.Implementations
 {
@@ -15,12 +16,15 @@ namespace Luqma.Service.Implementations
         private readonly IUnitOfWork unitOfWork;
         private readonly ICloudinaryService cloudinaryService;
         private readonly UserManager<LuqmaUser> userManager;
+        private readonly LuqmaDbContext context;
 
-        public KitchenItemsService(IUnitOfWork unitOfWork, ICloudinaryService cloudinaryService, UserManager<LuqmaUser> userManager)
+        public KitchenItemsService(IUnitOfWork unitOfWork, ICloudinaryService cloudinaryService, UserManager<LuqmaUser> userManager,
+            LuqmaDbContext context)
         {
             this.unitOfWork = unitOfWork;
             this.cloudinaryService = cloudinaryService;
             this.userManager = userManager;
+            this.context = context;
         }
 
         public async Task<(string, GetKitchenItemsResponse?)> AddKitchenItemAsync(
@@ -160,7 +164,7 @@ namespace Luqma.Service.Implementations
             return result <= 0 ? "AnErrorOccurredWhileUpdatingKitchenItemStatus" : "KitchenItemStatusUpdatingSuccessfully";
         }
 
-        public async Task<(string, GetKitchenItemsResponse?)> UpdateKitchenItemAsync(int id, string item, string status, IFormFile? image, string? note, string unit, double quantity)
+        public async Task<(string, GetKitchenItemsResponse?)> UpdateKitchenItemAsync(int id, string item, string status, string? note, string unit, double quantity)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(chefId))
@@ -173,47 +177,72 @@ namespace Luqma.Service.Implementations
             if (kitchenItem is null)
                 return ("KitchenItemNotFound", null);
 
-            var imageUrl = kitchenItem.ImageUrl;
-            if(image is not null)
-            {
-                try
-                {
-                    var deleteResult = await cloudinaryService.DeleteFileAsync(kitchenItem.ImageUrl);
-                    if (deleteResult.Equals("FailedToDeleteImageFromCloudinary"))
-                        return ("FailedToDeleteImageFromCloudinary", null);
-                    var guidPart = Guid.NewGuid().ToString("N").Substring(0, 12);
-                    var datePart = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-                    var itemId = $"{guidPart}-{datePart}";
-                    using (var stream = image.OpenReadStream())
-                    {
-                        var (imageName, folderName) = (itemId, $"Luqma/Kitchen/Items/{item}/img");
-                        var url = await cloudinaryService.UploadFileAsync(stream, folderName, imageName);
-                        imageUrl = url;
-                    }
-                }
-                catch(Exception exp)
-                {
-                    return ("AnErrorOccurredWhileDeletingOldItemImage", null);
-                }
-            }
             kitchenItem.Item = item;
             kitchenItem.Status = status;
-            kitchenItem.ImageUrl = imageUrl;
             kitchenItem.Note = note;
             kitchenItem.Unit = unit;
             kitchenItem.Quantity = quantity;
             var result = await unitOfWork.KitchenItemsRepository.UpdateAsync(kitchenItem);
-            return result <= 0 ? ("AnErrorOccurredWhileUpdatingKitchenItem", null) 
+            return result <= 0 ? ("AnErrorOccurredWhileUpdatingKitchenItem", null)
                 : ("KitchenItemUpdatingSuccessfully", new GetKitchenItemsResponse()
+                {
+                    Id = kitchenItem.Id,
+                    Item = kitchenItem.Item,
+                    Status = kitchenItem.Status,
+                    ImageUrl = kitchenItem.ImageUrl,
+                    Note = kitchenItem.Note,
+                    Unit = kitchenItem.Unit,
+                    Quantity = kitchenItem.Quantity,
+                });
+        }
+
+        public async Task<(string, string?)> UploadItemImageAsync(int id, IFormFile image)
+        {
+            var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(chefId))
+                return ("ChefNotFound", null);
+            var chef = await userManager.FindByIdAsync(chefId);
+            if (chef is null)
+                return ("ChefNotFound", null);
+
+            var item = await unitOfWork.KitchenItemsRepository.GetByIdAsync(id);
+            if (item is null)
+                return ("KitchenItemNotFound", null);
+
+            await using var transaction = await context.Database.BeginTransactionAsync();
+            try
             {
-                Id = kitchenItem.Id,
-                Item = kitchenItem.Item,
-                Status = kitchenItem.Status,
-                ImageUrl = kitchenItem.ImageUrl,
-                Note = kitchenItem.Note,
-                Unit = kitchenItem.Unit,
-                Quantity = kitchenItem.Quantity,
-            });
+                var originalUrl = item.ImageUrl;
+                if (!string.IsNullOrWhiteSpace(originalUrl))
+                {
+                    var cloudinaryResult = await cloudinaryService.DeleteFileAsync(originalUrl);
+                    if (cloudinaryResult.Equals("FailedToDeleteImageFromCloudinary"))
+                        return ("FailedToDeleteImageFromCloudinary", null);
+                }
+                var guidPart = Guid.NewGuid().ToString("N").Substring(0, 12);
+                var datePart = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                var fullPart = $"{guidPart}-{datePart}";
+                using (var stream = image.OpenReadStream())
+                {
+                    var (imageName, folderName) = (fullPart, $"Luqma/Kitchen/Items/{item.Item}/img");
+                    var url = await cloudinaryService.UploadFileAsync(stream, folderName, imageName);
+                    item.ImageUrl = url;
+                }
+                var result = await unitOfWork.KitchenItemsRepository.UpdateAsync(item);
+                if(result <= 0)
+                {
+                    await transaction.RollbackAsync();
+                    return ("AnErrorOccurredWhileProcessingImageModificationRequest", null);
+                }
+                await transaction.CommitAsync();
+                return ("TheImageHasBeenChangedSuccessfully", item.ImageUrl);
+            }
+            catch (Exception exp)
+            {
+                if (transaction.GetDbTransaction().Connection is not null)
+                    await transaction.RollbackAsync();
+                return ("AnErrorOccurredWhileProcessingImageModificationRequest", null);
+            }
         }
     }
 }

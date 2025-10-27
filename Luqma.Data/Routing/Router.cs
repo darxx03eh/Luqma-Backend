@@ -143,6 +143,7 @@
             public const string DeleteKitchenItem = $"{prefix}{singleRoute}";
             public const string UpdateKitchenItemStatus = $"{prefix}/status";
             public const string UpdateKitchenItem = prefix;
+            public const string UploadKitchenItemImage = $"{prefix}/upload-image";
         }
         public static class KitchenRequirmentsRouting
         {
