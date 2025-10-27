@@ -8,10 +8,12 @@ using Luqma.Infrastructure;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.Seeder;
 using Luqma.Service;
+using Luqma.Service.Implementations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 using System.Text.Json.Serialization;
 
 namespace Luqma.API
@@ -125,7 +127,8 @@ namespace Luqma.API
                 await RoleSeeder.SeedAsync(roleManager);
                 await UserSeeder.SeedAsync(userManager);
             }
-
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:StripeKey"];
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
