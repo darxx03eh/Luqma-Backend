@@ -53,7 +53,14 @@ namespace Luqma.API.Controllers
         }
         [Authorize(Roles = Roles.Chef)]
         [HttpPut(Router.KitchenItemsRouting.UpdateKitchenItem)]
-        public async Task<IActionResult> UpdateKitchenItem([FromForm] UpdateKitchenItemsCommand request)
+        public async Task<IActionResult> UpdateKitchenItem([FromBody] UpdateKitchenItemsCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
+        [Authorize(Roles = Roles.Chef)]
+        [HttpPatch(Router.KitchenItemsRouting.UploadKitchenItemImage)]
+        public async Task<IActionResult> UploadKitchenItemImage([FromForm] UploadNewKitchenItemImageCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);

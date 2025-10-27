@@ -17,8 +17,8 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Validators
 
             RuleFor(x => x.Status)
                 .NotEmpty().WithMessage(SharedResponseKeys.StatusIsRequired)
-                .Must(s => s == "Available" || s == "Unavailable")
-                .WithMessage(SharedResponseKeys.StatusMustBeEitherAvailableOrUnavailable);
+                .Must(s => s == "Available" || s == "Unavailable" || s == "Low")
+                .WithMessage(SharedResponseKeys.StatusMustBeEitherAvailableOrUnavailableOrLow);
 
             RuleFor(x => x.Unit)
                 .NotEmpty().WithMessage(SharedResponseKeys.UnitIsRequired)

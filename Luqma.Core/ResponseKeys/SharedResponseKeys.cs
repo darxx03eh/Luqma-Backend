@@ -274,7 +274,7 @@
         public const string ItemNameIsRequired = "Item name is required";
         public const string ItemNameMustNotExceed100Characters = "Item name must not exceed 100 characters";
         public const string StatusIsRequired = "Status is required";
-        public const string StatusMustBeEitherAvailableOrUnavailable = "Status must be either 'Available' or 'Unavailable'";
+        public const string StatusMustBeEitherAvailableOrUnavailableOrLow = "Status must be either 'Available' or 'Unavailable' or 'Low'";
         public const string UnitIsRequired = "Unit is required";
         public const string UnitMustNotExceed50Characters = "Unit must not exceed 50 characters";
         public const string QuantityMustBe0OrGreater = "Quantity must be 0 or greater";
@@ -331,5 +331,6 @@
         public const string UnKnownWeather = "the weather is unknown";
         public const string EmptyCart = "the cart is empty";
         public const string SuccessAddOrder = "the order is added successfully";
+        public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
     }
 }

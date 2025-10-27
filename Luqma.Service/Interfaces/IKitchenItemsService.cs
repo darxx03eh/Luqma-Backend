@@ -10,9 +10,10 @@ namespace Luqma.Service.Interfaces
         public Task<(string, GetKitchenItemsResponse?)> AddKitchenItemAsync(
             string item, string status, IFormFile? image, string? note, string unit, double quantity);
         public Task<(string, GetKitchenItemsResponse?)> UpdateKitchenItemAsync(int id,
-            string item, string status, IFormFile? image, string? note, string unit, double quantity);
+            string item, string status, string? note, string unit, double quantity);
         public Task<(string, GetKitchenItemsResponse?)> GetKitchenItemByIdAsync(int id);
         public Task<string> DeleteKitchenItemAsync(int id);
         public Task<string> UpdateItemStatusAsync(int id, string status);
+        public Task<(string, string?)> UploadItemImageAsync(int id, IFormFile image);
     }
 }
