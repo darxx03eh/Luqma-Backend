@@ -208,7 +208,7 @@
         public const string NullMenu = "the menu is null";
         public const string AnErrorWhileAddMenu = "An error while adding the menu ";
         public const string ItemNotFound = "the item Id is not found";
-        public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from  Cloudinary ";
+        public const string AnErrorWhileDeletePhotoFromCloudinary = "An Error while deleting photo from Cloudinary";
         public const string ItemSuccessDelete = "the menu item is deleted successfully";
         public const string AnErrorWhileDeleteItem = "An Error while deleting the menuitem";
         public const string SalariesGeneratedSuccessfully = "Salaries have been generated successfully";
@@ -334,5 +334,19 @@
         public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
         public const string AnErrorOccurredWhileAddingItemImage = "An error occurred while adding the item image";
         public const string PriceMustBe0OrGreater = "The price must be 0 or greater";
+        public const string ItemIdIsRequired = "Item ID is required";
+        public const string ItemIdNotEmpty = "Item ID must not be empty";
+        public const string StarsIsRequired = "Stars value is required";
+        public const string StarsNotEmpty = "Stars value must not be empty";
+        public const string StarsMustBeBetween1And5 = "Stars value must be between 1 and 5";
+        public const string ContentMustNotExceed500Characters = "Content must not exceed 500 characters";
+        public const string CustomerNotFound = "The specified customer was not found";
+        public const string YouHaveNoOrders = "You currently have no orders";
+        public const string YouHaveNoOrdersWithThisItem = "You have no orders containing this item";
+        public const string YouAlreadyRatedThisItem = "You have already rated this item";
+        public const string AnErrorOccurredWhileAddingTheFeedback = "An error occurred while adding the feedback";
+        public const string AnErrorOccurredWhileUpdatingTheTotalStars = "An error occurred while updating the total stars";
+        public const string NoFeedBacksForThisItemFound = "No feedbacks were found for this item";
+        public const string FeedbackAddedSuccessfully = "Feedback has been added successfully";
     }
 }
