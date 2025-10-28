@@ -189,13 +189,12 @@ namespace Luqma.Service.Implementations
                             await transaction.RollbackAsync();
                             return "SomeKitchenItemNotFound";
                         }
-                        var itemsPrice = (kitchenItem.Price * item.Quantity) - item.Discount;
+                        var itemsPrice = (kitchenItem.Price * item.Quantity);
                         totalPrice += itemsPrice;
                         var newItem = new RequirmentItems()
                         {
                             ItemId = item.ItemId,
                             Quantity = item.Quantity,
-                            Discount = item.Discount,
                             Price = itemsPrice,
                         };
                         kitchenRequirments.RequirmentItems.Add(newItem);

@@ -4,6 +4,5 @@
     {
         public int ItemId { get; set; }
         public double Quantity { get; set; }
-        public double Discount { get; set; }
     }
 }
