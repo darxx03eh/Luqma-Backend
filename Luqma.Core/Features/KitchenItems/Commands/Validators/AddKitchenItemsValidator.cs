@@ -27,6 +27,9 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Validators
             RuleFor(x => x.Quantity)
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.QuantityMustBe0OrGreater);
 
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.PriceMustBe0OrGreater);
+
             RuleFor(image => image.Image.ContentType)
                 .Must(ct => ct == "image/jpeg" || ct == "image/png" || ct == "image/webp")
                 .WithMessage(SharedResponseKeys.OnlyJPEGPNGAndWebPFormatsAreAllowed)

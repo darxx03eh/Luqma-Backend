@@ -23,7 +23,7 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Handlers
         public async Task<ApiResponse> Handle(AddKitchenItemsCommand request, CancellationToken cancellationToken)
         {
             var (result, kitchenItem) = await kitchenItemsService.AddKitchenItemAsync(
-                request.Item, request.Status, request.Image, request.Note, request.Unit, request.Quantity
+                request.Item, request.Status, request.Image, request.Note, request.Unit, request.Quantity, request.Price
                 );
             return result switch
             {
@@ -31,6 +31,7 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Handlers
                 "AnErrorOccurredWhileProcessingItemImageUploadingRequest" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileProcessingItemImageUploadingRequest),
                 "AnErrorOccurredWhileAddingKitchenItem" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenItem),
                 "KitchenItemAddedSuccessfully" => Success(kitchenItem, message: SharedResponseKeys.KitchenItemAddedSuccessfully),
+                "AnErrorOccurredWhileAddingItemImage" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingItemImage),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenItem)
             };
         }
@@ -69,7 +70,7 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Handlers
         public async Task<ApiResponse> Handle(UpdateKitchenItemsCommand request, CancellationToken cancellationToken)
         {
             var (result, kitchenItem) = await kitchenItemsService.UpdateKitchenItemAsync(request.Id,
-                request.Item, request.Status, request.Note, request.Unit, request.Quantity
+                request.Item, request.Status, request.Note, request.Unit, request.Quantity, request.Price
                 );
             return result switch
             {

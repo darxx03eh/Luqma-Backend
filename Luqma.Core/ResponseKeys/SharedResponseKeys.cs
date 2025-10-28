@@ -332,5 +332,7 @@
         public const string EmptyCart = "the cart is empty";
         public const string SuccessAddOrder = "the order is added successfully";
         public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
+        public const string AnErrorOccurredWhileAddingItemImage = "An error occurred while adding the item image";
+        public const string PriceMustBe0OrGreater = "The price must be 0 or greater";
     }
 }
