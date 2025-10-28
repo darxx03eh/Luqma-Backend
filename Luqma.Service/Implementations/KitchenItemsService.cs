@@ -28,7 +28,7 @@ namespace Luqma.Service.Implementations
         }
 
         public async Task<(string, GetKitchenItemsResponse?)> AddKitchenItemAsync(
-            string item, string status, IFormFile? image, string? note, string unit, double quantity)
+            string item, string status, IFormFile? image, string? note, string unit, double quantity, double price)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(chefId))
@@ -36,6 +36,17 @@ namespace Luqma.Service.Implementations
             var chef = await userManager.FindByIdAsync(chefId);
             if (chef is null)
                 return ("ChefNotFound", null);
+            var result = await unitOfWork.KitchenItemsRepository.AddAsync(new KitchenItems()
+            {
+                Item = item,
+                Status = status,
+                Note = string.IsNullOrWhiteSpace(note) ? null : note,
+                Unit = unit,
+                Quantity = quantity,
+                Price = price
+            });
+            if (result is null)
+                return ("AnErrorOccurredWhileAddingKitchenItem", null);
             string imageUrl = "";
             if (image is not null)
             {
@@ -46,7 +57,7 @@ namespace Luqma.Service.Implementations
                     var id = $"{guidPart}-{datePart}";
                     using (var stream = image.OpenReadStream())
                     {
-                        var (imageName, folderName) = (id, $"Luqma/Kitchen/Items/{item}/img");
+                        var (imageName, folderName) = (id, $"Luqma/Kitchen/Items/{result.Id}/img");
                         var url = await cloudinaryService.UploadFileAsync(stream, folderName, imageName);
                         imageUrl = url;
                     }
@@ -56,17 +67,10 @@ namespace Luqma.Service.Implementations
                     return ("AnErrorOccurredWhileProcessingItemImageUploadingRequest", null);
                 }
             }
-            var result = await unitOfWork.KitchenItemsRepository.AddAsync(new KitchenItems()
-            {
-                Item = item,
-                Status = status,
-                ImageUrl = string.IsNullOrWhiteSpace(imageUrl) ? null : imageUrl,
-                Note = string.IsNullOrWhiteSpace(note) ? null : note,
-                Unit = unit,
-                Quantity = quantity
-            });
-            if (result is null)
-                return ("AnErrorOccurredWhileAddingKitchenItem", null);
+            result.ImageUrl = string.IsNullOrWhiteSpace(imageUrl) ? null : imageUrl;
+            var updatedResult = await unitOfWork.KitchenItemsRepository.UpdateAsync(result);
+            if (updatedResult <= 0)
+                return ("AnErrorOccurredWhileAddingItemImage", null);
             return ("KitchenItemAddedSuccessfully", new GetKitchenItemsResponse()
             {
                 Id = result.Id,
@@ -115,6 +119,7 @@ namespace Luqma.Service.Implementations
                 Note = item.Note,
                 Unit = item.Unit,
                 Quantity = item.Quantity,
+                Price = item.Price,
             });
         }
 
@@ -140,6 +145,7 @@ namespace Luqma.Service.Implementations
                 Note = item.Note,
                 Unit = item.Unit,
                 Quantity = item.Quantity,
+                Price = item.Price,
             }).ToPaginatedListAsync(pageNumber, 5);
             if (kitchenItems.Data.Count().Equals(0))
                 return ("KitchenItemsNotFound", null);
@@ -164,7 +170,9 @@ namespace Luqma.Service.Implementations
             return result <= 0 ? "AnErrorOccurredWhileUpdatingKitchenItemStatus" : "KitchenItemStatusUpdatingSuccessfully";
         }
 
-        public async Task<(string, GetKitchenItemsResponse?)> UpdateKitchenItemAsync(int id, string item, string status, string? note, string unit, double quantity)
+        public async Task<(string, GetKitchenItemsResponse?)> UpdateKitchenItemAsync(
+            int id, string item, string status, string? note, string unit, double quantity
+            , double price)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(chefId))
@@ -182,6 +190,7 @@ namespace Luqma.Service.Implementations
             kitchenItem.Note = note;
             kitchenItem.Unit = unit;
             kitchenItem.Quantity = quantity;
+            kitchenItem.Price = price;
             var result = await unitOfWork.KitchenItemsRepository.UpdateAsync(kitchenItem);
             return result <= 0 ? ("AnErrorOccurredWhileUpdatingKitchenItem", null)
                 : ("KitchenItemUpdatingSuccessfully", new GetKitchenItemsResponse()
@@ -193,6 +202,7 @@ namespace Luqma.Service.Implementations
                     Note = kitchenItem.Note,
                     Unit = kitchenItem.Unit,
                     Quantity = kitchenItem.Quantity,
+                    Price = kitchenItem.Price,
                 });
         }
 
@@ -224,7 +234,7 @@ namespace Luqma.Service.Implementations
                 var fullPart = $"{guidPart}-{datePart}";
                 using (var stream = image.OpenReadStream())
                 {
-                    var (imageName, folderName) = (fullPart, $"Luqma/Kitchen/Items/{item.Item}/img");
+                    var (imageName, folderName) = (fullPart, $"Luqma/Kitchen/Items/{item.Id}/img");
                     var url = await cloudinaryService.UploadFileAsync(stream, folderName, imageName);
                     item.ImageUrl = url;
                 }

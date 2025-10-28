@@ -25,6 +25,9 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Validators
             RuleFor(x => x.Quantity)
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.QuantityMustBe0OrGreater);
 
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.PriceMustBe0OrGreater);
+
 
             RuleFor(x => x.Note)
                 .MaximumLength(500).WithMessage(SharedResponseKeys.NoteMustNotExceed500Characters)
