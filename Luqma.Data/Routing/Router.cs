@@ -170,5 +170,10 @@
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
         }
+        public static class FeedbacksRouting
+        {
+            public const string prefix = $"{rule}feedback";
+            public const string AddNewFeedback = prefix;
+        }
     }
 }

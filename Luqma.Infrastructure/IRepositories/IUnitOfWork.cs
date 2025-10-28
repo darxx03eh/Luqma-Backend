@@ -13,5 +13,9 @@ namespace Luqma.Infrastructure.IRepositories
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
         public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
         public IRequirmentItemsRepository RequirmentItemsRepository { get; set; }
+        public IFeedbackRepository FeedbackRepository { get; set; }
+        public ICustomerRepository CustomerRepository { get; set; }
+        public IOrderRepository OrderRepository { get; set; }
+        public IMenuItemRepository MenuItemRepository { get; set; }
     }
 }
