@@ -172,7 +172,7 @@
         }
         public static class FeedbacksRouting
         {
-            public const string prefix = $"{rule}feedback";
+            public const string prefix = $"{rule}feedbacks";
             public const string AddNewFeedback = prefix;
         }
     }
