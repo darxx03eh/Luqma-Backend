@@ -20,7 +20,7 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
 
         public async Task<ApiResponse> Handle(PlaceNewKitchenRequirmentsCommand request, CancellationToken cancellationToken)
         {
-            var result = await kitchenRequirmentsService.PlaceNewKitchenRequirmentsAsync(request.Note, request.RequirmentItems);
+            var (result, id) = await kitchenRequirmentsService.PlaceNewKitchenRequirmentsAsync(request.Note, request.RequirmentItems);
             return result switch
             {
                 "ChefNotFound" => NotFound(SharedResponseKeys.ChefNotFound),
@@ -28,7 +28,10 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Handlers
                 "SomeKitchenItemNotFound" => NotFound(SharedResponseKeys.SomeKitchenItemNotFound),
                 "AnErrorOccurredWhileAddingKitchenRequirment" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenRequirment),
-                "KitchenRequirmentAddedSuccessfully" => Success(null, message: SharedResponseKeys.KitchenRequirmentAddedSuccessfully),
+                "KitchenRequirmentAddedSuccessfully" => Success(new
+                {
+                    RequirmentId = id,
+                }, message: SharedResponseKeys.KitchenRequirmentAddedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileAddingKitchenRequirment)
             };
         }
