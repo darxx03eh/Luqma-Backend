@@ -19,6 +19,10 @@ namespace Luqma.Core.Features.KitchenRequirments.Commands.Validators
 
                 items.RuleFor(i => i.Quantity)
                     .GreaterThan(0).WithMessage(SharedResponseKeys.QuantityMustBeGreaterThanZero);
+
+                items.RuleFor(i => i.Note)
+                    .MaximumLength(500).WithMessage(SharedResponseKeys.NoteMustNotExceed500Characters)
+                    .When(x => !string.IsNullOrWhiteSpace(x.Note));
             });
 
             RuleFor(x => x.Note)

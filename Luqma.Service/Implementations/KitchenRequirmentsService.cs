@@ -158,17 +158,17 @@ namespace Luqma.Service.Implementations
             });
         }
 
-        public async Task<string> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
+        public async Task<(string, int?)> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(chefId))
-                return "ChefNotFound";
+                return ("ChefNotFound", null);
             var chef = await userManager.FindByIdAsync(chefId);
             if (chef is null)
-                return "ChefNotFound";
+                return ("ChefNotFound", null);
 
             if (requirmentItems is null || requirmentItems.Count().Equals(0))
-                return "RequirmentItemsNotFound";
+                return ("RequirmentItemsNotFound", null);
             using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try
@@ -187,7 +187,7 @@ namespace Luqma.Service.Implementations
                         if(kitchenItem is null)
                         {
                             await transaction.RollbackAsync();
-                            return "SomeKitchenItemNotFound";
+                            return ("SomeKitchenItemNotFound", null);
                         }
                         var itemsPrice = (kitchenItem.Price * item.Quantity);
                         totalPrice += itemsPrice;
@@ -196,6 +196,7 @@ namespace Luqma.Service.Implementations
                             ItemId = item.ItemId,
                             Quantity = item.Quantity,
                             Price = itemsPrice,
+                            Note = item.Note,
                         };
                         kitchenRequirments.RequirmentItems.Add(newItem);
                     }
@@ -204,16 +205,16 @@ namespace Luqma.Service.Implementations
                     if(result is null)
                     {
                         await transaction.RollbackAsync();
-                        return "AnErrorOccurredWhileAddingKitchenRequirment";
+                        return ("AnErrorOccurredWhileAddingKitchenRequirment", null);
                     }
                     await transaction.CommitAsync();
-                    return "KitchenRequirmentAddedSuccessfully";
+                    return ("KitchenRequirmentAddedSuccessfully", result.Id);
                 }
                 catch (Exception exp)
                 {
                     if (transaction.GetDbTransaction().Connection is not null)
                         await transaction.RollbackAsync();
-                    return "AnErrorOccurredWhileAddingKitchenRequirment";
+                    return ("AnErrorOccurredWhileAddingKitchenRequirment", null);
                 }
             }
         }
