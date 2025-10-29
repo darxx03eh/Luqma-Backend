@@ -6,7 +6,7 @@ namespace Luqma.Service.Interfaces
 {
     public interface IKitchenRequirmentsService
     {
-        public Task<(string, int?)> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems);
+        public Task<(string, GetKitchenRequirmentsResponse?)> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems);
         public Task<string> ChangeKitchenRequirmentsAsync(int id, string status);
         public Task<(string, PaginatedResult<GetKitchenRequirmentsResponse>?)> GetKitchenRequirmentsAsync(int pageNumber);
         public Task<(string, GetKitchenRequirmentsResponse?)> GetKitchenRequirmentsByIdAsync(int id);

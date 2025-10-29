@@ -158,7 +158,7 @@ namespace Luqma.Service.Implementations
             });
         }
 
-        public async Task<(string, int?)> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
+        public async Task<(string, GetKitchenRequirmentsResponse?)> PlaceNewKitchenRequirmentsAsync(string? note, IList<RequirmentItemsDTO> requirmentItems)
         {
             var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(chefId))
@@ -208,7 +208,15 @@ namespace Luqma.Service.Implementations
                         return ("AnErrorOccurredWhileAddingKitchenRequirment", null);
                     }
                     await transaction.CommitAsync();
-                    return ("KitchenRequirmentAddedSuccessfully", result.Id);
+                    return ("KitchenRequirmentAddedSuccessfully", new GetKitchenRequirmentsResponse()
+                    {
+                        Id = result.Id,
+                        ChefName = $"{result.Chef.FirstName} {result.Chef.LastName}",
+                        TotalPrice = result.TotalPrice,
+                        Status = result.Status,
+                        Note = result.Note,
+                        Date = result.Date.ToString("yyyy-MM-dd hh:mm tt"),
+                    });
                 }
                 catch (Exception exp)
                 {
