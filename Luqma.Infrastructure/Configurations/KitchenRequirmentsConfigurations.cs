@@ -4,22 +4,22 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Luqma.Infrastructure.Configurations
 {
-    public class KitchenRequirmentsConfigurations : IEntityTypeConfiguration<KitchenRequirments>
+    public class KitchenRequirmentsConfigurations : IEntityTypeConfiguration<KitchenRequirements>
     {
-        public void Configure(EntityTypeBuilder<KitchenRequirments> builder)
+        public void Configure(EntityTypeBuilder<KitchenRequirements> builder)
         {
-            builder.ToTable("KitchenRequirments", kr =>
+            builder.ToTable("KitchenRequirements", kr =>
             {
-                kr.HasCheckConstraint("CK_KitchenRequirments_TotalPrice_NonNegative", "[TotalPrice] >= 0");
+                kr.HasCheckConstraint("CK_KitchenRequirements_TotalPrice_NonNegative", "[TotalPrice] >= 0");
             });
             builder.HasKey(kr => kr.Id);
 
             builder.HasOne(kr => kr.Chef)
-                .WithMany(user => user.KitchenRequirments)
+                .WithMany(user => user.KitchenRequirements)
                 .HasForeignKey(kr => kr.ChefId);
 
-            builder.HasMany(kr => kr.RequirmentItems)
-                .WithOne(ri => ri.KitchenRequirments)
+            builder.HasMany(kr => kr.RequirementItems)
+                .WithOne(ri => ri.KitchenRequirements)
                 .HasForeignKey(ri => ri.RequirmentId)
                 .OnDelete(DeleteBehavior.Cascade);
 

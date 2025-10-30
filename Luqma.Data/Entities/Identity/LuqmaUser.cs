@@ -46,7 +46,7 @@ namespace Luqma.Data.Entities.Identity
         public virtual ICollection<Deduction>? FinanceDeductions { get; set; } = new HashSet<Deduction>();
         public virtual ICollection<UserAddress>? Addresses { get; set; } = new HashSet<UserAddress>();
         public virtual ICollection<Bill>? Bills { get; set; } = new HashSet<Bill>();
-        public virtual ICollection<KitchenRequirments>? KitchenRequirments { get; set; } = new HashSet<KitchenRequirments>();
+        public virtual ICollection<KitchenRequirements>? KitchenRequirements { get; set; } = new HashSet<KitchenRequirements>();
         public virtual ICollection<Deliveries>? Deliveries { get; set; } = new HashSet<Deliveries>();
         public virtual ICollection<Order>? Orders { get; set; } = new HashSet<Order>();
     }

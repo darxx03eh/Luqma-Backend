@@ -4,23 +4,23 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Luqma.Infrastructure.Configurations
 {
-    public class RequirmentItemsConfigurations : IEntityTypeConfiguration<RequirmentItems>
+    public class RequirmentItemsConfigurations : IEntityTypeConfiguration<RequirementItems>
     {
-        public void Configure(EntityTypeBuilder<RequirmentItems> builder)
+        public void Configure(EntityTypeBuilder<RequirementItems> builder)
         {
-            builder.ToTable("RequirmentItems", ri =>
+            builder.ToTable("RequirementItems", ri =>
             {
-                ri.HasCheckConstraint("CK_RequirmentItems_Price_NonNegative", "[Price] >= 0");
-                ri.HasCheckConstraint("CK_RequirmentItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
+                ri.HasCheckConstraint("CK_RequirementItems_Price_NonNegative", "[Price] >= 0");
+                ri.HasCheckConstraint("CK_RequirementItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
             });
             builder.HasKey(ri => ri.Id);
 
             builder.HasOne(ri => ri.KitchenItems)
-                .WithMany(ki => ki.RequirmentItems)
+                .WithMany(ki => ki.RequirementItems)
                 .HasForeignKey(ri => ri.ItemId);
 
-            builder.HasOne(ri => ri.KitchenRequirments)
-                .WithMany(kr => kr.RequirmentItems)
+            builder.HasOne(ri => ri.KitchenRequirements)
+                .WithMany(kr => kr.RequirementItems)
                 .HasForeignKey(ri => ri.RequirmentId);
 
             builder.Property(ri => ri.Price)

@@ -11,8 +11,8 @@ namespace Luqma.Infrastructure.IRepositories
         public ISalaryRepository SalaryRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
-        public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
-        public IRequirmentItemsRepository RequirmentItemsRepository { get; set; }
+        public IKitchenRequirementsRepository KitchenRequirementsRepository { get; set; }
+        public IRequirementItemsRepository RequirementItemsRepository { get; set; }
         public IFeedbackRepository FeedbackRepository { get; set; }
         public ICustomerRepository CustomerRepository { get; set; }
         public IOrderRepository OrderRepository { get; set; }

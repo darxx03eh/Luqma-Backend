@@ -14,7 +14,7 @@ namespace Luqma.Infrastructure.Configurations
             });
             builder.HasKey(ki => ki.Id);
 
-            builder.HasMany(ki => ki.RequirmentItems)
+            builder.HasMany(ki => ki.RequirementItems)
                 .WithOne(ri => ri.KitchenItems)
                 .HasForeignKey(ri => ri.ItemId)
                 .OnDelete(DeleteBehavior.Cascade);
