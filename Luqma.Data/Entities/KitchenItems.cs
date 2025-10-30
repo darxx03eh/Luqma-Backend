@@ -10,6 +10,6 @@
         public string? Note { get; set; }
         public string Unit { get; set; }
         public double Quantity { get; set; }
-        public virtual ICollection<RequirmentItems>? RequirmentItems { get; set; } = new HashSet<RequirmentItems>();
+        public virtual ICollection<RequirementItems>? RequirementItems { get; set; } = new HashSet<RequirementItems>();
     }
 }

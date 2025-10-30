@@ -26,7 +26,7 @@ namespace Luqma.Service
             services.AddTransient(typeof(IMenuContainService), typeof(MenuContainService));
             services.AddTransient(typeof(IBillService), typeof(BillService));
             services.AddTransient(typeof(IKitchenItemsService), typeof(KitchenItemsService));
-            services.AddTransient(typeof(IKitchenRequirmentsService), typeof(KitchenRequirmentsService));
+            services.AddTransient(typeof(IKitchenRequirementsService), typeof(KitchenRequirementsService));
             services.AddTransient(typeof(ICustomerService), typeof(CustomerService));
             services.AddTransient(typeof(ICartService), typeof(CartService));
             services.AddTransient(typeof(IWeatherService), typeof(WeatherService));

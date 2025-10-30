@@ -1,6 +1,4 @@
 ﻿using Luqma.Data.Entities;
-using Luqma.Data.Response.KitchenItems;
-using Luqma.Data.Wrappers;
 
 namespace Luqma.Infrastructure.IRepositories
 {

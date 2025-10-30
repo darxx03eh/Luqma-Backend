@@ -1,5 +1,4 @@
-﻿using Luqma.Data.Entities;
-using Luqma.Data.Entities.Identity;
+﻿using Luqma.Data.Entities.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -49,7 +48,7 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(bill => bill.FinanceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasMany(user => user.KitchenRequirments)
+            builder.HasMany(user => user.KitchenRequirements)
                 .WithOne(kr => kr.Chef)
                 .HasForeignKey(kr => kr.ChefId)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -64,7 +63,7 @@ namespace Luqma.Infrastructure.Configurations
                 .HasForeignKey(order => order.CashierId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-           
+
 
             builder.Property(u => u.FirstName)
                    .IsRequired().HasMaxLength(50);

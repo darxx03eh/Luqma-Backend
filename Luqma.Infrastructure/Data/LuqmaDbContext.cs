@@ -19,9 +19,9 @@ namespace Luqma.Infrastructure.Data
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<UserAddress> UserAddresses { get; set; }
         public DbSet<Bill> Bills { get; set; }
-        public DbSet<KitchenRequirments> KitchenRequirments { get; set; }
+        public DbSet<KitchenRequirements> KitchenRequirments { get; set; }
         public DbSet<KitchenItems> KitchenItems { get; set; }
-        public DbSet<RequirmentItems> RequirmentItems { get; set; }
+        public DbSet<RequirementItems> RequirmentItems { get; set; }
         public DbSet<Deliveries> Deliveries { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
