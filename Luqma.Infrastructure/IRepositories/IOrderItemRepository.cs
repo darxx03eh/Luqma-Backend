@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Luqma.Infrastructure.IRepositories
 {
-   public  interface IOrderRepository : IGenericRepository<Order>
+    public interface IOrderItemRepository : IGenericRepository<OrderItem>
     {
 
-        public  Task<string> ISCustomerVipOrNormalAsync(int customerid);
-        public Task<bool> IsOrderIdExistInOrders(int orderid);
     }
 }

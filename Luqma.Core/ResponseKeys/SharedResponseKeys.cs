@@ -1,4 +1,6 @@
-﻿namespace Luqma.Core.ResponseKeys
+﻿using System.Diagnostics;
+
+namespace Luqma.Core.ResponseKeys
 {
     public static class SharedResponseKeys
     {
@@ -331,5 +333,11 @@
         public const string UnKnownWeather = "the weather is unknown";
         public const string EmptyCart = "the cart is empty";
         public const string SuccessAddOrder = "the order is added successfully";
+        public const string SuccessProcessPaymentByVisa = "the url for payment by visa is done";
+        public const string SuccessProcessPaymentByCash = "the payment by cash is done";
+        public const string NotExistPaymentMethod = "the payment method is not exist in our website";
+        public const string SuccessPaymentByVisa = "the payment by visa is success";
+        public const string NotExistOrderId = "Order Id not found";
+
     }
 }

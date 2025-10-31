@@ -169,5 +169,12 @@
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
         }
+        public static class CustomerPaymentRouting
+        {
+            public const string prefix = $"{rule}Customer/Payments";
+            public const string ProcessPayment = $"{prefix}/ProcessPayment";
+            public const string SuccessPayment = $"{prefix}/successPayment";
+
+        }
     }
 }

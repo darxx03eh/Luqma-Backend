@@ -25,5 +25,9 @@ namespace Luqma.Infrastructure.Repositories
             if (count >= 3) return "VIP";
             return "Normal";
         }
+        public async Task<bool> IsOrderIdExistInOrders(int orderid)
+        {
+            return await _context.Orders.AnyAsync(o => o.Id == orderid);
+        }
     }
 }

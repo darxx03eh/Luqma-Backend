@@ -118,7 +118,10 @@ namespace Luqma.API
             {
                 options.TokenLifespan = TimeSpan.FromHours(24);
             });
+           
             builder.Services.AddResponseCaching();
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:StripeKey"];
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
@@ -127,8 +130,7 @@ namespace Luqma.API
                 await RoleSeeder.SeedAsync(roleManager);
                 await UserSeeder.SeedAsync(userManager);
             }
-            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
-            StripeConfiguration.ApiKey = builder.Configuration["Stripe:StripeKey"];
+          
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

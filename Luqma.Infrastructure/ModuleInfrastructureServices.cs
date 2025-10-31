@@ -104,6 +104,11 @@ namespace Luqma.Infrastructure
             services.AddTransient(typeof(ICustomerRepository), typeof(CustomerRepository));
             services.AddTransient(typeof(ICartRepository), typeof(CartRepository));
             services.AddTransient(typeof(IOrderRepository), typeof(OrderRepository));
+            services.AddTransient(typeof(IPaymentRepository), typeof(PaymentRepository));
+            services.AddTransient(typeof(IOrderItemRepository), typeof(OrderItemRepository));
+
+
+
 
 
 
