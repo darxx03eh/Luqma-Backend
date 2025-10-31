@@ -332,7 +332,7 @@ namespace Luqma.Core.ResponseKeys
         public const string SalaryForSpecificUserUpdatedSuccessfully = "The salary for the specific user has been updated successfully";
         public const string UnKnownWeather = "the weather is unknown";
         public const string EmptyCart = "the cart is empty";
-        public const string SuccessAddOrder = "the order is added successfully"
+        public const string SuccessAddOrder = "the order is added successfully";
 
 
         public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
