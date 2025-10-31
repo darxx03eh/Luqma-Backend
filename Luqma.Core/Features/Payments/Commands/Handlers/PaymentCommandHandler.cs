@@ -13,10 +13,10 @@ namespace Luqma.Core.Features.Payments.Commands.Handlers
 
 
     {
-        /* public async Task<ApiResponse> Handle(AddPaymentCommand request, CancellationToken cancellationToken)
+         public async Task<ApiResponse> Handle(AddPaymentCommand request, CancellationToken cancellationToken)
          {
 
          }
-     }*/
+     }
     }
 }

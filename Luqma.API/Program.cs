@@ -119,8 +119,6 @@ namespace Luqma.API
                 options.TokenLifespan = TimeSpan.FromHours(24);
             });
             builder.Services.AddResponseCaching();
-            StripeConfiguration.ApiKey = builder.Configuration["Stripe:StripeKey"];
-            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
