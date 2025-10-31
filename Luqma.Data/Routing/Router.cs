@@ -143,16 +143,17 @@
             public const string DeleteKitchenItem = $"{prefix}{singleRoute}";
             public const string UpdateKitchenItemStatus = $"{prefix}/status";
             public const string UpdateKitchenItem = prefix;
+            public const string UploadKitchenItemImage = $"{prefix}/upload-image";
         }
-        public static class KitchenRequirmentsRouting
+        public static class KitchenRequirementsRouting
         {
-            public const string prefix = $"{rule}kitchen-requirments";
+            public const string prefix = $"{rule}kitchen-requirements";
             public const string GetPaginatedKitchenRequirements = prefix;
             public const string GetKitchenRequirementsById = $"{prefix}{singleRoute}";
-            public const string PlaceNewKitchenRequirments = prefix;
-            public const string ChangeKitchenRequirmentsStatus = $"{prefix}/status";
-            public const string DeleteKitchenRequirments = $"{prefix}{singleRoute}";
-            public const string GetKitchenRequirmentsInfo = $"{prefix}{singleRoute}/info";
+            public const string PlaceNewKitchenRequirements = prefix;
+            public const string ChangeKitchenRequirementsStatus = $"{prefix}/status";
+            public const string DeleteKitchenRequirements = $"{prefix}{singleRoute}";
+            public const string GetKitchenRequirementsInfo = $"{prefix}{singleRoute}/info";
 
         }
        public static class CustomerCartsRouting
@@ -169,12 +170,18 @@
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
         }
-        public static class CustomerPaymentRouting
+
+        public static class FeedbacksRouting
+        {
+            public const string prefix = $"{rule}feedbacks";
+            public const string AddNewFeedback = prefix;
+
+        }
+       public static class CustomerPaymentRouting
         {
             public const string prefix = $"{rule}Customer/Payments";
             public const string ProcessPayment = $"{prefix}/ProcessPayment";
             public const string SuccessPayment = $"{prefix}/successPayment";
-
         }
     }
 }

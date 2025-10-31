@@ -130,15 +130,12 @@ namespace Luqma.API
                 await RoleSeeder.SeedAsync(roleManager);
                 await UserSeeder.SeedAsync(userManager);
             }
-          
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
-
             app.UseResponseCaching();
             app.UseCors(CORS);
             app.UseMiddleware<ErrorHandlerMiddleWare>();

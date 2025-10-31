@@ -1,5 +1,4 @@
-﻿using Luqma.Data.Entities;
-using Luqma.Data.Entities.Identity;
+﻿using Luqma.Data.Entities.Identity;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Microsoft.AspNetCore.Http;
@@ -25,8 +24,12 @@ namespace Luqma.Infrastructure.Repositories
             SalaryRepository = new SalaryRepository(context, httpContextAccessor, userManager);
             BillRepository = new BillRepository(context, httpContextAccessor);
             KitchenItemsRepository = new KitchenItemsRepository(context, httpContextAccessor);
-            KitchenRequirmentsRepository = new KitchenRequirmentsRepository(context, httpContextAccessor);
-            RequirmentItemsRepository = new RequirmentItemsRepository(context, httpContextAccessor);
+            KitchenRequirementsRepository = new KitchenRequirementsRepository(context, httpContextAccessor);
+            RequirementItemsRepository = new RequirementItemsRepository(context, httpContextAccessor);
+            FeedbackRepository = new FeedbackRepository(context, httpContextAccessor);
+            CustomerRepository = new CustomerRepository(context, httpContextAccessor);
+            OrderRepository = new OrderRepository(context, httpContextAccessor);
+            MenuItemRepository = new MenuItemRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
@@ -36,7 +39,11 @@ namespace Luqma.Infrastructure.Repositories
         public ISalaryRepository SalaryRepository { get; set; }
         public IBillRepository BillRepository { get; set; }
         public IKitchenItemsRepository KitchenItemsRepository { get; set; }
-        public IKitchenRequirmentsRepository KitchenRequirmentsRepository { get; set; }
-        public IRequirmentItemsRepository RequirmentItemsRepository { get; set; }
+        public IKitchenRequirementsRepository KitchenRequirementsRepository { get; set; }
+        public IRequirementItemsRepository RequirementItemsRepository { get; set; }
+        public IFeedbackRepository FeedbackRepository { get; set; }
+        public ICustomerRepository CustomerRepository { get; set; }
+        public IOrderRepository OrderRepository { get; set; }
+        public IMenuItemRepository MenuItemRepository { get; set; }
     }
 }

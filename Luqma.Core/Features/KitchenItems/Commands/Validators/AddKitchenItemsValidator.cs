@@ -17,8 +17,8 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Validators
 
             RuleFor(x => x.Status)
                 .NotEmpty().WithMessage(SharedResponseKeys.StatusIsRequired)
-                .Must(s => s == "Available" || s == "Unavailable")
-                .WithMessage(SharedResponseKeys.StatusMustBeEitherAvailableOrUnavailable);
+                .Must(s => s == "Available" || s == "Unavailable" || s == "Low")
+                .WithMessage(SharedResponseKeys.StatusMustBeEitherAvailableOrUnavailableOrLow);
 
             RuleFor(x => x.Unit)
                 .NotEmpty().WithMessage(SharedResponseKeys.UnitIsRequired)
@@ -26,6 +26,9 @@ namespace Luqma.Core.Features.KitchenItems.Commands.Validators
 
             RuleFor(x => x.Quantity)
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.QuantityMustBe0OrGreater);
+
+            RuleFor(x => x.Price)
+                .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.PriceMustBe0OrGreater);
 
             RuleFor(image => image.Image.ContentType)
                 .Must(ct => ct == "image/jpeg" || ct == "image/png" || ct == "image/webp")

@@ -17,6 +17,7 @@ namespace Luqma.Core.Features.Payments.Commands.Handlers
 
 
     {
+
         private readonly IPaymentService _paymentService;
 
         public PaymentCommandHandler(IPaymentService paymentService)
@@ -45,6 +46,8 @@ namespace Luqma.Core.Features.Payments.Commands.Handlers
             };
 
         }
+     }
+
     }
 }
 

@@ -9,5 +9,6 @@
         public string? Note { get; set; }
         public string Unit { get; set; }
         public double Quantity { get; set; }
+        public double Price { get; set; }
     }
 }

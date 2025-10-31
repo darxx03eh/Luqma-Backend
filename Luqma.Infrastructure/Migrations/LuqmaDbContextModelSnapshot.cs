@@ -308,8 +308,8 @@ namespace Luqma.Infrastructure.Migrations
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stars")
-                        .HasColumnType("int");
+                    b.Property<double>("Stars")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -560,7 +560,7 @@ namespace Luqma.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirements", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -591,9 +591,9 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("ChefId");
 
-                    b.ToTable("KitchenRequirments", null, t =>
+                    b.ToTable("KitchenRequirements", null, t =>
                         {
-                            t.HasCheckConstraint("CK_KitchenRequirments_TotalPrice_NonNegative", "[TotalPrice] >= 0");
+                            t.HasCheckConstraint("CK_KitchenRequirements_TotalPrice_NonNegative", "[TotalPrice] >= 0");
                         });
                 });
 
@@ -673,6 +673,11 @@ namespace Luqma.Infrastructure.Migrations
                         .HasPrecision(10, 2)
                         .HasColumnType("float(10)");
 
+                    b.Property<double>("TotalStars")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("float")
+                        .HasDefaultValue(0.0);
+
                     b.HasKey("Id");
 
                     b.ToTable("MenuItems", null, t =>
@@ -680,6 +685,8 @@ namespace Luqma.Infrastructure.Migrations
                             t.HasCheckConstraint("CK_MenuItem_Discount_Valid", "[Discount] IS NULL OR [Discount] >= 0 AND [Discount] <= 100");
 
                             t.HasCheckConstraint("CK_MenuItem_Price_NonNegative", "[Price] >= 0");
+
+                            t.HasCheckConstraint("CK_MenuItem_TotalStars_Range", "[TotalStars] >= 0 AND [TotalStars] <= 5");
                         });
                 });
 
@@ -917,7 +924,7 @@ namespace Luqma.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Luqma.Data.Entities.RequirmentItems", b =>
+            modelBuilder.Entity("Luqma.Data.Entities.RequirementItems", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -931,6 +938,9 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.Property<int>("ItemId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Price")
                         .HasPrecision(10, 2)
@@ -948,11 +958,11 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.HasIndex("RequirmentId");
 
-                    b.ToTable("RequirmentItems", null, t =>
+                    b.ToTable("RequirementItems", null, t =>
                         {
-                            t.HasCheckConstraint("CK_RequirmentItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
+                            t.HasCheckConstraint("CK_RequirementItems_Discount_Valid", "[Discount] >= 0 AND [Discount] <= 100");
 
-                            t.HasCheckConstraint("CK_RequirmentItems_Price_NonNegative", "[Price] >= 0");
+                            t.HasCheckConstraint("CK_RequirementItems_Price_NonNegative", "[Price] >= 0");
                         });
                 });
 
@@ -1303,10 +1313,10 @@ namespace Luqma.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirements", b =>
                 {
                     b.HasOne("Luqma.Data.Entities.Identity.LuqmaUser", "Chef")
-                        .WithMany("KitchenRequirments")
+                        .WithMany("KitchenRequirements")
                         .HasForeignKey("ChefId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1418,23 +1428,23 @@ namespace Luqma.Infrastructure.Migrations
                     b.Navigation("MenuItem");
                 });
 
-            modelBuilder.Entity("Luqma.Data.Entities.RequirmentItems", b =>
+            modelBuilder.Entity("Luqma.Data.Entities.RequirementItems", b =>
                 {
                     b.HasOne("Luqma.Data.Entities.KitchenItems", "KitchenItems")
-                        .WithMany("RequirmentItems")
+                        .WithMany("RequirementItems")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Luqma.Data.Entities.KitchenRequirments", "KitchenRequirments")
-                        .WithMany("RequirmentItems")
+                    b.HasOne("Luqma.Data.Entities.KitchenRequirements", "KitchenRequirements")
+                        .WithMany("RequirementItems")
                         .HasForeignKey("RequirmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("KitchenItems");
 
-                    b.Navigation("KitchenRequirments");
+                    b.Navigation("KitchenRequirements");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Salary", b =>
@@ -1559,7 +1569,7 @@ namespace Luqma.Infrastructure.Migrations
 
                     b.Navigation("FinanceSalaries");
 
-                    b.Navigation("KitchenRequirments");
+                    b.Navigation("KitchenRequirements");
 
                     b.Navigation("Orders");
 
@@ -1574,12 +1584,12 @@ namespace Luqma.Infrastructure.Migrations
 
             modelBuilder.Entity("Luqma.Data.Entities.KitchenItems", b =>
                 {
-                    b.Navigation("RequirmentItems");
+                    b.Navigation("RequirementItems");
                 });
 
-            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirments", b =>
+            modelBuilder.Entity("Luqma.Data.Entities.KitchenRequirements", b =>
                 {
-                    b.Navigation("RequirmentItems");
+                    b.Navigation("RequirementItems");
                 });
 
             modelBuilder.Entity("Luqma.Data.Entities.Menu", b =>

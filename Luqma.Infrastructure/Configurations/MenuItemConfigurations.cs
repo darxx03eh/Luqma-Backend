@@ -12,6 +12,7 @@ namespace Luqma.Infrastructure.Configurations
             {
                 menuitem.HasCheckConstraint("CK_MenuItem_Price_NonNegative", "[Price] >= 0");
                 menuitem.HasCheckConstraint("CK_MenuItem_Discount_Valid", "[Discount] IS NULL OR [Discount] >= 0 AND [Discount] <= 100");
+                menuitem.HasCheckConstraint("CK_MenuItem_TotalStars_Range", "[TotalStars] >= 0 AND [TotalStars] <= 5");
             });
             builder.HasKey(menuitem => menuitem.Id);
 
@@ -62,6 +63,8 @@ namespace Luqma.Infrastructure.Configurations
                    .HasPrecision(5, 2);
             builder.Property(mi => mi.IsVegetarian)
                    .IsRequired();
+            builder.Property(mi => mi.TotalStars)
+                .HasDefaultValue(0);
         }
     }
 }

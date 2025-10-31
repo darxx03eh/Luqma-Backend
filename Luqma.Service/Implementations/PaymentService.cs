@@ -68,8 +68,10 @@ namespace Luqma.Service.Implementations
         {
              var order=await _orderRepository.GetByIdAsync(OrderId);
             var customerid = int.Parse(_paymentRepository.ExtractUserIdFromToken());
+
             IEnumerable<Cart> carts =await _cartRepository.GetCartForCustomerAsync(customerid);
             if (!carts.Any()) return (null,"the cart is empty");
+
             var Request = _httpContextAccessor.HttpContext.Request;
             if (paymentMethod.Equals("visa")){
 

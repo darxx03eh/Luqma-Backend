@@ -9,6 +9,7 @@
         public double? Discount { get; set; }
         public double Price { get; set; }
         public bool IsVegetarian { get; set; }
+        public double TotalStars { get; set; }
         public virtual ICollection<Feedback>? Feedbacks { get; set; } = new HashSet<Feedback>();
         public virtual ICollection<MenuContains>? MenuContains { get; set; } = new HashSet<MenuContains>();
         public virtual ICollection<CategoryItem>? CategoryItems { get; set; } = new HashSet<CategoryItem>();

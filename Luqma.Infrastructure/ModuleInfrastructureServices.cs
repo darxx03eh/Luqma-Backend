@@ -106,18 +106,6 @@ namespace Luqma.Infrastructure
             services.AddTransient(typeof(IOrderRepository), typeof(OrderRepository));
             services.AddTransient(typeof(IPaymentRepository), typeof(PaymentRepository));
             services.AddTransient(typeof(IOrderItemRepository), typeof(OrderItemRepository));
-
-
-
-
-
-
-
-
-
-
-            #endregion
-
             return services;
         }
     }
