@@ -1,6 +1,7 @@
 ﻿using Luqma.Core.Bases;
 using Luqma.Core.Features.Orders.Commands.Models;
 using Luqma.Core.ResponseKeys;
+using Luqma.Data.Response.Order;
 using Luqma.Service.Interfaces;
 using MediatR;
 using System;
@@ -27,11 +28,15 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
         {
 
           var(orderid,result)=  await _orderService.AddOrderAsync(request.Note);
+            var OrderResponse = new OrderResponse()
+            {
+                OrderId = orderid
+            };
             return result switch
             {
                 "the weather is unknown" => InternalServerError(SharedResponseKeys.UnKnownWeather),
                 "the cart is empty" => NotFound(SharedResponseKeys.EmptyCart),
-                "the order is added successfully" => Success(orderid, message: SharedResponseKeys.SuccessAddOrder)
+                "the order is added successfully" => Success(OrderResponse, message: SharedResponseKeys.SuccessAddOrder)
             };
 
         }

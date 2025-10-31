@@ -1,4 +1,6 @@
-﻿namespace Luqma.Core.ResponseKeys
+﻿using System.Diagnostics;
+
+namespace Luqma.Core.ResponseKeys
 {
     public static class SharedResponseKeys
     {
@@ -330,7 +332,9 @@
         public const string SalaryForSpecificUserUpdatedSuccessfully = "The salary for the specific user has been updated successfully";
         public const string UnKnownWeather = "the weather is unknown";
         public const string EmptyCart = "the cart is empty";
-        public const string SuccessAddOrder = "the order is added successfully";
+        public const string SuccessAddOrder = "the order is added successfully"
+
+
         public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
         public const string AnErrorOccurredWhileAddingItemImage = "An error occurred while adding the item image";
         public const string PriceMustBe0OrGreater = "The price must be 0 or greater";
@@ -348,5 +352,12 @@
         public const string AnErrorOccurredWhileUpdatingTheTotalStars = "An error occurred while updating the total stars";
         public const string NoFeedBacksForThisItemFound = "No feedbacks were found for this item";
         public const string FeedbackAddedSuccessfully = "Feedback has been added successfully";
+      
+       public const string SuccessProcessPaymentByVisa = "the url for payment by visa is done";
+        public const string SuccessProcessPaymentByCash = "the payment by cash is done";
+        public const string NotExistPaymentMethod = "the payment method is not exist in our website";
+        public const string SuccessPaymentByVisa = "the payment by visa is success";
+        public const string NotExistOrderId = "Order Id not found";
+
     }
 }

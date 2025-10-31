@@ -8,5 +8,7 @@ namespace Luqma.Service.Interfaces
 {
    public interface IPaymentService
     {
+        public Task<(string?, string)> ProcessPaymentAsync(int OrderId, string paymentMethod);
+        public Task<string> SuccessPaymentByVisaAsync(int orderid);
     }
 }

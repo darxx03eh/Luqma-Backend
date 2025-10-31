@@ -170,10 +170,18 @@
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
         }
+
         public static class FeedbacksRouting
         {
             public const string prefix = $"{rule}feedbacks";
             public const string AddNewFeedback = prefix;
+
+        }
+       public static class CustomerPaymentRouting
+        {
+            public const string prefix = $"{rule}Customer/Payments";
+            public const string ProcessPayment = $"{prefix}/ProcessPayment";
+            public const string SuccessPayment = $"{prefix}/successPayment";
         }
     }
 }

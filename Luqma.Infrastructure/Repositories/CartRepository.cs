@@ -19,7 +19,7 @@ namespace Luqma.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<IQueryable<Cart>> GetCartForCustomerAsync(int customerid)
+        public async Task<IQueryable<Cart>> GetCartForCustomerAsync(int? customerid)
         {
            return _context.Carts.Include(c=>c.MenuItem).Where(c => c.CustomerId == customerid).AsNoTracking().AsQueryable();
         }
@@ -35,6 +35,12 @@ namespace Luqma.Infrastructure.Repositories
            var cart= _context.Carts.FirstOrDefault(c => c.ItemId == itemid && c.CustomerId == customerid);
             if (cart.Quantity == 1) return false;
             return true;
+        }
+        public async Task ClearCartAsync(int? customerid)
+        {
+          var cartsforcustomer=  await _context.Carts.Where(c => c.CustomerId == customerid).ToListAsync();
+            _context.Carts.RemoveRange(cartsforcustomer);
+            await _context.SaveChangesAsync();
         }
     }
 }

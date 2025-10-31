@@ -39,7 +39,9 @@ namespace Luqma.Core.Middlewares
            Router.CategoriesRouting.GetById.Replace("/{id}", ""),
           Router.CustomerRouting.ConfirmPhoneNumberCode,
           Router.CustomerRouting.AddPhoneNumberThenSend,
-          Router.CustomerRouting.UpdateCustomerDetails
+          Router.CustomerRouting.UpdateCustomerDetails,
+          Router.CustomerPaymentRouting.SuccessPayment
+
         };
         public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
         {
