@@ -65,6 +65,27 @@ namespace Luqma.Service.Implementations
             return result <= 0 ? "AnErrorOccurredWhileDeletingKitchenRequirements" : "KitchenRequirementsDeletedSuccessfully";
         }
 
+        public async Task<string> DeletePendingKitchenRequirementsAsync(int id)
+        {
+            var chefId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(chefId))
+                return "ChefNotFound";
+
+            var chef = await userManager.FindByIdAsync(chefId);
+            if (chef is null)
+                return "ChefNotFound";
+
+            var kitchenRequirments = await unitOfWork.KitchenRequirementsRepository.GetByIdAsync(id);
+            if (kitchenRequirments is null)
+                return "KitchenRequirementsNotFound";
+
+            if (!kitchenRequirments.Status.ToLower().Equals("pending"))
+                return "CanNotDeleteNonPendingKitchenRequirements";
+
+            var result = await unitOfWork.KitchenRequirementsRepository.DeleteAsync(kitchenRequirments);
+            return result <= 0 ? "AnErrorOccurredWhileDeletingKitchenRequirements" : "KitchenRequirementsDeletedSuccessfully";
+        }
+
         public async Task<(string, PaginatedResult<GetKitchenRequirementsResponse>?)> GetKitchenRequirementsAsync(int pageNumber)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();

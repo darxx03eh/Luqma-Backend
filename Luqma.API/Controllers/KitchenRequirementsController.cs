@@ -57,5 +57,12 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new GetKitchenRequirementsInfoQuery(id));
             return Result(result);
         }
+        [Authorize(Roles = Roles.Chef)]
+        [HttpDelete(Router.KitchenRequirementsRouting.DeletePendingKitchenRequirements)]
+        public async Task<IActionResult> DeletePendingKitchenRequirements(int id)
+        {
+            var result = await mediator.Send(new DeletePendingRequirementsCommand(id));
+            return Result(result);
+        }
     }
 }
