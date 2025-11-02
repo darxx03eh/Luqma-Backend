@@ -6,6 +6,7 @@
         public string? Content { get; set; }
         public double Stars { get; set; }
         public CustomerFeedback Customer { get; set; }
+        public string Since { get; set; }
     }
     public class CustomerFeedback
     {

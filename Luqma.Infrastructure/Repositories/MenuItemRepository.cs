@@ -1,16 +1,15 @@
-﻿using Luqma.Data.Entities;
+﻿using Humanizer;
+using Luqma.Data.Entities;
+using Luqma.Data.Response.Feedbacks;
+using Luqma.Data.Wrappers;
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Luqma.Infrastructure.Repositories
 {
-   public  class MenuItemRepository:GenericRepository<MenuItem>,IMenuItemRepository
+    public class MenuItemRepository : GenericRepository<MenuItem>, IMenuItemRepository
     {
 
         private readonly LuqmaDbContext _context;
@@ -22,12 +21,45 @@ namespace Luqma.Infrastructure.Repositories
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public async Task<(string, PaginatedResult<GetCustomerFeedback>?)> GetItemFeedbacksAsync(int id, int pageNumber, int pageSize)
+        {
+            var feedbacksQueryable = _context.Feedbacks.Where(feedback => feedback.ItemId.Equals(id))
+                            .AsNoTracking().AsQueryable();
+
+            if (feedbacksQueryable is null || !feedbacksQueryable.Any())
+                return ("NoFeedbacksFoundForItem", null);
+
+            var customersFeedbacksPaginated = await feedbacksQueryable.ToPaginatedListAsync(pageNumber, pageSize);
+
+            var customerFeedbacks = customersFeedbacksPaginated.Data.Select(feedback => new GetCustomerFeedback()
+            {
+                Id = feedback.CustomerId,
+                FirstName = feedback.Customer.FirstName,
+                LastName = feedback.Customer.LastName,
+                Stars = feedback.Stars,
+                Content = feedback.Content,
+                Since = feedback.UpdatedAt.Humanize()
+            }).ToList();
+
+            var result = PaginatedResult<GetCustomerFeedback>.Success(
+                customerFeedbacks,
+                customersFeedbacksPaginated.TotalCount,
+                customersFeedbacksPaginated.TotalPages,
+                customersFeedbacksPaginated.PageSize
+            );
+            result.CurrentPage = customersFeedbacksPaginated.CurrentPage;
+            if (result.Data.Count.Equals(0))
+                return ("NoFeedbacksFoundForItem", null);
+
+            return ("FeedbacksFoundForItem", result);
+        }
+
         public async Task<bool> IsIdExistAsync(int id)
         {
-           var menuitem= _context.MenuItems.FirstOrDefault(mi => mi.Id == id);
+            var menuitem = _context.MenuItems.FirstOrDefault(mi => mi.Id == id);
             if (menuitem is null) return false;
             return true;
-           
+
         }
     }
 }
