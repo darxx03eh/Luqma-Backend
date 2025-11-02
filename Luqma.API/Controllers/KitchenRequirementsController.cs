@@ -26,7 +26,7 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager},{Roles.Chef}")]
         [HttpGet(Router.KitchenRequirementsRouting.GetPaginatedKitchenRequirements)]
         public async Task<IActionResult> GetPaginatedKitchenRequirements(int pageNumber = 1)
         {
@@ -36,7 +36,7 @@ namespace Luqma.API.Controllers
             });
             return Result(result);
         }
-        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager},{Roles.Chef}")]
         [HttpGet(Router.KitchenRequirementsRouting.GetKitchenRequirementsById)]
         public async Task<IActionResult> GetKitchenRequirementsById(int id)
         {
@@ -50,7 +50,7 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(new DeleteKitchenRequirementsCommand(id));
             return Result(result);
         }
-        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager}")]
+        [Authorize(Roles = $"{Roles.Finance},{Roles.Manager},{Roles.Chef}")]
         [HttpGet(Router.KitchenRequirementsRouting.GetKitchenRequirementsInfo)]
         public async Task<IActionResult> GetKitchenRequirmentsInfo(int id)
         {
