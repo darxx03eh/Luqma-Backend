@@ -367,5 +367,6 @@ namespace Luqma.Core.ResponseKeys
         public const string FeedbacksFoundForItem = "Feedbacks were successfully retrieved for the item";
         public const string AnErrorOccurredWhileDeletingFeedback = "An error occurred while deleting the feedback";
         public const string TheFeedbackWasSuccessfullyDeleted = "The feedback was successfully deleted";
+        public const string CanNotDeleteNonPendingKitchenRequirements = "Only pending kitchen requirements can be deleted";
     }
 }
