@@ -132,7 +132,6 @@
             public const string ConfirmPhoneNumberCode = $"{prefix}/ConfirmPhoneNumberCode";
             public const string UpdateCustomerDetails = $"{prefix}/UpdateCustomerDetails";
             
-
         }
         public static class KitchenItemsRouting
         {
@@ -184,6 +183,11 @@
             public const string prefix = $"{rule}Customer/Payments";
             public const string ProcessPayment = $"{prefix}/ProcessPayment";
             public const string SuccessPayment = $"{prefix}/successPayment";
+        }
+        public static class MenuItemRouting
+        {
+            public const string prefix = $"{rule}MenuItems";
+            public const string GetAll = $"{prefix}/GetAll";
         }
     }
 }
