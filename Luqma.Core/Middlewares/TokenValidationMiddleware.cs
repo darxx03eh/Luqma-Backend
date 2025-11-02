@@ -33,15 +33,15 @@ namespace Luqma.Core.Middlewares
             Router.AuthenticationsRouting.RevokeRefreshToken,
             Router.AuthenticationsRouting.ValidateAccessToken,
             Router.MenuRouting.GetAll,
-          Router.CategoryItemsRouting.GetItemsByCategoryId.Replace("/{id}", ""),
-          Router.MenuContainsRouting.GetItemsByMenuId.Replace("/{id}", ""),
-           Router.CategoriesRouting.GetAll,
-           Router.CategoriesRouting.GetById.Replace("/{id}", ""),
-          Router.CustomerRouting.ConfirmPhoneNumberCode,
-          Router.CustomerRouting.AddPhoneNumberThenSend,
-          Router.CustomerRouting.UpdateCustomerDetails,
-          Router.CustomerPaymentRouting.SuccessPayment
-
+            Router.CategoryItemsRouting.GetItemsByCategoryId.Replace("/{id}", ""),
+            Router.MenuContainsRouting.GetItemsByMenuId.Replace("/{id}", ""),
+            Router.CategoriesRouting.GetAll,
+            Router.CategoriesRouting.GetById.Replace("/{id}", ""),
+            Router.CustomerRouting.ConfirmPhoneNumberCode,
+            Router.CustomerRouting.AddPhoneNumberThenSend,
+            Router.CustomerRouting.UpdateCustomerDetails,
+            Router.CustomerPaymentRouting.SuccessPayment,
+            Router.FeedbacksRouting.GetFeedbacksForItem.Replace("/{id}", "")
         };
         public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
         {

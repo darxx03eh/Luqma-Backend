@@ -175,7 +175,9 @@
         {
             public const string prefix = $"{rule}feedbacks";
             public const string AddNewFeedback = prefix;
-
+            public const string UpdateExistingFeedback = prefix;
+            public const string GetFeedbacksForItem = $"{prefix}/item{singleRoute}";
+            public const string DeleteExistingFeedback = $"{prefix}{singleRoute}";
         }
        public static class CustomerPaymentRouting
         {
