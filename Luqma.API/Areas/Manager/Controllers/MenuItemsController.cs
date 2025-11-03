@@ -43,6 +43,12 @@ namespace Luqma.API.Areas.Manager.Controllers
             return Result(result);
 
         }
+        [HttpGet(Router.ManagerMenuItemsRouting.GetById)]
+        public async Task<IActionResult> GetById([FromRoute]int id)
+        {
+            var result = await mediator.Send(new GetMenuItemByIdQuery(id));
+            return Result(result);
+        }
 
 
     }

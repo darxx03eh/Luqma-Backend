@@ -358,6 +358,9 @@ namespace Luqma.Core.ResponseKeys
         public const string NotExistPaymentMethod = "the payment method is not exist in our website";
         public const string SuccessPaymentByVisa = "the payment by visa is success";
         public const string NotExistOrderId = "Order Id not found";
+        public const string ItemFetchSuccess = "the item is fetched successfully";
+
+
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Luqma.Core.Bases;
+using Luqma.Data.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -18,6 +19,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Models
         public double? Discount { get; set; }
         public double Price { get; set; }
         public bool IsVegetarian { get; set; }
+        public Status status { get; set; }
 
 
 

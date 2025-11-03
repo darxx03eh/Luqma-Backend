@@ -15,7 +15,8 @@ using System.Threading.Tasks;
 namespace Luqma.Core.Features.MenuItems.Queries.Handlers
 {
     public class MenuItemQueryHandler : ApiResponseHandler,
-        IRequestHandler<GetAllMenuItemQuery, ApiResponse>
+        IRequestHandler<GetAllMenuItemQuery, ApiResponse>,
+        IRequestHandler<GetMenuItemByIdQuery,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly IMenuItemService _menuItemService;
@@ -37,6 +38,16 @@ namespace Luqma.Core.Features.MenuItems.Queries.Handlers
             };
 
 
+        }
+
+        public async  Task<ApiResponse> Handle(GetMenuItemByIdQuery request, CancellationToken cancellationToken)
+        {
+             var (item,result)=await _menuItemService.GetByIdAsync(request.Id);
+             var itemResponse=_mapper.Map<MenuItemResponse>(item);
+            return result switch
+            {
+                "the item is fetched successfully" => Success(itemResponse, SharedResponseKeys.ItemFetchSuccess)
+            };
         }
     }
 }
