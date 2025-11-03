@@ -65,6 +65,8 @@ namespace Luqma.Infrastructure.Configurations
                    .IsRequired();
             builder.Property(mi => mi.TotalStars)
                 .HasDefaultValue(0);
+            builder.Property(mi => mi.Status)
+                .IsRequired();
         }
     }
 }

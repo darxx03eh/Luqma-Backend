@@ -66,7 +66,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
         public async Task<ApiResponse> Handle(UpdateMenuItemCommand request, CancellationToken cancellationToken)
         {
             
-           var result= await _menuItemService.UpdateMenuItemAsync(request.Id,request.Item,request.Description,request.Discount,request.Price,request.IsVegetarian, request.Image);
+           var result= await _menuItemService.UpdateMenuItemAsync(request.Id,request.Item,request.Description,request.Discount,request.Price,request.IsVegetarian, request.Image,request.status);
             return result switch
             {
                 "the item Id is not found" => NotFound(SharedResponseKeys.ItemNotFound),
