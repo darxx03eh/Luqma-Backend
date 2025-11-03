@@ -85,7 +85,7 @@ namespace Luqma.Service.Implementations
             return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
         }
-        public async Task<string> UpdateMenuItemAsync(int id,string item,string description,double? discount,double price,bool isvegetarian,IFormFile? file,Status status)
+        public async Task<string> UpdateMenuItemAsync(int id,string item,string description,double? discount,double price,bool isvegetarian,IFormFile? file)
         {
 
             var menuitem = await _menuItemRepository.GetByIdAsync(id);
@@ -95,7 +95,7 @@ namespace Luqma.Service.Implementations
             menuitem.Price = price;
             menuitem.Discount = discount;
             menuitem.IsVegetarian = isvegetarian;
-            menuitem.Status = status;
+     
 
            
             if (file == null && menuitem.ImageUrl!=null)
@@ -149,6 +149,20 @@ namespace Luqma.Service.Implementations
            var item= await  _menuItemRepository.GetByIdAsync(id);
            
             return (item,"the item is fetched successfully");
+        }
+        public async Task<string> ToggleStatusAsync(int id)
+        {
+         var item=  await _menuItemRepository.GetByIdAsync(id);
+            if (item.Status == Status.InActive)
+            {
+                item.Status = Status.Active;
+            }
+            else {
+                item.Status = Status.InActive;
+            }
+            await _menuItemRepository.SaveChangesAsync();
+            return "the status of item is toggled";
+                
         }
     }
 }
