@@ -81,7 +81,10 @@
             public const string Delete = $"{prefix}/Delete{singleRoute}";
             public const string Update = $"{prefix}/Update";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
+            public const string ToogleStatus = $"{rule}ManagerOrChef/MenuItems/toggleStatus{singleRoute}";
+
         }
+     
         public static class ManagerMenuRouting
         {
             public const string prefix = $"{rule}Manager/Menus";

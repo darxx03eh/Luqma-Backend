@@ -17,7 +17,8 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
     public class MenuItemCommandHandler : ApiResponseHandler,
         IRequestHandler<AddMenuItemCommand, ApiResponse>,
         IRequestHandler<DeleteMenuItemCommand,ApiResponse>,
-        IRequestHandler<UpdateMenuItemCommand,ApiResponse>
+        IRequestHandler<UpdateMenuItemCommand,ApiResponse>,
+        IRequestHandler<ToggleStatusCommand,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly ICloudinaryService _cloudinaryService;
@@ -66,7 +67,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
         public async Task<ApiResponse> Handle(UpdateMenuItemCommand request, CancellationToken cancellationToken)
         {
             
-           var result= await _menuItemService.UpdateMenuItemAsync(request.Id,request.Item,request.Description,request.Discount,request.Price,request.IsVegetarian, request.Image,request.status);
+           var result= await _menuItemService.UpdateMenuItemAsync(request.Id,request.Item,request.Description,request.Discount,request.Price,request.IsVegetarian, request.Image);
             return result switch
             {
                 "the item Id is not found" => NotFound(SharedResponseKeys.ItemNotFound),
@@ -76,6 +77,16 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
                 _ => InternalServerError(SharedResponseKeys.AnErrorWhileUpdateItem)
 
             };
+        }
+
+        public async Task<ApiResponse> Handle(ToggleStatusCommand request, CancellationToken cancellationToken)
+        {
+            var result= await _menuItemService.ToggleStatusAsync(request.Id);
+            return result switch
+            {
+                "the status of item is toggled" => Success(null,message:SharedResponseKeys.SuccessToggleStatusofitem)
+            };
+            
         }
     }
 }

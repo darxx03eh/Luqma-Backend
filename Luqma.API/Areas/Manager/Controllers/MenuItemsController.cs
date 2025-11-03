@@ -1,4 +1,5 @@
-﻿using Luqma.API.Base;
+﻿using CloudinaryDotNet.Actions;
+using Luqma.API.Base;
 using Luqma.Core.Features.MenuItems.Commands.Models;
 using Luqma.Core.Features.MenuItems.Queries.Models;
 using Luqma.Data.Helpers;
@@ -47,6 +48,14 @@ namespace Luqma.API.Areas.Manager.Controllers
         public async Task<IActionResult> GetById([FromRoute]int id)
         {
             var result = await mediator.Send(new GetMenuItemByIdQuery(id));
+            return Result(result);
+        }
+        [HttpPatch(Router.ManagerMenuItemsRouting.ToogleStatus)]
+        [Authorize(Roles=Roles.Manager + ","+ Roles.Chef)]
+       
+        public async Task<IActionResult> ToggleStatus([FromRoute]int id)
+        {
+            var result = await mediator.Send( new ToggleStatusCommand(id));
             return Result(result);
         }
 

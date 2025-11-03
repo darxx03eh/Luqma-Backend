@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Luqma.Core.Features.MenuItems.Commands.Models;
 using Luqma.Core.ResponseKeys;
+using Luqma.Infrastructure.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
 {
     public class UpdateMenuItemValidator : AbstractValidator<UpdateMenuItemCommand>
     {
+        private readonly IMenuItemRepository _menuItemRepository;
 
-        public UpdateMenuItemValidator()
+        public UpdateMenuItemValidator(IMenuItemRepository menuItemRepository)
         {
             ApplyValidationRules();
             ApplyCustomValidationRules();
+            _menuItemRepository = menuItemRepository;
         }
         public void ApplyValidationRules()
         {
@@ -40,6 +43,12 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
         }
         public void ApplyCustomValidationRules()
         {
+            RuleFor(dmi => dmi.Id)
+            .MustAsync(async (key, cancellation) =>
+            {
+                return await _menuItemRepository.IsIdExistAsync(key);
+
+            }).WithMessage(SharedResponseKeys.NotFounItemId);
 
         }
 
