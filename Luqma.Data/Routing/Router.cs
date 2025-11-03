@@ -153,6 +153,7 @@
             public const string PlaceNewKitchenRequirements = prefix;
             public const string ChangeKitchenRequirementsStatus = $"{prefix}/status";
             public const string DeleteKitchenRequirements = $"{prefix}{singleRoute}";
+            public const string DeletePendingKitchenRequirements = $"{prefix}/pending{singleRoute}";
             public const string GetKitchenRequirementsInfo = $"{prefix}{singleRoute}/info";
 
         }
@@ -175,7 +176,9 @@
         {
             public const string prefix = $"{rule}feedbacks";
             public const string AddNewFeedback = prefix;
-
+            public const string UpdateExistingFeedback = prefix;
+            public const string GetFeedbacksForItem = $"{prefix}/item{singleRoute}";
+            public const string DeleteExistingFeedback = $"{prefix}{singleRoute}";
         }
        public static class CustomerPaymentRouting
         {

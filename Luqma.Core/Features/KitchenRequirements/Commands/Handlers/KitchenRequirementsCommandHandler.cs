@@ -10,6 +10,7 @@ namespace Luqma.Core.Features.KitchenRequirements.Commands.Handlers
         , IRequestHandler<PlaceNewKitchenRequirementsCommand, ApiResponse>
         , IRequestHandler<ChangeKitchenRequirementsStatusCommand, ApiResponse>
         , IRequestHandler<DeleteKitchenRequirementsCommand, ApiResponse>
+        , IRequestHandler<DeletePendingRequirementsCommand, ApiResponse>
     {
         private readonly IKitchenRequirementsService kitchenRequirementsService;
 
@@ -62,6 +63,20 @@ namespace Luqma.Core.Features.KitchenRequirements.Commands.Handlers
                 "KitchenRequirementsNotFound" => NotFound(SharedResponseKeys.KitchenRequirementsNotFound),
                 "AnErrorOccurredWhileDeletingKitchenRequirements" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirements),
+                "KitchenRequirementsDeletedSuccessfully" => Success(null, message: SharedResponseKeys.KitchenRequirementsDeletedSuccessfully),
+                _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirements)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(DeletePendingRequirementsCommand request, CancellationToken cancellationToken)
+        {
+            var result = await kitchenRequirementsService.DeletePendingKitchenRequirementsAsync(request.Id);
+            return result switch
+            {
+                "ChefNotFound" => NotFound(SharedResponseKeys.ChefNotFound),
+                "KitchenRequirementsNotFound" => NotFound(SharedResponseKeys.KitchenRequirementsNotFound),
+                "CanNotDeleteNonPendingKitchenRequirements" => Forbidden(SharedResponseKeys.CanNotDeleteNonPendingKitchenRequirements),
+                "AnErrorOccurredWhileDeletingKitchenRequirements" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirements),
                 "KitchenRequirementsDeletedSuccessfully" => Success(null, message: SharedResponseKeys.KitchenRequirementsDeletedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingKitchenRequirements)
             };

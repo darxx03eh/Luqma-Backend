@@ -333,8 +333,6 @@ namespace Luqma.Core.ResponseKeys
         public const string UnKnownWeather = "the weather is unknown";
         public const string EmptyCart = "the cart is empty";
         public const string SuccessAddOrder = "the order is added successfully";
-
-
         public const string AnErrorOccurredWhileProcessingImageModificationRequest = "An error occurred while processing the image modification request";
         public const string AnErrorOccurredWhileAddingItemImage = "An error occurred while adding the item image";
         public const string PriceMustBe0OrGreater = "The price must be 0 or greater";
@@ -352,15 +350,25 @@ namespace Luqma.Core.ResponseKeys
         public const string AnErrorOccurredWhileUpdatingTheTotalStars = "An error occurred while updating the total stars";
         public const string NoFeedBacksForThisItemFound = "No feedbacks were found for this item";
         public const string FeedbackAddedSuccessfully = "Feedback has been added successfully";
-      
-       public const string SuccessProcessPaymentByVisa = "the url for payment by visa is done";
+        public const string SuccessProcessPaymentByVisa = "the url for payment by visa is done";
         public const string SuccessProcessPaymentByCash = "the payment by cash is done";
         public const string NotExistPaymentMethod = "the payment method is not exist in our website";
         public const string SuccessPaymentByVisa = "the payment by visa is success";
         public const string NotExistOrderId = "Order Id not found";
-        public const string ItemFetchSuccess = "the item is fetched successfully";
-
-
+        public const string FeedbackIdIsRequired = "Feedback ID is required";
+        public const string FeedbackIdNotEmpty = "Feedback ID must not be empty";
+        public const string FeedbackIdMustBeGreaterThanZero = "Feedback ID must be greater than zero";
+        public const string FeedbackNotFound = "The specified feedback was not found";
+        public const string FeedbacksForCustomerNotFound = "No feedbacks were found for this customer";
+        public const string ThisFeedbackDoNotBelongToThisCustomer = "This feedback does not belong to you";
+        public const string AnErrorOccurredWhileUpdatingFeedback = "An error occurred while updating the feedback";
+        public const string TheFeedbackWasSuccessfullyUpdated = "The feedback was successfully updated";
+        public const string NoFeedbacksFoundForItem = "No feedbacks found for the specified item";
+        public const string FeedbacksFoundForItem = "Feedbacks were successfully retrieved for the item";
+        public const string AnErrorOccurredWhileDeletingFeedback = "An error occurred while deleting the feedback";
+        public const string TheFeedbackWasSuccessfullyDeleted = "The feedback was successfully deleted";
+        public const string CanNotDeleteNonPendingKitchenRequirements = "Only pending kitchen requirements can be deleted";
+       public const string ItemFetchSuccess = "the item is fetched successfully";
 
     }
 }
