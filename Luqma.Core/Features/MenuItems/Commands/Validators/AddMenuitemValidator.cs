@@ -49,13 +49,6 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
                      return await _categoryRepository.IsIdExistInCategoryAsync(key);
 
                  }).WithMessage(SharedResponseKeys.CategoryIdNotFound);
-
-            RuleFor(mi => mi.MenuId)
-                 .MustAsync(async (key, cancellation) =>
-                 {
-                     return await _menuRepository.IsIdInMenuAsync(key);
-
-                 }).WithMessage(SharedResponseKeys.NotFoundMenuId);
         }
 
     }

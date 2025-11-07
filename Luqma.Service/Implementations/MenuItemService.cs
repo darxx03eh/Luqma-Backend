@@ -33,7 +33,7 @@ namespace Luqma.Service.Implementations
             _categoryRepository = categoryRepository;
             _menuRepository = menuRepository;
         }
-        public async Task<string> AddMenuItemAsync(MenuItem menuItem,IFormFile file, ICollection<int> CategoryId,ICollection<int>MenuId)
+        public async Task<string> AddMenuItemAsync(MenuItem menuItem,IFormFile file, ICollection<int> CategoryId)
         {
            
 
@@ -52,14 +52,6 @@ namespace Luqma.Service.Implementations
                 });
             }
            
-            foreach (var men in MenuId)
-            {
-               menuItem.MenuContains.Add(new MenuContains()
-                {
-                   
-                    MenuId = men
-                });
-            }
 
            await  _menuItemRepository.AddAsync(menuItem);
             return "the menuitem is added successfully";  
