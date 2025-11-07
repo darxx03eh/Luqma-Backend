@@ -37,7 +37,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Handlers
 
             var menuitem = _mapper.Map<MenuItem>(request);
            
-          var result= await  _menuItemService.AddMenuItemAsync(menuitem, request.Image,request.CategoryId,request.MenuId);
+          var result= await  _menuItemService.AddMenuItemAsync(menuitem, request.Image,request.CategoryId);
             return result switch
             {
                
