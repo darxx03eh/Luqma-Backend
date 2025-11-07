@@ -60,9 +60,7 @@ namespace Luqma.Infrastructure.Configurations
                    .IsRequired()
                    .HasPrecision(10, 2);
             builder.Property(mi => mi.Discount)
-                   .HasPrecision(5, 2);
-            builder.Property(mi => mi.IsVegetarian)
-                   .IsRequired();
+                   .HasPrecision(5, 2);       
             builder.Property(mi => mi.TotalStars)
                 .HasDefaultValue(0);
             builder.Property(mi => mi.Status)

@@ -36,9 +36,6 @@ namespace Luqma.Core.Features.MenuItems.Commands.Validators
             RuleFor(mi => mi.Discount)
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.DiscountGreaterzeroandless100)
                 .LessThanOrEqualTo(100).WithMessage(SharedResponseKeys.DiscountGreaterzeroandless100);
-            RuleFor(mi => mi.IsVegetarian)
-                
-                .NotNull().WithMessage(SharedResponseKeys.IsVegetarianNotNull);
 
         }
         public void ApplyCustomValidationRules()
