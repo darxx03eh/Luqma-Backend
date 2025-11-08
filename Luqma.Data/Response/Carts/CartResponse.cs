@@ -8,6 +8,7 @@ namespace Luqma.Data.Response.Carts
 {
     public class CartResponse
     {
+        public int ItemId { get; set; }
         public string Item { get; set; }
         public string? ImageUrl { get; set; }
         public string? Description { get; set; }
