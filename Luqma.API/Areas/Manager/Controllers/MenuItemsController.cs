@@ -51,8 +51,9 @@ namespace Luqma.API.Areas.Manager.Controllers
             return Result(result);
         }
         [HttpPatch(Router.ManagerMenuItemsRouting.ToogleStatus)]
-        [Authorize(Roles=Roles.Manager + ","+ Roles.Chef)]
-       
+        [AllowAnonymous]
+        [Authorize(Roles = $"{Roles.Manager},{Roles.Chef}")]
+
         public async Task<IActionResult> ToggleStatus([FromRoute]int id)
         {
             var result = await mediator.Send( new ToggleStatusCommand(id));
