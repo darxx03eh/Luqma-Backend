@@ -8,5 +8,6 @@ namespace Luqma.Infrastructure.IRepositories
     {
         public Task<bool> IsIdExistAsync(int id);
         public Task<(string, PaginatedResult<GetCustomerFeedback>?)> GetItemFeedbacksAsync(int id, int pageNumber, int pageSize);
+        public Task<IQueryable<MenuItem>> GetAllMenuItemsAsync();
     }
 }

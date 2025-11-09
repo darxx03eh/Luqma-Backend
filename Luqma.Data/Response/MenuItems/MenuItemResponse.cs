@@ -18,5 +18,7 @@ namespace Luqma.Data.Response.MenuItems
         public double Price { get; set; }
         public bool IsVegetarian { get; set; }
         public Status Status { get; set; }
+        public int CategoryId { get; set; }
+        public string Title { get; set; }
     }
 }
