@@ -17,7 +17,11 @@ namespace Luqma.Core.Mapping.MenuItems
             CreateMap<AddMenuItemCommand, MenuItem>();
             CreateMap<DeleteMenuItemCommand, MenuItem>();
             CreateMap<UpdateMenuItemCommand, MenuItem>();
-            CreateMap<MenuItem, MenuItemResponse>();
+            CreateMap<MenuItem, MenuItemResponse>()
+                .ForMember(mir => mir.CategoryId, from => from.MapFrom(m => m.CategoryItems.FirstOrDefault(ci => ci.ItemId == m.Id).CategoryId))
+                .ForMember(mir => mir.Title, from => from.MapFrom(m => m.CategoryItems.First(ci => ci.ItemId == m.Id).Category.Title));
+                
+                
            
 
         }

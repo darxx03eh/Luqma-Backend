@@ -129,7 +129,7 @@ namespace Luqma.Service.Implementations
         }
         public async Task<(IQueryable<MenuItem>?, string)> GetAllAsync()
         {
-             var menuitems=_menuItemRepository.GetTableNoTracking();
+             var menuitems= await _menuItemRepository.GetAllMenuItemsAsync();
             if (!menuitems.Any())
             {
                 return (null, "the menuitems is not found");
