@@ -61,10 +61,11 @@ namespace Luqma.Infrastructure.Repositories
             return true;
 
         }
-        public async Task<IQueryable<MenuItem>> GetAllMenuItemsAsync()
+        public async Task<List<MenuItem>> GetAllMenuItemsAsync()
         {
-            return _context.MenuItems.Include(m => m.CategoryItems).ThenInclude(ci => ci.Category).AsNoTracking().AsQueryable();
+            return  await _context.MenuItems.Include(m => m.CategoryItems).ThenInclude(ci => ci.Category).AsNoTracking().AsQueryable().ToListAsync();
 
         }
+       
     }
 }

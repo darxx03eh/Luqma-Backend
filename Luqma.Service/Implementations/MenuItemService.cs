@@ -70,9 +70,11 @@ namespace Luqma.Service.Implementations
                 if (result.Equals("FailedToDeleteImageFromCloudinary") || result.Equals("AnErrorOccurredWhileDeletingFromCloudinary"))
                     return "An Error while delete photo from  Cloudinary ";
             }
-
+            
 
                 var count = await _menuItemRepository.DeleteAsync(item);
+           
+
            
             return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
@@ -127,9 +129,9 @@ namespace Luqma.Service.Implementations
 
 
         }
-        public async Task<(IQueryable<MenuItem>?, string)> GetAllAsync()
+        public async Task<(List<MenuItem>?, string)> GetAllAsync()
         {
-             var menuitems= await _menuItemRepository.GetAllMenuItemsAsync();
+           var menuitems = await _menuItemRepository.GetAllMenuItemsAsync();
             if (!menuitems.Any())
             {
                 return (null, "the menuitems is not found");
