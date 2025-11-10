@@ -11,5 +11,6 @@ namespace Luqma.Service.Interfaces
     public interface ICategoryItemService
     {
         public Task<(IQueryable<CategoryItem>?, string)> GetItemsByCategoryIdAsync(int id);
+        public Task<(string, List<CategoryItem>)> GetAllMenuItemsAsync();
     }
 }

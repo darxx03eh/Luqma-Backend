@@ -18,6 +18,12 @@ namespace Luqma.API.Areas.Customer.Controllers
             var result =await  mediator.Send(new GetItemsbyCategoryIdQuery(id));
             return Result(result);
         }
+        [HttpGet(Router.MenuItemRouting.GetAllCategoryItems)]
+        public async Task<IActionResult> GetAllMenuItems()
+        {
+            var result = await mediator.Send(new GetallMenuItems());
+            return Result(result);
+        }
 
 
     }

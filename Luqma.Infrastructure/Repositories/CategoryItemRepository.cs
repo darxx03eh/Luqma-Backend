@@ -25,5 +25,9 @@ namespace Luqma.Infrastructure.Repositories
         {
              return _context.CategoryItems.Include(ci => ci.MenuItem).Where(ci => ci.CategoryId == id).AsNoTracking().AsQueryable();
         }
+        public async Task<List<CategoryItem>> GetAllCategoryItemsAsync()
+        {
+            return await _context.CategoryItems.Include(ci => ci.MenuItem).Include(ci => ci.Category).AsNoTracking().AsQueryable().ToListAsync();
+        }
     }
 }

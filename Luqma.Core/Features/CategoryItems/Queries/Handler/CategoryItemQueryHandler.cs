@@ -3,6 +3,7 @@ using Luqma.Core.Bases;
 using Luqma.Core.Features.CategoryItems.Queries.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Data.Response.CategoryItems;
+using Luqma.Data.Response.MenuItems;
 using Luqma.Service.Interfaces;
 using MediatR;
 using System;
@@ -14,7 +15,8 @@ using System.Threading.Tasks;
 namespace Luqma.Core.Features.CategoryItems.Queries.Handler
 {
     public class CategoryItemQueryHandler : ApiResponseHandler,
-         IRequestHandler<GetItemsbyCategoryIdQuery, ApiResponse>
+         IRequestHandler<GetItemsbyCategoryIdQuery, ApiResponse>,
+        IRequestHandler<GetallMenuItems,ApiResponse>
     {
         private readonly IMapper _mapper;
         private readonly ICategoryItemService _categoryItemService;
@@ -35,6 +37,16 @@ namespace Luqma.Core.Features.CategoryItems.Queries.Handler
             };
 
            
+        }
+
+        public async Task<ApiResponse> Handle(GetallMenuItems request, CancellationToken cancellationToken)
+        {
+          var (result,categoryitems)=  await _categoryItemService.GetAllMenuItemsAsync();
+             var menuitemRe=_mapper.Map<List<MenuItemResponse>>(categoryitems);
+            return result switch
+            {
+                "the menuitems is fetched successfully" => Success(menuitemRe,message:SharedResponseKeys.SuccessGetMenuItems)
+            };
         }
     }
 }

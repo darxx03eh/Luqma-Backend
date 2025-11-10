@@ -13,10 +13,12 @@ namespace Luqma.Service.Implementations
     public class CategoryService:ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryItemRepository _categoryItemRepository;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository,ICategoryItemRepository categoryItemRepository)
         {
             _categoryRepository = categoryRepository;
+            _categoryItemRepository = categoryItemRepository;
         }
         public async Task<(ICollection<Category>?,string)> GetAllAsync()
         {
@@ -50,6 +52,7 @@ namespace Luqma.Service.Implementations
             if (category is null) return "the category id is not found";
 
            var count= await _categoryRepository.DeleteAsync(category);
+            
             return count>0? "the category is deleted successfully": "the category is not deleted";
         }
         public async Task<(Category?,string)>GetByIdAsync(int id)
