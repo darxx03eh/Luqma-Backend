@@ -192,7 +192,9 @@
         public static class MenuItemRouting
         {
             public const string prefix = $"{rule}MenuItems";
-            public const string GetAll = $"{prefix}/GetAll";
+            public const string GetAllCategoryItems = $"{rule}CategoryItems/GetAllMenuItems";
+            public const string GetAll = $"{prefix}/GetAllMenuItems";
+
         }
     }
 }

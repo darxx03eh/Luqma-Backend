@@ -18,6 +18,8 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasOne(ci => ci.MenuItem)
                 .WithMany(menuitem => menuitem.CategoryItems)
                 .HasForeignKey(ci => ci.ItemId);
+                 
+
         }
     }
 }

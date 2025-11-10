@@ -36,14 +36,14 @@ namespace Luqma.API.Areas.Manager.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
-        [HttpGet(Router.MenuItemRouting.GetAll)]
+       [HttpGet(Router.MenuItemRouting.GetAll)]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var result = await mediator.Send(new GetAllMenuItemQuery());
-            return Result(result);
+            return Result(result);}
 
-        }
+        
         [HttpGet(Router.ManagerMenuItemsRouting.GetById)]
         public async Task<IActionResult> GetById([FromRoute]int id)
         {

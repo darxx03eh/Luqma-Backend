@@ -29,5 +29,10 @@ namespace Luqma.Service.Implementations
 
 
         }
+        public async Task<(string,List<CategoryItem>)> GetAllMenuItemsAsync()
+        {
+            var categoryitems = await _categoryItemRepository.GetAllCategoryItemsAsync();
+            return ("the menuitems is fetched successfully", categoryitems);
+        }
     }
 }
