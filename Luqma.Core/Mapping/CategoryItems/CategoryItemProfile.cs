@@ -25,7 +25,7 @@ namespace Luqma.Core.Mapping.CategoryItems
 
 
             CreateMap<CategoryItem, MenuItemResponse>()
-                 .ForMember(mir => mir.Item, from => from.MapFrom(ci => ci.MenuItem.Item))
+                .ForMember(mir => mir.Item, from => from.MapFrom(ci => ci.MenuItem.Item))
                 .ForMember(mir => mir.Description, from => from.MapFrom(ci => ci.MenuItem.Description))
                 .ForMember(mir => mir.Discount, from => from.MapFrom(ci => ci.MenuItem.Discount))
                 .ForMember(mir => mir.Price, from => from.MapFrom(ci => ci.MenuItem.Price))

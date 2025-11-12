@@ -36,6 +36,7 @@ namespace Luqma.API.Areas.Manager.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+
        [HttpGet(Router.MenuItemRouting.GetAll)]
         [AllowAnonymous]
         public async Task<IActionResult> GetAll()
