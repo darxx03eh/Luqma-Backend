@@ -19,6 +19,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Models
         public double? Discount { get; set; }
         public double Price { get; set; }
         public bool? IsVegetarian { get; set; }
+        public int CategoryId { get; set; }
        
 
 

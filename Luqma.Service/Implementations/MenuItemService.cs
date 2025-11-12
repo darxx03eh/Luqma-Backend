@@ -22,16 +22,17 @@ namespace Luqma.Service.Implementations
         private readonly ICategoryItemRepository _categoryItemRepository;
         private readonly IMenuContainsRepository _menuContainsRepository;
 
-        public MenuItemService(IMenuItemRepository menuItemRepository 
-            ,ICloudinaryService cloudinaryService,
+        public MenuItemService(IMenuItemRepository menuItemRepository
+            , ICloudinaryService cloudinaryService,
             ICategoryRepository categoryRepository,
-            IMenuRepository menuRepository
+            IMenuRepository menuRepository, ICategoryItemRepository categoryItemRepository
            )
         {
             _menuItemRepository = menuItemRepository;
             _cloudinaryService = cloudinaryService;
             _categoryRepository = categoryRepository;
             _menuRepository = menuRepository;
+            _categoryItemRepository = categoryItemRepository;
         }
         public async Task<string> AddMenuItemAsync(MenuItem menuItem,IFormFile file, ICollection<int> CategoryId)
         {
@@ -79,7 +80,7 @@ namespace Luqma.Service.Implementations
             return count > 0 ? "the menu item is deleted successfully" : "the menu item is not deleted";
 
         }
-        public async Task<string> UpdateMenuItemAsync(int id,string item,string description,double? discount,double price,bool? isvegetarian,IFormFile? file)
+        public async Task<string> UpdateMenuItemAsync(int id,string item,string description,double? discount,double price,bool? isvegetarian,IFormFile? file,int CategoryId)
         {
 
             var menuitem = await _menuItemRepository.GetByIdAsync(id);
@@ -89,6 +90,7 @@ namespace Luqma.Service.Implementations
             menuitem.Price = price;
             menuitem.Discount = discount;
             menuitem.IsVegetarian = isvegetarian;
+            
      
 
            
@@ -124,6 +126,16 @@ namespace Luqma.Service.Implementations
 
 
                 var count = await _menuItemRepository.UpdateAsync(menuitem);
+            var categoryItems = await _categoryItemRepository.GetAllAsync();
+            foreach(var ci in categoryItems)
+            {
+                if(ci.ItemId==menuitem.Id && ci.CategoryId != CategoryId)
+                {
+                    ci.CategoryId = CategoryId;
+                    await _categoryItemRepository.SaveChangesAsync();
+                }
+            }
+          
             return count > 0 ? "the menu item is updated successfully" : "the menu item is not updated";
           
 
