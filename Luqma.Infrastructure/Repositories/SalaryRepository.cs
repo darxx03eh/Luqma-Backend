@@ -38,8 +38,10 @@ namespace Luqma.Infrastructure.Repositories
 
             if (!year.Equals(0))
                 salariesQueryable = salariesQueryable.Where(salary => salary.SalaryDate.Year.Equals(year));
+            else salariesQueryable = salariesQueryable.Where(salary => salary.SalaryDate.Year.Equals(DateTime.UtcNow.Year));
             if (!month.Equals(0))
                 salariesQueryable = salariesQueryable.Where(salary => salary.SalaryDate.Month.Equals(month));
+            else salariesQueryable = salariesQueryable.Where(salary => salary.SalaryDate.Month.Equals(DateTime.UtcNow.Month));
 
             if (salariesQueryable is null)
                 return ("SalariesNotFound", null);
