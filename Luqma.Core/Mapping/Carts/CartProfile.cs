@@ -17,7 +17,9 @@ namespace Luqma.Core.Mapping.Carts
                 .ForMember(cr => cr.Item, from => from.MapFrom(c => c.MenuItem.Item))
                 .ForMember(cr => cr.Description, from => from.MapFrom(c => c.MenuItem.Description))
                 .ForMember(cr => cr.Price, from => from.MapFrom(c => c.MenuItem.Price))
-                .ForMember(cr => cr.ImageUrl, from => from.MapFrom(c => c.MenuItem.ImageUrl));
+                .ForMember(cr => cr.ImageUrl, from => from.MapFrom(c => c.MenuItem.ImageUrl))
+                .ForMember(cr => cr.Discount, from => from.MapFrom(c => c.MenuItem.Discount))
+                ;
 
 
 

@@ -14,5 +14,6 @@ namespace Luqma.Service.Interfaces
         public Task<string> UpdateCustomerAsync(string firstname, string lastname, Gender gender, string city, string state, string street);
         public Task<(string?, string)> ConfirmPhoneNumberCodeAsync(string phonenumber, string code);
         public Task<(Customer?, string)> AddPhoneNumberAsync(Customer customer);
+        public Task<(Customer, string)> GetCustomerInfoAsync();
     }
 }

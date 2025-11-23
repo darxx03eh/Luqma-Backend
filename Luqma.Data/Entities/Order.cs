@@ -7,7 +7,7 @@ namespace Luqma.Data.Entities
         public int Id { get; set; }
         public int? CustomerId { get; set; }
         public int? CashierId { get; set; }
-        public double TotalPrice { get; set; }
+        public double? TotalPrice { get; set; }
         public string Status { get; set; }
         public DateTime Date { get; set; } = DateTime.UtcNow;
         public string Type { get; set; }
