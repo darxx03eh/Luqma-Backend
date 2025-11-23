@@ -1,5 +1,6 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Customers.commands.Models;
+using Luqma.Core.Features.Customers.Queries.Models;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,13 @@ namespace Luqma.API.Areas.Customer.Controllers
 
 
 
+        }
+        [HttpGet(Router.CustomerRouting.GetCustomerInfo)]
+        [Authorize]
+        public async Task<IActionResult> GetCustomerInfo()
+        {
+            var result = await mediator.Send(new GetCustomerInformationQuery());
+            return Result(result);
         }
        
 

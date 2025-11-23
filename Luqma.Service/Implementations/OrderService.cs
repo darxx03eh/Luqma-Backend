@@ -62,7 +62,7 @@ namespace Luqma.Service.Implementations
                 };
                 var carts = await _cartRepository.GetCartForCustomerAsync(customerid);
                 if (!carts.Any()) return (null, "the cart is empty");
-                var totalprice = carts.Sum((c => c.Quantity * c.MenuItem.Price));
+                var totalprice = carts.Sum((c => c.Quantity * (c.MenuItem.Price-(c.MenuItem.Discount*c.MenuItem.Price))));
                 order.TotalPrice = totalprice;
 
                 await _orderRepository.AddAsync(order);

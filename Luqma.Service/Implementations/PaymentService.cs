@@ -97,7 +97,8 @@ namespace Luqma.Service.Implementations
                                 Description = item.MenuItem.Description,
 
                             },
-                            UnitAmount = (long)item.MenuItem.Price,
+                            UnitAmount =(long)Math.Round((decimal)((item.MenuItem.Price-(item.MenuItem.Price*item.MenuItem.Discount)) * 100))
+                            
                         },
                         Quantity = (long)item.Quantity,
                        

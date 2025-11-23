@@ -135,7 +135,9 @@
             public const string AddPhoneNumberThenSend = $"{prefix}/AddPhoneNumberThenSend";
             public const string ConfirmPhoneNumberCode = $"{prefix}/ConfirmPhoneNumberCode";
             public const string UpdateCustomerDetails = $"{prefix}/UpdateCustomerDetails";
-            
+            public const string GetCustomerInfo = $"{prefix}/GetCustomerInfo";
+
+
         }
         public static class KitchenItemsRouting
         {
