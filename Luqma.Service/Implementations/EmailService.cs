@@ -4,6 +4,8 @@ using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using MimeKit;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 
 namespace Luqma.Service.Implementations
@@ -23,7 +25,7 @@ namespace Luqma.Service.Implementations
         {
             try
             {
-                using (var client = new SmtpClient())
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                     var message = new MimeMessage();
                     message.From.Add(new MailboxAddress("Luqma", emailSettings.FromEmail));
@@ -55,6 +57,24 @@ namespace Luqma.Service.Implementations
             htmlContent = htmlContent.Replace("{linkOrCode}", linkOrCode);
             htmlContent = htmlContent.Replace("{year}", DateTime.UtcNow.Year.ToString());
             return htmlContent;
+        }
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        {
+            var client = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
+            {
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("thamerdraidi@gmail.com", "ppnr vjkp zrwe tgik")
+            };
+
+            await client.SendMailAsync(
+                new MailMessage(from: "thamerdraidi@gmail.com",
+                                to: email,
+                                subject,
+                                htmlMessage
+                                )
+                { IsBodyHtml = true }
+                );
         }
     }
 }

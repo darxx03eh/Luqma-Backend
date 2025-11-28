@@ -38,5 +38,26 @@ namespace Luqma.Service.Implementations
                 return "Failed";
             }
         }
+        public async Task<string> SendOrderIdForCustomerAsync(string receiver, int OrderId)
+        {
+            try
+            {
+                TwilioClient.Init(whatsAppSettings.AccountSid, whatsAppSettings.AuthToken);
+                var message = MessageResource.Create(
+                    from: new PhoneNumber($"whatsapp:{whatsAppSettings.FromNumber}"),
+                    to: new PhoneNumber($"whatsapp:{receiver}"),
+                    body:
+                        "*🍽️ LUQMA RESTAURANT*\n" +
+                        $"━━━━━━━━━━━━\n\n" +
+                        $"*Your Order Id:* `{OrderId}`\n"
+                       
+                    );
+                return "Success";
+            }
+            catch (Exception exp)
+            {
+                return "Failed";
+            }
+        }
     }
 }
