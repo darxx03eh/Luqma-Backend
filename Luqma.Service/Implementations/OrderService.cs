@@ -20,8 +20,9 @@ namespace Luqma.Service.Implementations
             private readonly IWeatherService _weatherService;
             private readonly IOrderRepository _orderRepository;
             private readonly ICartRepository _cartRepository;
+        private readonly IEmailService _emailService;
 
-            public OrderService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,
+        public OrderService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,
                IWeatherService weatherService, IOrderRepository orderRepository, ICartRepository cartRepository)
             {
                 _customerRepository = customerRepository;
@@ -29,10 +30,13 @@ namespace Luqma.Service.Implementations
                 _weatherService = weatherService;
                 _orderRepository = orderRepository;
                 _cartRepository = cartRepository;
-            }
+            
+        }
             public async Task<(int? id, string)> AddOrderAsync(string? Note)
             {
                 var customerid = int.Parse(_customerRepository.ExtractUserIdFromToken());
+           var cust= await _customerRepository.GetByIdAsync(customerid);
+           
                 var today = DateTime.UtcNow;
                 var isweekend = (today.DayOfWeek.Equals(DayOfWeek.Friday) || today.DayOfWeek.Equals(DayOfWeek.Saturday));
                 var customertype = await _orderRepository.ISCustomerVipOrNormalAsync(customerid);
@@ -66,6 +70,8 @@ namespace Luqma.Service.Implementations
                 order.TotalPrice = totalprice;
 
                 await _orderRepository.AddAsync(order);
+
+            await _whatsAppService.SendOrderIdForCustomerAsync(cust.PhoneNumber, order.Id);
 
                 return (order.Id, "the order is added successfully");
             }
