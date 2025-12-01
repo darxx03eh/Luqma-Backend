@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Cashier\Controllers\" />
     <Folder Include="Areas\Chef\" />
     <Folder Include="Areas\Delivery\Controllers\" />
     <Folder Include="Areas\FinanceStaff\Controllers\" />

@@ -16,7 +16,7 @@ namespace Luqma.Core.Features.MenuItems.Commands.Models
         public string Item { get; set; }
         public IFormFile? Image { get; set; }
         public string? Description { get; set; }
-        public double? Discount { get; set; }
+        public double Discount { get; set; }
         public double Price { get; set; }
         public bool? IsVegetarian { get; set; }
         public int CategoryId { get; set; }

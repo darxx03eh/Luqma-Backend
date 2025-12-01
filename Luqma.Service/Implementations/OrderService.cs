@@ -13,30 +13,33 @@ using Twilio.Types;
 
 namespace Luqma.Service.Implementations
 {
-        public class OrderService : IOrderService
-        {
-            private readonly ICustomerRepository _customerRepository;
-            private readonly IWhatsAppService _whatsAppService;
-            private readonly IWeatherService _weatherService;
-            private readonly IOrderRepository _orderRepository;
-            private readonly ICartRepository _cartRepository;
+    public class OrderService : IOrderService
+    {
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IWhatsAppService _whatsAppService;
+        private readonly IWeatherService _weatherService;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICartRepository _cartRepository;
         private readonly IEmailService _emailService;
 
         public OrderService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,
                IWeatherService weatherService, IOrderRepository orderRepository, ICartRepository cartRepository)
-            {
-                _customerRepository = customerRepository;
-                _whatsAppService = whatsAppService;
-                _weatherService = weatherService;
-                _orderRepository = orderRepository;
-                _cartRepository = cartRepository;
-            
+        {
+            _customerRepository = customerRepository;
+            _whatsAppService = whatsAppService;
+            _weatherService = weatherService;
+            _orderRepository = orderRepository;
+            _cartRepository = cartRepository;
+
         }
-            public async Task<(int? id, string)> AddOrderAsync(string? Note)
+
+        public async Task<(int? id, string)> AddOrderAsync(string? Note)
+        {
+            try
             {
                 var customerid = int.Parse(_customerRepository.ExtractUserIdFromToken());
-           var cust= await _customerRepository.GetByIdAsync(customerid);
-           
+                var cust = await _customerRepository.GetByIdAsync(customerid);
+
                 var today = DateTime.UtcNow;
                 var isweekend = (today.DayOfWeek.Equals(DayOfWeek.Friday) || today.DayOfWeek.Equals(DayOfWeek.Saturday));
                 var customertype = await _orderRepository.ISCustomerVipOrNormalAsync(customerid);
@@ -61,23 +64,30 @@ namespace Luqma.Service.Implementations
                     CustomerType = customertype,
                     PromitionApplied = customertype.Equals("VIP"),
                     WeatherConditions = weatherState,
-                    Note=Note
-                    
+                    Note = Note
+
                 };
                 var carts = await _cartRepository.GetCartForCustomerAsync(customerid);
                 if (!carts.Any()) return (null, "the cart is empty");
-                var totalprice = carts.Sum((c => c.Quantity * (c.MenuItem.Price-(c.MenuItem.Discount*c.MenuItem.Price))));
+                var totalprice = carts.Sum((c => c.Quantity * (c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price))));
                 order.TotalPrice = totalprice;
 
                 await _orderRepository.AddAsync(order);
 
-            await _whatsAppService.SendOrderIdForCustomerAsync(cust.PhoneNumber, order.Id);
+                await _whatsAppService.SendOrderIdForCustomerAsync(cust.PhoneNumber, order.Id);
 
                 return (order.Id, "the order is added successfully");
             }
-        }
 
+
+            catch (Exception ex)
+            {
+                return (null, ex.InnerException?.Message ?? ex.Message);
+            }
+
+        }
     }
+}
 
        
         
