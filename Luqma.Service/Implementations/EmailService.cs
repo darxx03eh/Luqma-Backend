@@ -58,23 +58,6 @@ namespace Luqma.Service.Implementations
             htmlContent = htmlContent.Replace("{year}", DateTime.UtcNow.Year.ToString());
             return htmlContent;
         }
-        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
-        {
-            var client = new System.Net.Mail.SmtpClient("smtp.gmail.com", 587)
-            {
-                EnableSsl = true,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("thamerdraidi@gmail.com", "ppnr vjkp zrwe tgik")
-            };
-
-            await client.SendMailAsync(
-                new MailMessage(from: "thamerdraidi@gmail.com",
-                                to: email,
-                                subject,
-                                htmlMessage
-                                )
-                { IsBodyHtml = true }
-                );
-        }
+      
     }
 }

@@ -12,7 +12,7 @@ namespace Luqma.Service.Interfaces
     {
         public Task<string> AddMenuItemAsync(MenuItem menuItem, IFormFile file, ICollection<int> CategoryId);
         public Task<string> DeleteMenuItemAsync(int id);
-        public Task<string> UpdateMenuItemAsync(int id, string item, string description, double? discount, double price, bool? isvegetarian, IFormFile? file,int CategoryId);
+        public Task<string> UpdateMenuItemAsync(int id, string item, string description, double discount, double price, bool? isvegetarian, IFormFile? file,int CategoryId);
         public  Task<(List<MenuItem>?, string)> GetAllAsync();
         public Task<(MenuItem, string)> GetByIdAsync(int id);
         public  Task<string> ToggleStatusAsync(int id);
