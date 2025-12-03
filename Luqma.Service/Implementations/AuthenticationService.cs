@@ -65,6 +65,7 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredDuringTheEmailConfirmationProcess";
             }
         }
+
         public async Task<string> ConfirmationPhoneNumberAsync(string code)
         {
             try
@@ -88,11 +89,12 @@ namespace Luqma.Service.Implementations
                     return "AnErrorOccurredWhileDeletingTheCode";
                 return "YourPhoneNumberHasConfirmed";
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 return "ThereWasAnErrorConfirmingYourPhoneNumber";
             }
         }
+
         public async Task<(string, string?)> ForgetPasswordConfirmationAsync(string email, string code)
         {
             var user = await userManager.FindByEmailAsync(email);
@@ -122,10 +124,13 @@ namespace Luqma.Service.Implementations
             {
                 case "AlgorithmIsWrong":
                     return (null, "ErrorInTheEncryptionAlgorithmUsed");
+
                 case "TokenIsNotExpire":
                     return (null, "TokenIsStillValidCannotRefreshYet");
+
                 case "RefreshTokenIsNotFound":
                     return (null, "RefreshTokenIsNotFound");
+
                 case "RefreshTokenIsExpire":
                     return (null, "RefreshTokenHasExpire");
             }
@@ -137,9 +142,10 @@ namespace Luqma.Service.Implementations
                 return (null, "AnErrorOccurredDuringTheTokenGenerationProcess");
             return (result, "AccessTokenRegenerated");
         }
+
         private async Task<(String, DateTime?)> ValidateDetails(JwtSecurityToken jwtToken, String accessToken, String refreshToken)
         {
-            if (jwtToken is null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256Signature))
+            if (jwtToken is null || !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256))
                 return ("AlgorithmIsWrong", null);
             if (jwtToken.ValidTo > DateTime.UtcNow)
                 return ("TokenIsNotExpire", null);
@@ -160,6 +166,7 @@ namespace Luqma.Service.Implementations
             var expireDate = userRefreshToken.ExpirydDate;
             return (userId, expireDate);
         }
+
         private async Task<SignInResponse> GenerateRefreshTokenAsync(LuqmaUser user, JwtSecurityToken jwtToken,
                                                                      DateTime? expiryDate, String refreshToken)
         {
@@ -179,6 +186,7 @@ namespace Luqma.Service.Implementations
                 }
             };
         }
+
         public async Task<string> ResetPasswordAsync(string email, string password, string token)
         {
             var user = await userManager.FindByEmailAsync(email);
@@ -282,6 +290,7 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredWhileSendingTheForgetPasswordEmailPleaseTryAgain";
             }
         }
+
         public async Task<string> SendConfirmationCodeThenAddAsync(string phoneNumber)
         {
             try
@@ -382,7 +391,6 @@ namespace Luqma.Service.Implementations
                     }
                     await transaction.CommitAsync();
                     return "TheAccountHasBeenCreated";
-
                 }
                 catch (Exception exp)
                 {
@@ -395,7 +403,6 @@ namespace Luqma.Service.Implementations
 
         public async Task<string> ValidateAccessToken(string token)
         {
-
             var handler = new JwtSecurityTokenHandler();
             var parameters = new TokenValidationParameters
             {

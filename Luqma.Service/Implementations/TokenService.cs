@@ -2,7 +2,6 @@
 using Luqma.Data.Entities.Identity;
 using Luqma.Data.Helpers;
 using Luqma.Data.Response.Authentications;
-using Luqma.Data.Response.Deductions;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -16,7 +15,7 @@ namespace Luqma.Service.Implementations
 {
     public class TokenService(UserManager<LuqmaUser> userManager
                             , JwtSettings jwtSettings
-                            , IRefreshTokenRepository refreshTokenRepository,ICustomerRepository customerRepository) : ITokenService
+                            , IRefreshTokenRepository refreshTokenRepository, ICustomerRepository customerRepository) : ITokenService
     {
         private readonly UserManager<LuqmaUser> userManager = userManager;
         private readonly JwtSettings jwtSettings = jwtSettings;
@@ -45,6 +44,7 @@ namespace Luqma.Service.Implementations
                 RefreshToken = refreshToken
             };
         }
+
         public async Task<(JwtSecurityToken, string)> GenerateJwtTokenAsync(LuqmaUser user)
         {
             var userClaims = await GenerateUserClaimsAsync(user);
@@ -55,10 +55,11 @@ namespace Luqma.Service.Implementations
                 expires: DateTime.UtcNow.AddDays(jwtSettings.AccessTokenExpireDate),
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey))
-                    , SecurityAlgorithms.HmacSha256Signature));
+                    , SecurityAlgorithms.HmacSha256));
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
             return (jwtToken, accessToken);
         }
+
         private async Task<List<Claim>> GenerateUserClaimsAsync(LuqmaUser user)
         {
             var roles = await userManager.GetRolesAsync(user);
@@ -76,7 +77,6 @@ namespace Luqma.Service.Implementations
 
         public async Task<string> GenerateJwtTokenForCustomerAsync(Customer customer)
         {
-            
             var userClaims = await GenerateUserClaimsForCustomerAsync(customer);
             var jwtToken = new JwtSecurityToken(
                issuer: jwtSettings.Issuer,
@@ -85,22 +85,19 @@ namespace Luqma.Service.Implementations
                expires: DateTime.UtcNow.AddDays(jwtSettings.CustomerTokenExpireDate),
                signingCredentials: new SigningCredentials(
                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey))
-                   , SecurityAlgorithms.HmacSha256Signature));
+                   , SecurityAlgorithms.HmacSha256));
             var accessToken = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            return  accessToken;
+            return accessToken;
         }
+
         private async Task<List<Claim>> GenerateUserClaimsForCustomerAsync(Customer customer)
         {
-           
             var claims = new List<Claim>()
             {
-               
                 new Claim(nameof(UserClaimModel.Id), customer.Id.ToString()),
                 new Claim(nameof(UserClaimModel.PhoneNumber), customer.PhoneNumber.ToString())
-
-                
             };
-           
+
             return claims;
         }
 
@@ -111,6 +108,7 @@ namespace Luqma.Service.Implementations
                 ExpireAt = DateTime.UtcNow.AddDays(jwtSettings.RefreshTokenExpireDate),
                 Token = await GenerateRandomRefreshToken()
             };
+
         public async Task<string> GenerateRandomRefreshToken()
         {
             var random = new byte[32];
