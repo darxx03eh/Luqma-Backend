@@ -6,6 +6,7 @@
         public int OrderId { get; set; }
         public int ItemId { get; set; }
         public double Quantity { get; set; }
+        public double? TotalPrice { get; set; }
         public virtual Order? Order { get; set; }
         public virtual MenuItem? MenuItem { get; set; }
     }

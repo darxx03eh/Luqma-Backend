@@ -1,6 +1,4 @@
-﻿using Luqma.Data.Entities;
-
-namespace Luqma.Infrastructure.IRepositories
+﻿namespace Luqma.Infrastructure.IRepositories
 {
     public interface IUnitOfWork
     {
@@ -17,5 +15,6 @@ namespace Luqma.Infrastructure.IRepositories
         public ICustomerRepository CustomerRepository { get; set; }
         public IOrderRepository OrderRepository { get; set; }
         public IMenuItemRepository MenuItemRepository { get; set; }
+        public IOrderTrackingRepository OrderTrackingRepository { get; set; }
     }
 }
