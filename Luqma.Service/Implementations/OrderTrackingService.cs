@@ -55,9 +55,9 @@ namespace Luqma.Service.Implementations
                 TotalPrice = Convert.ToDouble(order.TotalPrice),
                 Delivery = new Delivery()
                 {
-                    Id = delivery.Delivery.Id,
-                    Name = $"{delivery.Delivery.FirstName} {delivery.Delivery.LastName}",
-                    PhoneNumber = delivery.Delivery.PhoneNumber
+                    Id = delivery is not null ? delivery.Delivery.Id : null,
+                    Name = delivery is not null ? $"{delivery.Delivery.FirstName} {delivery.Delivery.LastName}" : null,
+                    PhoneNumber = delivery is not null ? delivery.Delivery.PhoneNumber : null
                 },
                 Items = items
             };

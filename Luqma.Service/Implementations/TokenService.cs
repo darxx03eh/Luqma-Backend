@@ -82,7 +82,7 @@ namespace Luqma.Service.Implementations
                issuer: jwtSettings.Issuer,
                audience: jwtSettings.Audience,
                claims: userClaims,
-               expires: DateTime.UtcNow.AddDays(jwtSettings.CustomerTokenExpireDate),
+               expires: DateTime.UtcNow.AddMinutes(jwtSettings.CustomerTokenExpireDate),
                signingCredentials: new SigningCredentials(
                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey))
                    , SecurityAlgorithms.HmacSha256));

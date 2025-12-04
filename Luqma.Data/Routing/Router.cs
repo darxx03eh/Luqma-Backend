@@ -6,6 +6,7 @@
         public const string root = "api";
         public const string version = "v1";
         public const string rule = $"{root}/{version}/";
+
         public static class AuthenticationsRouting
         {
             public const string prefix = $"{rule}authentications";
@@ -15,13 +16,14 @@
             public const string SendConfirmationEmail = $"{prefix}/send-confirmation-email";
             public const string ValidateAccessToken = $"{prefix}/token-validate";
             public const string GenerateRefreshToken = $"{prefix}/refresh-token";
-            public const string RevokeRefreshToken = $"{prefix}/refresh-token"; 
+            public const string RevokeRefreshToken = $"{prefix}/refresh-token";
             public const string SendForgetPasswordEmail = $"{prefix}/send-forget-password-email";
             public const string ForgetPasswordConfirmation = $"{prefix}/forget-password-confirmation";
-            public const string ResetPassword = $"{prefix}/reset-password"; 
+            public const string ResetPassword = $"{prefix}/reset-password";
             public const string SendConfirmationCodeThenAdd = $"{prefix}/send-confirmation-code-add";
             public const string PhoneNumberConfirmation = $"{prefix}/phonenumber-confirmation";
         }
+
         public static class UsersRouting
         {
             public const string UserName = "/{username}";
@@ -46,6 +48,7 @@
             public const string ChangePasswordForUserByManager = $"{prefix}/user-management/password";
             public const string ChangeSalary = $"{prefix}/change-salary";
         }
+
         public static class ManagerCategoriesRouting
         {
             public const string prefix = $"{rule}Manager/Categories";
@@ -55,13 +58,14 @@
             public const string Delete = $"{prefix}/Delete{singleRoute}";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
+
         public static class CategoriesRouting
         {
             public const string prefix = $"{rule}Categories";
             public const string GetAll = $"{prefix}/GetAll";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
         }
-      
+
         public static class DeductionsRouting
         {
             public const string name = "/{name}";
@@ -73,7 +77,8 @@
             public const string ViewAllDeductionsByDate = $"{prefix}/date";
             public const string ViewAllDeductionsForSpecificUser = $"{prefix}{name}";
         }
-           public static class ManagerMenuItemsRouting
+
+        public static class ManagerMenuItemsRouting
         {
             public const string prefix = $"{rule}Manager/MenuItems";
             public const string Add = $"{prefix}/Add";
@@ -82,24 +87,22 @@
             public const string Update = $"{prefix}/Update";
             public const string GetById = $"{prefix}/GetById{singleRoute}";
             public const string ToogleStatus = $"{rule}ManagerOrChef/MenuItems/toggleStatus{singleRoute}";
-
         }
-     
+
         public static class ManagerMenuRouting
         {
             public const string prefix = $"{rule}Manager/Menus";
             public const string Add = $"{prefix}/Add";
             public const string Delete = $"{prefix}/Delete{singleRoute}";
             public const string Update = $"{prefix}/Update";
-
-
         }
+
         public static class MenuRouting
         {
             public const string prefix = $"{rule}Menus";
             public const string GetAll = $"{prefix}/GetAll";
-
         }
+
         public static class SalariesRouting
         {
             public const string prefix = $"{rule}salaries";
@@ -110,16 +113,19 @@
             public const string ChangeSalaryStatus = $"{prefix}/status";
             public const string ChangeSalaryAmount = $"{prefix}/amount";
         }
+
         public static class CategoryItemsRouting
         {
             public const string prefix = $"{rule}CategoryItems";
             public const string GetItemsByCategoryId = $"{prefix}/GetItemsByCategoryId{singleRoute}";
         }
+
         public static class MenuContainsRouting
         {
             public const string prefix = $"{rule}MenuContains";
             public const string GetItemsByMenuId = $"{prefix}/GetItemsByMenuId{singleRoute}";
         }
+
         public static class BillsRouting
         {
             public const string prefix = $"{rule}bills";
@@ -129,6 +135,7 @@
             public const string UpdateBillStatus = $"{prefix}{singleRoute}/status";
             public const string UpdateBill = $"{prefix}";
         }
+
         public static class CustomerRouting
         {
             public const string prefix = $"{rule}Customers";
@@ -136,9 +143,8 @@
             public const string ConfirmPhoneNumberCode = $"{prefix}/ConfirmPhoneNumberCode";
             public const string UpdateCustomerDetails = $"{prefix}/UpdateCustomerDetails";
             public const string GetCustomerInfo = $"{prefix}/GetCustomerInfo";
-
-
         }
+
         public static class KitchenItemsRouting
         {
             public const string prefix = $"{rule}kitchen-items";
@@ -150,6 +156,7 @@
             public const string UpdateKitchenItem = prefix;
             public const string UploadKitchenItemImage = $"{prefix}/upload-image";
         }
+
         public static class KitchenRequirementsRouting
         {
             public const string prefix = $"{rule}kitchen-requirements";
@@ -160,9 +167,9 @@
             public const string DeleteKitchenRequirements = $"{prefix}{singleRoute}";
             public const string DeletePendingKitchenRequirements = $"{prefix}/pending{singleRoute}";
             public const string GetKitchenRequirementsInfo = $"{prefix}{singleRoute}/info";
-
         }
-       public static class CustomerCartsRouting
+
+        public static class CustomerCartsRouting
         {
             public const string prefix = $"{rule}Customer/Carts";
             public const string AddToCart = $"{prefix}/AddTocart";
@@ -170,7 +177,8 @@
             public const string IncreaseQuantity = $"{prefix}/IncreaseQuantity";
             public const string DecreaseQuantity = $"{prefix}/DecreaseQuantity";
             public const string DeleteItemFormCartForCustomerByItemId = $"{prefix}/DeleteItemFormCartForCustomerByItemId{singleRoute}";
-       }
+        }
+
         public static class CustomerOrderRouting
         {
             public const string prefix = $"{rule}Customer/Orders";
@@ -185,21 +193,22 @@
             public const string GetFeedbacksForItem = $"{prefix}/item{singleRoute}";
             public const string DeleteExistingFeedback = $"{prefix}{singleRoute}";
         }
-       public static class CustomerPaymentRouting
+
+        public static class CustomerPaymentRouting
         {
             public const string prefix = $"{rule}Customer/Payments";
             public const string ProcessPayment = $"{prefix}/ProcessPayment";
             public const string SuccessPayment = $"{prefix}/successPayment";
         }
+
         public static class MenuItemRouting
         {
             public const string prefix = $"{rule}MenuItems";
             public const string GetAllCategoryItems = $"{rule}CategoryItems/GetAllMenuItems";
             public const string GetAll = $"{prefix}/GetAllMenuItems";
-
         }
-        
-        public static class CashierOrderRouting
+        public static class CashierCartsRouting
+
         {
             public const string prefix = $"{rule}Cashier/Orders";
             public const string AddOrder = $"{prefix}/AddOrder";
@@ -208,6 +217,11 @@
         {
             public const string prefix = $"{rule}Cashier/OrderItems";
             public const string AddItemToOrder = $"{prefix}/AddItemToOrder";
+        }
+        public static class OrdersTrackingRouting
+        {
+            public const string prefix = $"{rule}order-tracking";
+            public const string TrackOrder = $"{prefix}{singleRoute}";
         }
     }
 }
