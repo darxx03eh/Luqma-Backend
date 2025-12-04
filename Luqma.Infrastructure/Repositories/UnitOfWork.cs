@@ -30,6 +30,7 @@ namespace Luqma.Infrastructure.Repositories
             CustomerRepository = new CustomerRepository(context, httpContextAccessor);
             OrderRepository = new OrderRepository(context, httpContextAccessor);
             MenuItemRepository = new MenuItemRepository(context, httpContextAccessor);
+            OrderTrackingRepository = new OrderTrackingRepository(context, httpContextAccessor);
         }
 
         public IUserRepository UserRepository { get; set; }
@@ -45,5 +46,6 @@ namespace Luqma.Infrastructure.Repositories
         public ICustomerRepository CustomerRepository { get; set; }
         public IOrderRepository OrderRepository { get; set; }
         public IMenuItemRepository MenuItemRepository { get; set; }
+        public IOrderTrackingRepository OrderTrackingRepository { get; set; }
     }
 }
