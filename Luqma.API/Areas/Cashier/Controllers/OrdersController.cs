@@ -18,11 +18,11 @@ namespace Luqma.API.Areas.Cashier.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
-        public async Task<IActionResult> UpdateOnOrderTotalPrice(UpdateOnOrderTotalPriceCommand request)
+       /* public async Task<IActionResult> UpdateOnOrderTotalPrice(UpdateOnOrderTotalPriceCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
-        }
+        }*/
 
     }
 }

@@ -128,7 +128,7 @@ namespace Luqma.Service.Implementations
             }
 
         }
-        public async Task<string> UpdateOnOrderTotalPrice(string? Note)
+       /* public async Task<string> UpdateOnOrderTotalPrice(string? Note)
         {
             var cashierid = int.Parse(_orderRepository.ExtractUserIdFromToken());
              var orderid=await _orderRepository.GetLastOrderIdAsync(cashierid);
@@ -142,7 +142,7 @@ namespace Luqma.Service.Implementations
 
 
 
-        }
+        }*/
     }
 }
 

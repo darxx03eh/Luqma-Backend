@@ -14,8 +14,8 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
 {
     public class OrderCommandHandler : ApiResponseHandler,
         IRequestHandler<AddOrderCommand,ApiResponse>,
-        IRequestHandler<placeOrderCommand,ApiResponse>,
-        IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>
+        IRequestHandler<placeOrderCommand,ApiResponse>
+        //IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>
 
        
        
@@ -55,9 +55,9 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             };
         }
 
-        public async Task<ApiResponse> Handle(UpdateOnOrderTotalPriceCommand request, CancellationToken cancellationToken)
+       /* public async Task<ApiResponse> Handle(UpdateOnOrderTotalPriceCommand request, CancellationToken cancellationToken)
         {
             
-        }
+        }*/
     }
 }
