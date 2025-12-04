@@ -13,7 +13,10 @@ using System.Threading.Tasks;
 namespace Luqma.Core.Features.Orders.Commands.Handlers
 {
     public class OrderCommandHandler : ApiResponseHandler,
-        IRequestHandler<AddOrderCommand,ApiResponse>
+        IRequestHandler<AddOrderCommand,ApiResponse>,
+        IRequestHandler<placeOrderCommand,ApiResponse>
+        //IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>
+
        
        
     {
@@ -40,5 +43,21 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             };
 
         }
+
+        public  async Task<ApiResponse> Handle(placeOrderCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _orderService.PlaceOrderAsync();
+            return result switch
+            {
+                "the weather is unknown" => InternalServerError(SharedResponseKeys.UnKnownWeather),
+                "the order is added by Cashier successfully" => Success(null, message: SharedResponseKeys.SuccessAddOrderByCashier)
+
+            };
+        }
+
+       /* public async Task<ApiResponse> Handle(UpdateOnOrderTotalPriceCommand request, CancellationToken cancellationToken)
+        {
+            
+        }*/
     }
 }
