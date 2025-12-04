@@ -1,12 +1,11 @@
-﻿using Luqma.Data.Enums;
-
-namespace Luqma.Data.Entities
+﻿namespace Luqma.Data.Entities
 {
     public enum Status
     {
-        Active=1,
-        InActive=0
+        Active = 1,
+        InActive = 0
     }
+
     public class MenuItem
     {
         public int Id { get; set; }
