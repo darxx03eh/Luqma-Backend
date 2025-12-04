@@ -371,6 +371,8 @@ namespace Luqma.Core.ResponseKeys
        public const string ItemFetchSuccess = "the item is fetched successfully";
         public const string SuccessToggleStatusofitem = "the status of item is toggled";
         public const string SuccessFetchedCustmoerInfo ="the customer info is fetched successfully";
+        public const string SuccessAddOrderByCashier = "the order is added by Cashier successfully";
+        public const string SuccessAddItemToOrder = "the item is added to order successfully";
 
 
 

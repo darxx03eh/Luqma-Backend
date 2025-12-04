@@ -35,6 +35,9 @@ namespace Luqma.Service
             services.AddTransient(typeof(IFeedbackService), typeof(FeedbackService));
             services.AddHttpClient<WeatherService>();
             services.AddTransient(typeof(IPaymentService), typeof(PaymentService));
+            services.AddTransient(typeof(IOrderItemService), typeof(OrderItemService));
+
+
             return services;
         }
     }

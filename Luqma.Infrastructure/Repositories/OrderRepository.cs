@@ -29,5 +29,10 @@ namespace Luqma.Infrastructure.Repositories
         {
             return await _context.Orders.AnyAsync(o => o.Id == orderid);
         }
+        public async Task<int> GetLastOrderIdAsync(int cashierid)
+        {
+            var orderid = await _context.Orders.Where(o => o.CashierId == cashierid).MaxAsync(o => o.Id);
+            return orderid;
+        }
     }
 }

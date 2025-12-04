@@ -12,5 +12,6 @@ namespace Luqma.Infrastructure.IRepositories
 
         public  Task<string> ISCustomerVipOrNormalAsync(int customerid);
         public Task<bool> IsOrderIdExistInOrders(int orderid);
+        public Task<int> GetLastOrderIdAsync(int cashierid);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Luqma.Core.Bases;
-using Luqma.Data.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace Luqma.Core.Features.Orders.Commands.Models
 {
-   public  class AddOrderCommand :IRequest<ApiResponse>
+    public class placeOrderCommand : IRequest<ApiResponse>
     {
-     public string? Note { get; set; }
-  
+        
     }
 }
