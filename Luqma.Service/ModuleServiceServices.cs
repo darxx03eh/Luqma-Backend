@@ -25,7 +25,6 @@ namespace Luqma.Service
             services.AddTransient(typeof(ICategoryItemService), typeof(CategoryItemService));
             services.AddTransient(typeof(IMenuContainService), typeof(MenuContainService));
             services.AddTransient(typeof(IBillService), typeof(BillService));
-
             services.AddTransient(typeof(IKitchenItemsService), typeof(KitchenItemsService));
             services.AddTransient(typeof(IKitchenRequirementsService), typeof(KitchenRequirementsService));
             services.AddTransient(typeof(ICustomerService), typeof(CustomerService));
@@ -35,6 +34,7 @@ namespace Luqma.Service
             services.AddTransient(typeof(IFeedbackService), typeof(FeedbackService));
             services.AddHttpClient<WeatherService>();
             services.AddTransient(typeof(IPaymentService), typeof(PaymentService));
+            services.AddTransient(typeof(IOrderTrackingService), typeof(OrderTrackingService));
             return services;
         }
     }
