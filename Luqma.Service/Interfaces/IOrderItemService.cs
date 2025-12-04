@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Luqma.Service.Interfaces
 {
-   public  interface IOrderService
+    public interface IOrderItemService
     {
-        public Task<(int? id, string)> AddOrderAsync(string? Note);
-        public  Task<string> PlaceOrderAsync();
+        public Task<string> AddItemToOrderAsync(int ItemId, int quantity);
     }
 }

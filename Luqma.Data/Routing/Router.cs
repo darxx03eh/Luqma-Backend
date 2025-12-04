@@ -198,15 +198,16 @@
             public const string GetAll = $"{prefix}/GetAllMenuItems";
 
         }
-        public static class CashierCartsRouting
+        
+        public static class CashierOrderRouting
         {
-            public const string prefix = $"{rule}Cashier/Carts";
-            public const string AddToCart = $"{prefix}/AddTocart";
-            public const string GetCart = $"{prefix}/GetCartForCashier";
-            public const string IncreaseQuantity = $"{prefix}/IncreaseQuantity";
-            public const string DecreaseQuantity = $"{prefix}/DecreaseQuantity";
-            public const string DeleteItemFormCartForCashierByItemId = $"{prefix}/DeleteItemFormCartForCashierByItemId{singleRoute}";
+            public const string prefix = $"{rule}Cashier/Orders";
+            public const string AddOrder = $"{prefix}/AddOrder";
         }
-
+        public static class CashierOrderItemRouting
+        {
+            public const string prefix = $"{rule}Cashier/OrderItems";
+            public const string AddItemToOrder = $"{prefix}/AddItemToOrder";
+        }
     }
 }

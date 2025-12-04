@@ -130,7 +130,9 @@ namespace Luqma.Service.Implementations
                     {
                         OrderId = OrderId,
                         ItemId = c.ItemId,
-                        Quantity = c.Quantity
+                        Quantity = c.Quantity,
+                                
+                                   
 
                     };
                     listoforderitem.Add(orderitem);

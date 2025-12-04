@@ -13,6 +13,7 @@ namespace Luqma.Data.Entities
         public virtual Customer Customer { get; set; }
         public int ItemId { get; set; }
         public virtual MenuItem MenuItem { get; set; }
+        public int CashierId { get; set; }
         public double Quantity { get; set; }
     }
 }
