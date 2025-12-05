@@ -29,7 +29,7 @@ namespace Luqma.Infrastructure.Configurations
             builder.HasMany(order => order.PaymentsOrders)
                 .WithOne(po => po.Order)
                 .HasForeignKey(po => po.OrderId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(order => order.OrderTrackings)
                 .WithOne(ot => ot.Order)

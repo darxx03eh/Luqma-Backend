@@ -368,22 +368,17 @@
         public const string CanNotDeleteNonPendingKitchenRequirements = "Only pending kitchen requirements can be deleted";
         public const string ItemFetchSuccess = "the item is fetched successfully";
         public const string SuccessToggleStatusofitem = "the status of item is toggled";
-
-
-
-
-
-
-
-
-        public const string SuccessFetchedCustmoerInfo = "the customer info is fetched successfully";
         public const string OrderNotFound = "The order was not found";
         public const string ThisOrderDoNotBelongToYou = "This order does not belong to you";
         public const string OrderTrackingFailed = "Failed to track the order";
         public const string TheOrderWasFoundAndTrackingTheOrder = "The order was found and is being tracked";
-      // public const string SuccessFetchedCustmoerInfo ="the customer info is fetched successfully";
+       public const string SuccessFetchedCustmoerInfo ="the customer info is fetched successfully";
         public const string SuccessAddOrderByCashier = "the order is added by Cashier successfully";
         public const string SuccessAddItemToOrder = "the item is added to order successfully";
+        public const string SubmitOrder = "the order is submitted";
+        public const string SuccessDeleteItemFromOrderByCashier = "the item is deleted from order successfully";
+        public const string SuccessCancelOrder = "the order is canceled";
+        public const string FailCancelOrder = "the order is not canceled";
 
     }
 }

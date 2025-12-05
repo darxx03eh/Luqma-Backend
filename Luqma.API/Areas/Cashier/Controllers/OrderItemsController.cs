@@ -14,12 +14,18 @@ namespace Luqma.API.Areas.Cashier.Controllers
     public class OrderItemsController : AppBaseController
     {
         [HttpPost(Router.CashierOrderItemRouting.AddItemToOrder)]
-         public async Task<IActionResult> AddItemToOrder(AddItemToOrderCommand request)
-         {
+        public async Task<IActionResult> AddItemToOrder(AddItemToOrderCommand request)
+        {
             var result = await mediator.Send(request);
             return Result(result);
-         }
-     }
+        }
+        [HttpDelete(Router.CashierOrderItemRouting.DeleteItemFromOrder)]
+        public async Task<IActionResult> DelteItemFromOrder([FromRoute]int id)
+        {
+            var result = await mediator.Send(new DeleteItemFromOrderCommand(id));
+            return Result(result);
+        }
 
     }
+}
 
