@@ -183,6 +183,8 @@
         {
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
+            public const string CancelOrder = $"{prefix}/CancelOrder{singleRoute}";
+
         }
 
         public static class FeedbacksRouting
@@ -217,11 +219,22 @@
         {
             public const string prefix = $"{rule}Cashier/OrderItems";
             public const string AddItemToOrder = $"{prefix}/AddItemToOrder";
+            public const string DeleteItemFromOrder = $"{prefix}/DeleteItemFromOrder{singleRoute}";
         }
         public static class OrdersTrackingRouting
         {
             public const string prefix = $"{rule}order-tracking";
             public const string TrackOrder = $"{prefix}{singleRoute}";
+        }
+        public static class CashierOrderRouting
+        {
+            public const string prefix = $"{rule}Cashier/Orders";
+            public const string AddOrder = $"{prefix}/AddOrder";
+            public const string SubmitOrder = $"{prefix}/SubmitOrder";
+            public const string CancelOrder = $"{prefix}/CancelOrder";
+            public const string CancelOrderById = $"{prefix}/CancelOrder{singleRoute}";
+
+
         }
     }
 }

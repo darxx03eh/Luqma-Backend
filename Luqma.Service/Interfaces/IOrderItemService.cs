@@ -9,5 +9,6 @@ namespace Luqma.Service.Interfaces
     public interface IOrderItemService
     {
         public Task<string> AddItemToOrderAsync(int ItemId, int quantity);
+        public  Task<string> DeleteItemFromOrderAsync(int ItemId);
     }
 }

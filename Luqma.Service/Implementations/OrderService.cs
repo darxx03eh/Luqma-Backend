@@ -128,21 +128,48 @@ namespace Luqma.Service.Implementations
             }
 
         }
-       /* public async Task<string> UpdateOnOrderTotalPrice(string? Note)
+        public async Task<string> UpdateOnOrderTotalPriceAsync(string? Note)
         {
             var cashierid = int.Parse(_orderRepository.ExtractUserIdFromToken());
              var orderid=await _orderRepository.GetLastOrderIdAsync(cashierid);
-
             var order = await _orderRepository.GetByIdAsync(orderid);
             if(Note!=null) order.Note = Note;
             var orderitems = await _orderItemRepository.getOrderItemsByOrderIdAsync(orderid);
-           var totalprice= orderitems.Sum((oi => oi.Quantity * (oi.MenuItem.Price - (oi.MenuItem.Discount * oi.MenuItem.Price))));
-
-
-
-
-
-        }*/
+            var totalprice = orderitems.Sum(oi => oi.TotalPrice);
+            order.TotalPrice = totalprice;
+            await _orderRepository.SaveChangesAsync();
+            return "the order is submitted";
+        }
+        public async Task<string> CancelOrderAsync(int orderid)
+        {
+            try
+            {
+                var order = await _orderRepository.GetByIdAsync(orderid);
+                int count = await _orderRepository.DeleteAsync(order);
+                if (count > 0) return "the order is canceled";
+                return "the order is not canceled";
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException?.Message ?? ex.Message;
+            }
+        }
+        public async Task<string> CancelOrderByCashierAsync()
+        {
+            try
+            {
+                var cashierid = int.Parse(_orderRepository.ExtractUserIdFromToken());
+                var orderid = await _orderRepository.GetLastOrderIdAsync(cashierid);
+                var order = await _orderRepository.GetByIdAsync(orderid);
+                int count = await _orderRepository.DeleteAsync(order);
+                if (count > 0) return "the order is canceled";
+                return "the order is not canceled";
+            }
+            catch(Exception ex)
+            {
+                return ex.InnerException?.Message ?? ex.Message;
+            }
+        }
     }
 }
 

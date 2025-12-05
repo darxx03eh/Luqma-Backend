@@ -10,5 +10,6 @@ namespace Luqma.Infrastructure.IRepositories
     public interface IOrderItemRepository : IGenericRepository<OrderItem>
     {
         public Task<List<OrderItem>> getOrderItemsByOrderIdAsync(int id);
+        public Task<OrderItem?> getOrderItemAsync(int orderid, int itemid);
     }
 }

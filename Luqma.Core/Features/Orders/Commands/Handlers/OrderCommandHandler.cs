@@ -14,8 +14,10 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
 {
     public class OrderCommandHandler : ApiResponseHandler,
         IRequestHandler<AddOrderCommand,ApiResponse>,
-        IRequestHandler<placeOrderCommand,ApiResponse>
-        //IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>
+        IRequestHandler<placeOrderCommand,ApiResponse>,
+        IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>,
+        IRequestHandler<CancelOrder,ApiResponse>,
+        IRequestHandler<CancelOrderByCashierCommand,ApiResponse>
 
        
        
@@ -55,9 +57,33 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             };
         }
 
-       /* public async Task<ApiResponse> Handle(UpdateOnOrderTotalPriceCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(UpdateOnOrderTotalPriceCommand request, CancellationToken cancellationToken)
         {
-            
-        }*/
+           var result= await _orderService.UpdateOnOrderTotalPriceAsync(request.Note);
+            return result switch
+            {
+                "the order is submitted" => Success(null, message: SharedResponseKeys.SubmitOrder)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(CancelOrder request, CancellationToken cancellationToken)
+        {
+          var result= await  _orderService.CancelOrderAsync(request.OrderId);
+            return result switch
+            {
+                "the order is canceled" => Success(null, message: SharedResponseKeys.SuccessCancelOrder),
+                "the order is not canceled" => InternalServerError(SharedResponseKeys.FailCancelOrder)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(CancelOrderByCashierCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _orderService.CancelOrderByCashierAsync();
+            return result switch
+            {
+                "the order is canceled" => Success(null, message: SharedResponseKeys.SuccessCancelOrder),
+                "the order is not canceled" => InternalServerError(SharedResponseKeys.FailCancelOrder)
+            };
+        }
     }
 }

@@ -14,24 +14,36 @@ namespace Luqma.Service.Implementations
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderItemRepository _orderItemRepository;
+        private readonly IMenuItemRepository _menuItemRepository;
 
-        public OrderItemService(IOrderRepository orderRepository,IOrderItemRepository orderItemRepository)
+        public OrderItemService(IOrderRepository orderRepository,IOrderItemRepository orderItemRepository,IMenuItemRepository menuItemRepository)
         {
             _orderRepository = orderRepository;
             _orderItemRepository = orderItemRepository;
+            _menuItemRepository = menuItemRepository;
         }
         public async Task<string> AddItemToOrderAsync(int ItemId,int quantity)
         {
             var cashierid = int.Parse(_orderItemRepository.ExtractUserIdFromToken());
            var orderid= await _orderRepository.GetLastOrderIdAsync(cashierid);
+            var item = await _menuItemRepository.GetByIdAsync(ItemId);
             var orderitem = new OrderItem()
             {
                 OrderId = orderid,
                 ItemId = ItemId,
-                Quantity=quantity
+                Quantity = quantity,
+                TotalPrice = Math.Round((item.Price - (item.Price * item.Discount)) * quantity)
             };
            await  _orderItemRepository.AddAsync(orderitem);
             return "the item is added to order successfully"; 
+        }
+        public async Task<string> DeleteItemFromOrderAsync(int ItemId)
+        {
+            var cashierid = int.Parse(_orderItemRepository.ExtractUserIdFromToken());
+            var orderid = await _orderRepository.GetLastOrderIdAsync(cashierid);
+             var orderItem=await _orderItemRepository.getOrderItemAsync(orderid, ItemId);
+             await  _orderItemRepository.DeleteAsync(orderItem);
+            return "the item is deleted from order successfully";
         }
     }
 }

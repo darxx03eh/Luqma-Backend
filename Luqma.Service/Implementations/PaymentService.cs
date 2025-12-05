@@ -55,7 +55,8 @@ namespace Luqma.Service.Implementations
                 {
                     OrderId = orderid,
                     ItemId = c.ItemId,
-                    Quantity = c.Quantity
+                    Quantity = c.Quantity,
+                    TotalPrice = Math.Round((c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price)) * c.Quantity)
 
                 };
                 listoforderitem.Add(orderitem);
@@ -131,8 +132,9 @@ namespace Luqma.Service.Implementations
                         OrderId = OrderId,
                         ItemId = c.ItemId,
                         Quantity = c.Quantity,
-                                
-                                   
+                        TotalPrice = Math.Round((c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price)) * c.Quantity)
+
+
 
                     };
                     listoforderitem.Add(orderitem);

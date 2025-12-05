@@ -23,5 +23,9 @@ namespace Luqma.Infrastructure.Repositories
         {
             return await  _context.OrderItems.Include(oi => oi.MenuItem).Where(oi => oi.OrderId == id).ToListAsync();
         }
+        public async Task<OrderItem?>getOrderItemAsync(int orderid,int itemid)
+        {
+           return await _context.OrderItems.FirstOrDefaultAsync(oi => oi.OrderId == orderid && oi.ItemId == itemid);
+        }
     }
 }
