@@ -52,9 +52,9 @@ namespace Luqma.Service.Implementations
                     CategoryId = cat
                 });
             }
-           
 
-           await  _menuItemRepository.AddAsync(menuItem);
+            menuItem.Discount =menuItem.Discount /100;
+            await  _menuItemRepository.AddAsync(menuItem);
             return "the menuitem is added successfully";  
 
         }
@@ -88,7 +88,7 @@ namespace Luqma.Service.Implementations
             menuitem.Item = item;
             menuitem.Description = description;
             menuitem.Price = price;
-            menuitem.Discount = discount;
+            menuitem.Discount = discount/100;
             menuitem.IsVegetarian = isvegetarian;
             
      

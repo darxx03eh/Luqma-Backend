@@ -33,7 +33,6 @@
     <Folder Include="Features\CategoryItems\Commands\" />
     <Folder Include="Features\MenuContains\Commands\NewFolder\" />
     <Folder Include="Features\OrderItems\Commands\Validators\" />
-    <Folder Include="Features\OrderItems\Queries\" />
     <Folder Include="Features\Salaries\Commands\Validators\" />
   </ItemGroup>
 

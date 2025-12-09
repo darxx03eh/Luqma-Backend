@@ -220,6 +220,10 @@
             public const string prefix = $"{rule}Cashier/OrderItems";
             public const string AddItemToOrder = $"{prefix}/AddItemToOrder";
             public const string DeleteItemFromOrder = $"{prefix}/DeleteItemFromOrder{singleRoute}";
+            public const string ViewOrders = $"{prefix}/ViewOrders";
+            public const string GetOrderDetailsByID = $"{prefix}/getOrderDetailsById{singleRoute}";
+
+
         }
         public static class OrdersTrackingRouting
         {

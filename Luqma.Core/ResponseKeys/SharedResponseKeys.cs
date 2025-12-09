@@ -379,6 +379,10 @@
         public const string SuccessDeleteItemFromOrderByCashier = "the item is deleted from order successfully";
         public const string SuccessCancelOrder = "the order is canceled";
         public const string FailCancelOrder = "the order is not canceled";
+        public const string SuccessViewOrders = "the orders is viewed successfully";
+        public const string SuccessFetchOrderDetails = "the order details is fetched successfully";
+        public const string NotFoundOrderId = "the order id is not found";
+
 
     }
 }

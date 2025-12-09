@@ -11,5 +11,7 @@ namespace Luqma.Infrastructure.IRepositories
     {
         public Task<List<OrderItem>> getOrderItemsByOrderIdAsync(int id);
         public Task<OrderItem?> getOrderItemAsync(int orderid, int itemid);
+        public Task<List<OrderItem>> getOrderItemsAsync();
+        public Task<bool> isOrderIdInOrderitemsAsync(int orderid);
     }
 }
