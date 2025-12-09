@@ -1,6 +1,7 @@
 ﻿using Luqma.Data.Entities;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,21 @@ namespace Luqma.Service.Implementations
             var orderitems = await _orderItemRepository.getOrderItemsByOrderIdAsync(orderid);
             return (orderitems, "the order details is fetched successfully");
             
+        }
+        public async Task<string> UpdateQuantityForItemByCashierAsync(int orderid,int itemid,double quantity)
+        {
+          var orderitem=  await _orderItemRepository.getOrderItemAsync(orderid, itemid);
+            orderitem.Quantity = quantity;
+            orderitem.TotalPrice = Math.Round((orderitem.MenuItem.Price - (orderitem.MenuItem.Price * orderitem.MenuItem.Discount)) * quantity);
+           await _orderItemRepository.SaveChangesAsync();
+            var order = await _orderRepository.GetByIdAsync(orderid);
+           var orderitems= await _orderItemRepository.getOrderItemsByOrderIdAsync(orderid);
+            var TotalPrice=orderitems.Sum(oi => oi.TotalPrice);
+            order.TotalPrice = TotalPrice;
+           await  _orderRepository.SaveChangesAsync();
+            return "the quantity is updated by cashier successfully";
+
+
         }
     }
 }

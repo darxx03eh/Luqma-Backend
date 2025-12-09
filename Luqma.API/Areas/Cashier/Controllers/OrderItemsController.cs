@@ -38,6 +38,12 @@ namespace Luqma.API.Areas.Cashier.Controllers
             var result = await mediator.Send(new ViewOrderDetailsQuery(id));
             return Result(result);
         }
+        [HttpPatch(Router.CashierOrderItemRouting.UpdateQuantity)]
+        public async Task<IActionResult> UpdateQuantityForItemByCashier(UpdateQuantityForItemByCashierCommand request)
+        {
+            var result = await mediator.Send(request);
+            return Result(result);
+        }
 
     }
 }

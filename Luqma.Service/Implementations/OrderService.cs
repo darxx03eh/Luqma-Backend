@@ -170,6 +170,14 @@ namespace Luqma.Service.Implementations
                 return ex.InnerException?.Message ?? ex.Message;
             }
         }
+        public async Task<string> UpdateOrderByCashierAsync(int id,string? Note)
+        {
+           var order= await _orderRepository.GetByIdAsync(id);
+            order.Note = Note;
+            order.Status = "ReadyToPrepare";
+            await _orderRepository.SaveChangesAsync();
+            return "the order is updated by Cashier successfully";
+        }
     }
 }
 

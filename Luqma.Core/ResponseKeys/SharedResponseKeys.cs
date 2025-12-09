@@ -382,6 +382,8 @@
         public const string SuccessViewOrders = "the orders is viewed successfully";
         public const string SuccessFetchOrderDetails = "the order details is fetched successfully";
         public const string NotFoundOrderId = "the order id is not found";
+        public const string SuccessUpdateOrderByCashier = "the order is updated by Cashier successfully";
+        public const string SuccessUpdateQuantityByCashier = "the quantity is updated by cashier successfully";
 
 
     }

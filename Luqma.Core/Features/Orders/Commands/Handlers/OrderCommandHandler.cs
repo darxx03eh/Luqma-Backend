@@ -17,7 +17,8 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
         IRequestHandler<placeOrderCommand,ApiResponse>,
         IRequestHandler<UpdateOnOrderTotalPriceCommand,ApiResponse>,
         IRequestHandler<CancelOrder,ApiResponse>,
-        IRequestHandler<CancelOrderByCashierCommand,ApiResponse>
+        IRequestHandler<CancelOrderByCashierCommand,ApiResponse>,
+        IRequestHandler<UpdateOrderByCashierCommand,ApiResponse>
 
        
        
@@ -83,6 +84,15 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             {
                 "the order is canceled" => Success(null, message: SharedResponseKeys.SuccessCancelOrder),
                 "the order is not canceled" => InternalServerError(SharedResponseKeys.FailCancelOrder)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(UpdateOrderByCashierCommand request, CancellationToken cancellationToken)
+        {
+            var result=await  _orderService.UpdateOrderByCashierAsync(request.Id, request.Note);
+            return result switch
+            {
+                "the order is updated by Cashier successfully" => Success(null, message:SharedResponseKeys.SuccessUpdateOrderByCashier)
             };
         }
     }

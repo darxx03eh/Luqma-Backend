@@ -13,7 +13,8 @@ namespace Luqma.Core.Features.OrderItems.Commands.Handlers
 {
     public class OrderItemCommandHandler : ApiResponseHandler,
         IRequestHandler<AddItemToOrderCommand, ApiResponse>,
-        IRequestHandler<DeleteItemFromOrderCommand,ApiResponse>
+        IRequestHandler<DeleteItemFromOrderCommand,ApiResponse>,
+        IRequestHandler<UpdateQuantityForItemByCashierCommand,ApiResponse>
     {
         private readonly IOrderItemService _orderItemService;
 
@@ -36,6 +37,15 @@ namespace Luqma.Core.Features.OrderItems.Commands.Handlers
             return result switch
             {
                 "the item is deleted from order successfully" => Deleted(SharedResponseKeys.SuccessDeleteItemFromOrderByCashier)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(UpdateQuantityForItemByCashierCommand request, CancellationToken cancellationToken)
+        {
+           var result=await  _orderItemService.UpdateQuantityForItemByCashierAsync(request.OrderId, request.ItemId, request.Quantity);
+            return result switch
+            {
+                "the quantity is updated by cashier successfully" => Success(null, message: SharedResponseKeys.SuccessUpdateQuantityByCashier)
             };
         }
     }

@@ -222,6 +222,7 @@
             public const string DeleteItemFromOrder = $"{prefix}/DeleteItemFromOrder{singleRoute}";
             public const string ViewOrders = $"{prefix}/ViewOrders";
             public const string GetOrderDetailsByID = $"{prefix}/getOrderDetailsById{singleRoute}";
+            public const string UpdateQuantity = $"{prefix}/UpdateQuantity";
 
 
         }
@@ -237,6 +238,7 @@
             public const string SubmitOrder = $"{prefix}/SubmitOrder";
             public const string CancelOrder = $"{prefix}/CancelOrder";
             public const string CancelOrderById = $"{prefix}/CancelOrder{singleRoute}";
+            public const string UpdateOrder = $"{prefix}/UpdateOrder";
 
 
         }

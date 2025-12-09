@@ -13,5 +13,6 @@ namespace Luqma.Service.Interfaces
         public  Task<string> DeleteItemFromOrderAsync(int ItemId);
         public Task<(List<Order>, string)> GetOrdersAsync();
         public Task<(List<OrderItem>, string)> GetOrderDetailsAsync(int orderid);
+        public Task<string> UpdateQuantityForItemByCashierAsync(int orderid, int itemid, double quantity);
     }
 }

@@ -8,6 +8,7 @@ namespace Luqma.Data.Response.Order
 {
     public class ViewOrderDetailsResponse
     {
+        public int ItemId { get; set; }
         public string Item { get; set; }
         public double Quantity { get; set; }
         public double? TotalPrice { get; set; }
