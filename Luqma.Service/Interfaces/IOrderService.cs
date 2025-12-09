@@ -13,5 +13,6 @@ namespace Luqma.Service.Interfaces
         public Task<string> UpdateOnOrderTotalPriceAsync(string? Note);
         public Task<string> CancelOrderAsync(int orderid);
         public Task<string> CancelOrderByCashierAsync();
+        public Task<string> UpdateOrderByCashierAsync(int id, string? Note);
     }
 }
