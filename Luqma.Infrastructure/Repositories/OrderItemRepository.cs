@@ -21,11 +21,23 @@ namespace Luqma.Infrastructure.Repositories
         }
        public async Task<List<OrderItem>> getOrderItemsByOrderIdAsync(int id)
         {
-            return await  _context.OrderItems.Include(oi => oi.MenuItem).Where(oi => oi.OrderId == id).ToListAsync();
+            return await  _context.OrderItems.Include(oi => oi.MenuItem).Where(oi => oi.OrderId == id).AsQueryable().AsNoTracking().ToListAsync();
         }
         public async Task<OrderItem?>getOrderItemAsync(int orderid,int itemid)
         {
            return await _context.OrderItems.FirstOrDefaultAsync(oi => oi.OrderId == orderid && oi.ItemId == itemid);
         }
+        public async Task<List<OrderItem>> getOrderItemsAsync()
+        {
+           var orderitems= await _context.OrderItems.Include(oi => oi.Order).Where(oi=>oi.Order.Status.Equals("Pending") && oi.Order.TotalPrice!=0).ToListAsync();
+            return orderitems.DistinctBy(oi => oi.OrderId).ToList();
+        }
+        public async Task<bool> isOrderIdInOrderitemsAsync(int orderid)
+        {
+            var order=_context.OrderItems.FirstOrDefault(oi => oi.OrderId == orderid);
+            if (order is null) return false;
+            return true;
+        }
+       
     }
 }

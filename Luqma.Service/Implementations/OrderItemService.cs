@@ -45,5 +45,30 @@ namespace Luqma.Service.Implementations
              await  _orderItemRepository.DeleteAsync(orderItem);
             return "the item is deleted from order successfully";
         }
+        public async Task<(List<Order>,string)> GetOrdersAsync()
+        {
+            var orderitems = await _orderItemRepository.getOrderItemsAsync();
+            var orders = new List<Order>();
+            foreach(var oi in orderitems)
+            {
+                var order = new Order()
+                {
+                    Id = oi.OrderId,
+                    Note = oi.Order.Note,
+                    TotalPrice = oi.Order.TotalPrice,
+                    Type = oi.Order.Type,
+                    Status = oi.Order.Status,
+                    Date = oi.Order.Date
+                };
+                orders.Add(order);
+            }
+            return (orders, "the orders is fetched successfully");
+        }
+        public async Task<(List<OrderItem>,string)> GetOrderDetailsAsync(int orderid)
+        {
+            var orderitems = await _orderItemRepository.getOrderItemsByOrderIdAsync(orderid);
+            return (orderitems, "the order details is fetched successfully");
+            
+        }
     }
 }

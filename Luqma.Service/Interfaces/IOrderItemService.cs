@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Luqma.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace Luqma.Service.Interfaces
     {
         public Task<string> AddItemToOrderAsync(int ItemId, int quantity);
         public  Task<string> DeleteItemFromOrderAsync(int ItemId);
+        public Task<(List<Order>, string)> GetOrdersAsync();
+        public Task<(List<OrderItem>, string)> GetOrderDetailsAsync(int orderid);
     }
 }

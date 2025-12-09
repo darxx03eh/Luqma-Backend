@@ -37,6 +37,7 @@ namespace Luqma.API.Areas.Cashier.Controllers
             var result = await mediator.Send(new CancelOrder(id));
             return Result(result);
         }
+       
 
     }
 }
