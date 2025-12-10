@@ -53,7 +53,7 @@ namespace Luqma.Service.Implementations
                 });
             }
 
-            menuItem.Discount =menuItem.Discount /100;
+            menuItem.Discount =Math.Round(menuItem.Discount /100,2);
             await  _menuItemRepository.AddAsync(menuItem);
             return "the menuitem is added successfully";  
 
