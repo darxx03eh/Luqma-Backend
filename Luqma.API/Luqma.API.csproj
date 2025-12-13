@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\FinanceStaff\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="Areas\FinanceStaff\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Areas\FinanceStaff\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Areas\FinanceStaff\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
 
@@ -32,9 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Chef\" />
     <Folder Include="Areas\Delivery\Controllers\" />
-    <Folder Include="Areas\FinanceStaff\Controllers\" />
   </ItemGroup>
 
 </Project>

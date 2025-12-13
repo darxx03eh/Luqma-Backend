@@ -178,6 +178,19 @@ namespace Luqma.Service.Implementations
             await _orderRepository.SaveChangesAsync();
             return "the order is updated by Cashier successfully";
         }
+        public async Task<(List<Order>,string)> getOrdersForChefAsync()
+        {
+           var orders= await _orderRepository.getOrdersForChefAsync();
+            return (orders, "the orders is fetched successfully");
+
+        }
+        public async Task<string> ChangeStatusByChefAsync(int orderid)
+        {
+            var order = await _orderRepository.GetByIdAsync(orderid);
+            order.Status = "prepared";
+            await _orderRepository.UpdateAsync(order);
+            return "the order status is updated successfully";
+        }
     }
 }
 

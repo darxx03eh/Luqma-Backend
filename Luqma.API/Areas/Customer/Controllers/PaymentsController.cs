@@ -21,10 +21,14 @@ namespace Luqma.API.Areas.Customer.Controllers
             return Result(result);
         }
         [HttpGet(Router.CustomerPaymentRouting.SuccessPayment)]
+       
         public async Task<IActionResult>SuccessPayment([FromQuery]int orderid)
         {
             var result = await mediator.Send(new SuccessPaymentCommand(orderid));
-            return Result(result);
+            var frontMenuUrl = "https://luqma.runasp.net/menu"; 
+
+            return Redirect(frontMenuUrl);
+           
         }
     }
 }

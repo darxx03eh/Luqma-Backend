@@ -14,5 +14,6 @@ namespace Luqma.Data.Entities
         public int ItemId { get; set; }
         public virtual MenuItem MenuItem { get; set; }
         public double Quantity { get; set; }
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Luqma.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Luqma.Service.Interfaces
         public Task<string> CancelOrderAsync(int orderid);
         public Task<string> CancelOrderByCashierAsync();
         public Task<string> UpdateOrderByCashierAsync(int id, string? Note);
+        public  Task<(List<Order>, string)> getOrdersForChefAsync();
+        public Task<string> ChangeStatusByChefAsync(int orderid);
     }
 }

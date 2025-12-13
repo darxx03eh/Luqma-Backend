@@ -44,6 +44,7 @@ namespace Luqma.Core.Middlewares
             Router.FeedbacksRouting.GetFeedbacksForItem.Replace("/{id}", ""),
             Router.MenuItemRouting.GetAll,
             Router.MenuItemRouting.GetAllCategoryItems
+           
         };
         public TokenValidationMiddleware(RequestDelegate next, JwtSettings jwtSettings)
         {
