@@ -384,6 +384,7 @@
         public const string NotFoundOrderId = "the order id is not found";
         public const string SuccessUpdateOrderByCashier = "the order is updated by Cashier successfully";
         public const string SuccessUpdateQuantityByCashier = "the quantity is updated by cashier successfully";
+        public const string SuccessUpdateOrderStatusByChef = "the order status is updated successfully";
 
 
     }

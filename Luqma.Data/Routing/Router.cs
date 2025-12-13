@@ -242,5 +242,11 @@
 
 
         }
+        public static class ChefOrderRouting
+        {
+            public const string prefix = $"{rule}Chef/Orders";
+            public const string ViewOrders = $"{prefix}/viewOrders";
+            public const string ChangeStatus = $"{prefix}/ChangeStatus{singleRoute}";
+        }
     }
 }

@@ -34,5 +34,9 @@ namespace Luqma.Infrastructure.Repositories
             var orderid = await _context.Orders.Where(o => o.CashierId == cashierid).MaxAsync(o => o.Id);
             return orderid;
         }
+        public async Task<List<Order>> getOrdersForChefAsync()
+        {
+           return await _context.Orders.Where(o => o.Status.Equals("ReadyToPrepare")).ToListAsync();
+        }
     }
 }
