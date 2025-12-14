@@ -3,19 +3,20 @@ using Luqma.Core.Features.Authentications.Commands.Models;
 using Luqma.Core.ResponseKeys;
 using Luqma.Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
 
 namespace Luqma.Core.Features.Authentications.Commands.Validators
 {
     public class SignUpValidator : AbstractValidator<SignUpCommand>
     {
         private readonly UserManager<LuqmaUser> userManager;
+
         public SignUpValidator(UserManager<LuqmaUser> userManager)
         {
             this.userManager = userManager;
             ApplyValidationRules();
             ApplyCustomValidationRules();
         }
+
         private void ApplyValidationRules()
         {
             RuleFor(user => user.FirstName)
@@ -51,7 +52,8 @@ namespace Luqma.Core.Features.Authentications.Commands.Validators
 
             RuleFor(user => user.BirthDate)
                 .LessThan(DateTime.Now).WithMessage(SharedResponseKeys.BirthDateMustBeInThePast)
-                .GreaterThan(DateTime.Now.AddYears(-120)).WithMessage(SharedResponseKeys.BirthDateIsUnrealistic);
+                .GreaterThan(DateTime.Now.AddYears(-120)).WithMessage(SharedResponseKeys.BirthDateIsUnrealistic)
+                .LessThanOrEqualTo(DateTime.Now.AddYears(-18)).WithMessage(SharedResponseKeys.UserMustBeAtLeast18YearsOld);
 
             RuleFor(user => user.Salary)
                 .GreaterThanOrEqualTo(0).WithMessage(SharedResponseKeys.SalaryMustBePositive);
@@ -60,6 +62,7 @@ namespace Luqma.Core.Features.Authentications.Commands.Validators
                 .NotEmpty().WithMessage(SharedResponseKeys.RoleNotEmpty)
                 .NotNull().WithMessage(SharedResponseKeys.RoleNotNull);
         }
+
         private void ApplyCustomValidationRules()
         {
             RuleFor(user => user.UserName)

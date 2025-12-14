@@ -372,7 +372,7 @@
         public const string ThisOrderDoNotBelongToYou = "This order does not belong to you";
         public const string OrderTrackingFailed = "Failed to track the order";
         public const string TheOrderWasFoundAndTrackingTheOrder = "The order was found and is being tracked";
-       public const string SuccessFetchedCustmoerInfo ="the customer info is fetched successfully";
+        public const string SuccessFetchedCustmoerInfo = "the customer info is fetched successfully";
         public const string SuccessAddOrderByCashier = "the order is added by Cashier successfully";
         public const string SuccessAddItemToOrder = "the item is added to order successfully";
         public const string SubmitOrder = "the order is submitted";
@@ -385,7 +385,6 @@
         public const string SuccessUpdateOrderByCashier = "the order is updated by Cashier successfully";
         public const string SuccessUpdateQuantityByCashier = "the quantity is updated by cashier successfully";
         public const string SuccessUpdateOrderStatusByChef = "the order status is updated successfully";
-
-
+        public const string UserMustBeAtLeast18YearsOld = "User must be at least 18 years old";
     }
 }
