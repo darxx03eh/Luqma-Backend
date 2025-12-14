@@ -7,5 +7,6 @@
         public const string Delivery = "Delivery";
         public const string Chef = "Chef";
         public const string Cashier = "Cashier";
+        public const string Customer = "Customer";
     }
 }
