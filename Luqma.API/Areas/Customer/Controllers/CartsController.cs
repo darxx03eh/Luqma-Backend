@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Luqma.API.Areas.Customer.Controllers
 {
     [ApiController]
-    [Authorize(Roles = Roles.Customer]
+    [Authorize(Roles = Roles.Customer)]
     public class CartsController : AppBaseController
     {
         [HttpPost(Router.CustomerCartsRouting.AddToCart)]
