@@ -82,7 +82,7 @@ namespace Luqma.Service.Implementations
                issuer: jwtSettings.Issuer,
                audience: jwtSettings.Audience,
                claims: userClaims,
-               expires: DateTime.UtcNow.AddMinutes(jwtSettings.CustomerTokenExpireDate),
+               expires: DateTime.UtcNow.AddHours(jwtSettings.CustomerTokenExpireDate),
                signingCredentials: new SigningCredentials(
                    new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.SecretKey))
                    , SecurityAlgorithms.HmacSha256));
@@ -95,7 +95,8 @@ namespace Luqma.Service.Implementations
             var claims = new List<Claim>()
             {
                 new Claim(nameof(UserClaimModel.Id), customer.Id.ToString()),
-                new Claim(nameof(UserClaimModel.PhoneNumber), customer.PhoneNumber.ToString())
+                new Claim(nameof(UserClaimModel.PhoneNumber), customer.PhoneNumber.ToString()),
+                new Claim(nameof(UserClaimModel.Role), Roles.Customer)
             };
 
             return claims;

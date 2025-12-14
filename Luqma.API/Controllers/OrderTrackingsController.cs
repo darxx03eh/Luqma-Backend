@@ -1,12 +1,13 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.OrdersTracking.Queries.Models;
+using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Luqma.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Customer)]
     [ApiController]
     public class OrderTrackingsController : AppBaseController
     {

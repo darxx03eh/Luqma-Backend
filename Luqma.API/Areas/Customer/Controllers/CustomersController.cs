@@ -1,15 +1,13 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Customers.commands.Models;
 using Luqma.Core.Features.Customers.Queries.Models;
+using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Twilio.Rest.Trunking.V1;
 
 namespace Luqma.API.Areas.Customer.Controllers
 {
-   
     [ApiController]
     public class CustomersController : AppBaseController
     {
@@ -20,33 +18,27 @@ namespace Luqma.API.Areas.Customer.Controllers
             return Result(result);
         }
 
-        [Authorize]
+        [Authorize(Roles = Roles.Customer)]
         [HttpPut(Router.CustomerRouting.UpdateCustomerDetails)]
         public async Task<IActionResult> UpdateCustomer(UpdateCustomerDetailsCommand request)
         {
-
             var result = await mediator.Send(request);
             return Result(result);
-
         }
 
         [HttpPost(Router.CustomerRouting.ConfirmPhoneNumberCode)]
-      public async Task<IActionResult> ConfimPhoneNumberCode(ConfirmPhoneNumberCodeCommand request)
+        public async Task<IActionResult> ConfimPhoneNumberCode(ConfirmPhoneNumberCodeCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
-
-
-
         }
+
         [HttpGet(Router.CustomerRouting.GetCustomerInfo)]
-        [Authorize]
+        [Authorize(Roles = Roles.Customer)]
         public async Task<IActionResult> GetCustomerInfo()
         {
             var result = await mediator.Send(new GetCustomerInformationQuery());
             return Result(result);
         }
-       
-
     }
 }

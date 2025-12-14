@@ -1,13 +1,14 @@
 ﻿using Luqma.API.Base;
 using Luqma.Core.Features.Feebacks.Commands.Models;
 using Luqma.Core.Features.Feebacks.Queries.Models;
+using Luqma.Data.Helpers;
 using Luqma.Data.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Luqma.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Customer)]
     [ApiController]
     public class FeedbacksController : AppBaseController
     {
@@ -17,12 +18,14 @@ namespace Luqma.API.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+
         [HttpPut(Router.FeedbacksRouting.UpdateExistingFeedback)]
         public async Task<IActionResult> UpdateExistingFeedback([FromBody] UpdateExistingFeedbackCommand request)
         {
             var result = await mediator.Send(request);
             return Result(result);
         }
+
         [AllowAnonymous]
         [HttpGet(Router.FeedbacksRouting.GetFeedbacksForItem)]
         public async Task<IActionResult> GetFeedbacksForItem(int id, int pageNumber = 1, int pageSize = 10)
@@ -36,6 +39,7 @@ namespace Luqma.API.Controllers
             });
             return Result(result);
         }
+
         [HttpDelete(Router.FeedbacksRouting.DeleteExistingFeedback)]
         public async Task<IActionResult> DeleteExistingFeedback(int id)
         {
