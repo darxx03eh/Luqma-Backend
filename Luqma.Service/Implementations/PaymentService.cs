@@ -56,7 +56,7 @@ namespace Luqma.Service.Implementations
                     OrderId = orderid,
                     ItemId = c.ItemId,
                     Quantity = c.Quantity,
-                    TotalPrice = Math.Round((c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price)) * c.Quantity)
+                    TotalPrice = Math.Round((c.MenuItem.Price - (Math.Round(c.MenuItem.Discount,2) * c.MenuItem.Price)) * c.Quantity)
 
                 };
                 listoforderitem.Add(orderitem);
@@ -87,6 +87,7 @@ namespace Luqma.Service.Implementations
                 };
                 foreach (var item in carts)
                 {
+                    var amount = Math.Round(item.MenuItem.Price - (item.MenuItem.Price * Math.Round(item.MenuItem.Discount,2)));
                     options.LineItems.Add(new SessionLineItemOptions()
                     {
                         PriceData = new SessionLineItemPriceDataOptions
@@ -98,8 +99,8 @@ namespace Luqma.Service.Implementations
                                 Description = item.MenuItem.Description,
 
                             },
-                            UnitAmount =(long)Math.Round((decimal)((item.MenuItem.Price-(item.MenuItem.Price*item.MenuItem.Discount)) * 100))
-                            
+                            UnitAmount =(long)amount*100,
+
                         },
                         Quantity = (long)item.Quantity,
                        
@@ -132,7 +133,7 @@ namespace Luqma.Service.Implementations
                         OrderId = OrderId,
                         ItemId = c.ItemId,
                         Quantity = c.Quantity,
-                        TotalPrice = Math.Round((c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price)) * c.Quantity)
+                        TotalPrice = Math.Round((c.MenuItem.Price - (Math.Round(c.MenuItem.Discount, 2) * c.MenuItem.Price)) * c.Quantity)
 
 
 

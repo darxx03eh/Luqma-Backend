@@ -38,5 +38,13 @@ namespace Luqma.Infrastructure.Repositories
         {
            return await _context.Orders.Where(o => o.Status.Equals("ReadyToPrepare")).ToListAsync();
         }
+        public async Task<List<Order>> getOrdersForDeliveryAsync()
+        {
+            return await _context.Orders.Where(o => o.Status.Equals("Prepared") && o.Type.Equals("out of resturent")).ToListAsync();
+        }
+        public async Task<Order?>getOrderForDeliveryAsync(int orderid)
+        {
+            return await _context.Orders.Include(o => o.PaymentsOrders).Include(o => o.Customer).ThenInclude(c => c.Addresses).FirstOrDefaultAsync(o => o.Id == orderid);
+        }
     }
 }

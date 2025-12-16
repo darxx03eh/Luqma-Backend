@@ -27,10 +27,15 @@ namespace Luqma.Infrastructure.Repositories
         {
            return await _context.OrderItems.FirstOrDefaultAsync(oi => oi.OrderId == orderid && oi.ItemId == itemid);
         }
-        public async Task<List<OrderItem>> getOrderItemsAsync()
+        public async Task<List<OrderItem>> getOrderItemsAsync(int cashierid)
         {
            var orderitems= await _context.OrderItems.Include(oi => oi.Order).Where(oi=>oi.Order.Status.Equals("Pending") && oi.Order.TotalPrice!=0).ToListAsync();
-            return orderitems.DistinctBy(oi => oi.OrderId).ToList();
+            var orderItems= orderitems.DistinctBy(oi => oi.OrderId).ToList();
+            foreach (var oi in orderItems)
+            {
+                if (oi.Order.CashierId != null && oi.Order.CashierId != cashierid) orderItems.Remove(oi);
+            }
+            return orderItems;
         }
         public async Task<bool> isOrderIdInOrderitemsAsync(int orderid)
         {
@@ -38,7 +43,7 @@ namespace Luqma.Infrastructure.Repositories
             if (order is null) return false;
             return true;
         }
-       
-       
+
+     
     }
 }

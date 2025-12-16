@@ -19,7 +19,9 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
         IRequestHandler<CancelOrder,ApiResponse>,
         IRequestHandler<CancelOrderByCashierCommand,ApiResponse>,
         IRequestHandler<UpdateOrderByCashierCommand,ApiResponse>,
-        IRequestHandler<ChangeStatusByChefCommand,ApiResponse>
+        IRequestHandler<ChangeStatusByChefCommand,ApiResponse>,
+        IRequestHandler<ChangeStatusToOutByDeliveryCommand,ApiResponse>,
+        IRequestHandler<ChangeStatusByDeliveryToDeliveredCommand,ApiResponse>
 
        
        
@@ -103,6 +105,23 @@ namespace Luqma.Core.Features.Orders.Commands.Handlers
             return result switch
             {
                 "the order status is updated successfully" => Success(null, message: SharedResponseKeys.SuccessUpdateOrderStatusByChef)
+            };
+        }
+        public async Task<ApiResponse> Handle(ChangeStatusToOutByDeliveryCommand request, CancellationToken cancellationToken)
+        {
+            var result = await _orderService.ChangeStatusToOutByDeliveryAsync(request.OrderId);
+            return result switch
+            {
+                "the order is updated successfully" => Success(null, message: SharedResponseKeys.SuccessUpdateOrderStatusByDelivery)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(ChangeStatusByDeliveryToDeliveredCommand request, CancellationToken cancellationToken)
+        {
+          var result=  await _orderService.ChangeStatusToDeliveredByDeliveryAsync(request.OrderId);
+            return result switch
+            {
+                "the order is updated successfully" => Success(null, message: SharedResponseKeys.SuccessUpdateOrderStatusByDelivery)
             };
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Luqma.Data.Entities;
+using Luqma.Data.Response.Order;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,10 @@ namespace Luqma.Service.Interfaces
         public Task<string> UpdateOrderByCashierAsync(int id, string? Note);
         public  Task<(List<Order>, string)> getOrdersForChefAsync();
         public Task<string> ChangeStatusByChefAsync(int orderid);
+        public Task<(List<Order>, string)> getOrdersForDeliveryAsync();
+        public Task<(ViewOrderDetailsByDeliveryResponse, string)> getOrderDetailsForDeliveryAsync(int orderid);
+        public Task<string> ChangeStatusToOutByDeliveryAsync(int orderid);
+        public Task<string> ChangeStatusToDeliveredByDeliveryAsync(int orderid);
+        public Task<(List<ViewOrderResponse>, string)> getOutOrdersForDeliveryAsync();
     }
 }
