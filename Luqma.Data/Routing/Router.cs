@@ -248,5 +248,14 @@
             public const string ViewOrders = $"{prefix}/viewOrders";
             public const string ChangeStatus = $"{prefix}/ChangeStatus{singleRoute}";
         }
+        public static class DeliveryOrderRouting
+        {
+            public const string prefix = $"{rule}Delivery/Orders";
+            public const string ViewOrders = $"{prefix}/ViewOrders";
+            public const string ViewOrderDetails = $"{prefix}/getOrderDetails{singleRoute}";
+            public const string ChangeStatus = $"{prefix}/ChangeStatusToOutForDelivery{singleRoute}";
+            public const string viewOutOrders = $"{prefix}/viewOutForDeliveryOrders";
+            public const string ChangeStatusToDelivered = $"{prefix}/ChangeStatusToDelivered{singleRoute}";
+        }
     }
 }

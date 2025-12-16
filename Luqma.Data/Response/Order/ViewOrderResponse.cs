@@ -10,7 +10,7 @@ namespace Luqma.Data.Response.Order
     {
         public int Id { get; set; }
         public string Note { get; set; }
-        public double TotalPrice { get; set; }
+        public double? TotalPrice { get; set; }
         public string Type { get; set; }
         public string Date { get; set; }
         public string Status { get; set; }

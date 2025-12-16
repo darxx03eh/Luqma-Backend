@@ -1,5 +1,7 @@
 ﻿using Luqma.Data.Entities;
 using Luqma.Data.Enums;
+using Luqma.Data.Response.Customers;
+using Luqma.Data.Response.Order;
 using Luqma.Infrastructure.IRepositories;
 using Luqma.Infrastructure.Repositories;
 using Luqma.Service.Interfaces;
@@ -23,11 +25,13 @@ namespace Luqma.Service.Implementations
         private readonly IOrderRepository _orderRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IOrderItemRepository _orderItemRepository;
+        private readonly IPaymentOrderRepository _paymentOrderRepository;
+        private readonly IDeliveriesRepository _deliveriesRepository;
         private readonly IEmailService _emailService;
 
         public OrderService(ICustomerRepository customerRepository, IWhatsAppService whatsAppService,
                IWeatherService weatherService, IOrderRepository orderRepository, ICartRepository cartRepository,
-               IOrderItemRepository orderItemRepository)
+               IOrderItemRepository orderItemRepository,IPaymentOrderRepository paymentOrderRepository,IDeliveriesRepository deliveriesRepository)
         {
             _customerRepository = customerRepository;
             _whatsAppService = whatsAppService;
@@ -35,6 +39,8 @@ namespace Luqma.Service.Implementations
             _orderRepository = orderRepository;
             _cartRepository = cartRepository;
             _orderItemRepository = orderItemRepository;
+            _paymentOrderRepository = paymentOrderRepository;
+            _deliveriesRepository = deliveriesRepository;
         }
 
         public async Task<(int? id, string)> AddOrderAsync(string? Note)
@@ -73,7 +79,7 @@ namespace Luqma.Service.Implementations
                 };
                 var carts = await _cartRepository.GetCartForCustomerAsync(customerid);
                 if (!carts.Any()) return (null, "the cart is empty");
-                var totalprice = carts.Sum((c => c.Quantity * (c.MenuItem.Price - (c.MenuItem.Discount * c.MenuItem.Price))));
+                var totalprice = carts.Sum((c => c.Quantity * Math.Round(c.MenuItem.Price - (Math.Round(c.MenuItem.Discount,2) * c.MenuItem.Price))));
                 order.TotalPrice = totalprice;
 
                 await _orderRepository.AddAsync(order);
@@ -187,9 +193,87 @@ namespace Luqma.Service.Implementations
         public async Task<string> ChangeStatusByChefAsync(int orderid)
         {
             var order = await _orderRepository.GetByIdAsync(orderid);
-            order.Status = "prepared";
+            order.Status = "Prepared";
             await _orderRepository.UpdateAsync(order);
             return "the order status is updated successfully";
+        }
+        public async Task<(List<Order>,string)> getOrdersForDeliveryAsync()
+        {
+          var orders=  await _orderRepository.getOrdersForDeliveryAsync();
+            return (orders, "the orders is fetched successfully");
+
+        }
+        public async Task<(ViewOrderDetailsByDeliveryResponse,string)> getOrderDetailsForDeliveryAsync(int orderid)
+        {
+            var order=await _orderRepository.getOrderForDeliveryAsync(orderid);
+            var addresses=order.Customer.Addresses.Select(a => new CustomerAddressResponse
+            {
+                State = a.State,
+                City = a.City,
+                Street = a.Street
+
+            });
+            var customerAddressResponse=addresses.Last();
+            var Payment = await _paymentOrderRepository.getOrderPaymentbyIdAsync(orderid);
+            var orderDetails = new ViewOrderDetailsByDeliveryResponse
+            {
+                FirstName = order.Customer.FirstName,
+                LastName = order.Customer.LastName,
+                PhoneNumber = order.Customer.PhoneNumber,
+                Address = customerAddressResponse,
+                Status = Payment.Payment.Status
+
+
+            };
+            return (orderDetails, "the order details is fetched successfully");
+
+        }
+        public async Task<string> ChangeStatusToOutByDeliveryAsync( int orderid)
+        {
+            var Deliveryid = int.Parse(_orderRepository.ExtractUserIdFromToken());
+            var order= await _orderRepository.GetByIdAsync(orderid);
+            order.Status = "OutForDelivery";
+            await _orderRepository.UpdateAsync(order);
+            var deliveries = new Deliveries
+            {
+                DeliveryId = Deliveryid,
+                OrderId = orderid
+            };
+            await _deliveriesRepository.AddAsync(deliveries);
+            return "the order is updated successfully";
+        }
+        public async Task<(List<ViewOrderResponse>,string)> getOutOrdersForDeliveryAsync()
+        {
+            var Deliveryid = int.Parse(_orderRepository.ExtractUserIdFromToken());
+            var deliveries = await _deliveriesRepository.getOrdersForDeliveryAsync(Deliveryid);
+            var ordersRe = new List<ViewOrderResponse>();
+            foreach(var o in deliveries)
+            {
+                var order = new ViewOrderResponse()
+                {
+                    Id = o.Order.Id,
+                    Type = o.Order.Type,
+                    TotalPrice = o.Order.TotalPrice,
+                    Status = o.Order.Status,
+                    Date = o.Order.Date.ToString("MM/dd/yyyy hh:mm:ss tt"),
+                    Note = o.Order.Note
+                };
+                ordersRe.Add(order);
+            }
+            return (ordersRe, "the orders is fetched successfully");
+        }
+        public async Task<string> ChangeStatusToDeliveredByDeliveryAsync(int orderid)
+        {
+          var order= await  _orderRepository.GetByIdAsync(orderid);
+            order.Status = "Delivered";
+           await  _orderRepository.UpdateAsync(order);
+          var orderPayment=  await _paymentOrderRepository.getOrderPaymentbyIdAsync(orderid);
+            if (orderPayment.Payment.Status.Equals("UnPaid"))
+            {
+                orderPayment.Payment.Status = "paid";
+               await  _paymentOrderRepository.SaveChangesAsync();
+            }
+            return "the order is updated successfully";
         }
     }
 }

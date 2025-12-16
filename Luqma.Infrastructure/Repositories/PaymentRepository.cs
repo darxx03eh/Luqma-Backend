@@ -2,6 +2,7 @@
 using Luqma.Infrastructure.Data;
 using Luqma.Infrastructure.IRepositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Luqma.Infrastructure.Repositories
     {
         public PaymentRepository(LuqmaDbContext context, IHttpContextAccessor httpContextAccessor) : base(context, httpContextAccessor)
         {
-
+           
         }
 
     }

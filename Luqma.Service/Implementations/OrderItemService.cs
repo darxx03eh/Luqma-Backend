@@ -48,7 +48,8 @@ namespace Luqma.Service.Implementations
         }
         public async Task<(List<Order>,string)> GetOrdersAsync()
         {
-            var orderitems = await _orderItemRepository.getOrderItemsAsync();
+            var cashierid = int.Parse(_orderItemRepository.ExtractUserIdFromToken());
+            var orderitems = await _orderItemRepository.getOrderItemsAsync(cashierid);
             var orders = new List<Order>();
             foreach(var oi in orderitems)
             {

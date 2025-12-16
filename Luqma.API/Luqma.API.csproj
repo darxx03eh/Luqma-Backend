@@ -35,8 +35,4 @@
     <ProjectReference Include="..\Luqma.Service\Luqma.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Delivery\Controllers\" />
-  </ItemGroup>
-
 </Project>
