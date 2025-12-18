@@ -91,11 +91,14 @@ namespace Luqma.Service.Implementations
 
         }
 
-        public async Task<(QuestPDF.Infrastructure.IDocument, string)> getOrderReportAsync(int orderid)
+        public async Task<(IDocument, string)> getOrderReportAsync(int orderid)
         {
             var orderItems = await _orderItemRepository.getOrderItemsByOrderIdAsync(orderid);
+                
 
-            var document = QuestPDF.Fluent.Document.Create(container =>
+            var totalOrderPrice = orderItems.Sum(x => x.TotalPrice);
+
+            var document = Document.Create(container =>
             {
                 container.Page(page =>
                 {
@@ -104,25 +107,28 @@ namespace Luqma.Service.Implementations
                     page.PageColor(Colors.White);
                     page.DefaultTextStyle(x => x.FontSize(14));
 
+                    // 🔹 Header
                     page.Header()
+                        .AlignCenter()
                         .Text("Luqma Order")
                         .SemiBold()
                         .FontSize(28)
                         .FontColor(Colors.Blue.Medium);
 
+                    // 🔹 Content
                     page.Content()
                         .PaddingVertical(1, Unit.Centimetre)
                         .Column(column =>
                         {
                             column.Spacing(15);
 
-                            // 🔹 Order ID
+                            // Order ID
                             column.Item()
                                 .Text($"Order ID: {orderid}")
                                 .SemiBold()
                                 .FontSize(16);
 
-                            // 🔹 جدول العناصر
+                            // Table
                             column.Item().Table(table =>
                             {
                                 table.ColumnsDefinition(columns =>
@@ -138,12 +144,10 @@ namespace Luqma.Service.Implementations
                                         .Text("Item").SemiBold();
 
                                     header.Cell().Background(Colors.Grey.Lighten2).Padding(6)
-                                        .AlignCenter()
-                                        .Text("Quantity").SemiBold();
+                                        .AlignCenter().Text("Quantity").SemiBold();
 
                                     header.Cell().Background(Colors.Grey.Lighten2).Padding(6)
-                                        .AlignRight()
-                                        .Text("Total Price").SemiBold();
+                                        .AlignRight().Text("Total Price").SemiBold();
                                 });
 
                                 foreach (var oi in orderItems)
@@ -160,8 +164,19 @@ namespace Luqma.Service.Implementations
                                         .Text($"{oi.TotalPrice} $");
                                 }
                             });
+
+                            // 🔹 Grand Total
+                            column.Item()
+                                .PaddingTop(10)
+                                .BorderTop(1)
+                                .BorderColor(Colors.Grey.Lighten1)
+                                .AlignRight()
+                                .Text($"Total Price: {totalOrderPrice} $")
+                                .SemiBold()
+                                .FontSize(18);
                         });
 
+                    // 🔹 Footer
                     page.Footer()
                         .AlignCenter()
                         .Text(x =>
@@ -171,10 +186,9 @@ namespace Luqma.Service.Implementations
                         });
                 });
             });
-           
+
             return (document, "the report is fetched successfully");
         }
-
 
     }
 }
