@@ -10,6 +10,7 @@ namespace Luqma.Core.Bases
         public String Message { get; set; }
         public Object Errors { get; set; }
         public Object Data { get; set; }
+       
         public ApiResponse() { }
         public ApiResponse(Object data, String message = null)
             => (Succeeded, Message, Data) = (true, message, data);

@@ -387,6 +387,8 @@
         public const string SuccessUpdateOrderStatusByChef = "the order status is updated successfully";
         public const string UserMustBeAtLeast18YearsOld = "User must be at least 18 years old";
         public const string SuccessUpdateOrderStatusByDelivery = "the order status is updated successfully";
+        public const string SuccessGetOrderReport = "the report is fetched successfully";
+      
 
     }
 }

@@ -223,6 +223,7 @@
             public const string ViewOrders = $"{prefix}/ViewOrders";
             public const string GetOrderDetailsByID = $"{prefix}/getOrderDetailsById{singleRoute}";
             public const string UpdateQuantity = $"{prefix}/UpdateQuantity";
+            public const string getOrderReport = $"{prefix}/getOrderReport{singleRoute}";
 
 
         }

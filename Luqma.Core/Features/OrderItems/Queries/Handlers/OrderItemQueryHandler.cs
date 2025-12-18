@@ -5,6 +5,7 @@ using Luqma.Core.ResponseKeys;
 using Luqma.Data.Response.Order;
 using Luqma.Service.Interfaces;
 using MediatR;
+using QuestPDF.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace Luqma.Core.Features.OrderItems.Queries.Handlers
 {
     public class OrderItemQueryHandler : ApiResponseHandler,
         IRequestHandler<ViewOrdersQuery, ApiResponse>,
-        IRequestHandler<ViewOrderDetailsQuery,ApiResponse>
+        IRequestHandler<ViewOrderDetailsQuery,ApiResponse>,
+        IRequestHandler<GetOrderReportQuery,FileApiResponse>
     {
         private readonly IOrderItemService _orderItemService;
         private readonly IMapper _mapper;
@@ -43,6 +45,18 @@ namespace Luqma.Core.Features.OrderItems.Queries.Handlers
             return result switch
             {
                 "the order details is fetched successfully" => Success(OrderDetailsRe, message: SharedResponseKeys.SuccessFetchOrderDetails)
+            };
+        }
+
+        public async Task<FileApiResponse> Handle(GetOrderReportQuery request, CancellationToken cancellationToken)
+        {
+          var (document,result)= await  _orderItemService.getOrderReportAsync(request.OrderId);
+            var pdf = document.GeneratePdf();
+            return result switch
+            {
+                "the report is fetched successfully" => File(SharedResponseKeys.SuccessGetOrderReport, pdf, "Order.PDF")
+
+
             };
         }
     }

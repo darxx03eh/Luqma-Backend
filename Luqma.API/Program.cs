@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Infrastructure;
 using Stripe;
 using System.Text.Json.Serialization;
 
@@ -122,6 +123,7 @@ namespace Luqma.API
             builder.Services.AddResponseCaching();
             builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:StripeKey"];
+            QuestPDF.Settings.License = LicenseType.Community;
             var app = builder.Build();
             using (var scope = app.Services.CreateScope())
             {
