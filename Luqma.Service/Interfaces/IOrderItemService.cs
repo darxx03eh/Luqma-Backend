@@ -14,5 +14,6 @@ namespace Luqma.Service.Interfaces
         public Task<(List<Order>, string)> GetOrdersAsync();
         public Task<(List<OrderItem>, string)> GetOrderDetailsAsync(int orderid);
         public Task<string> UpdateQuantityForItemByCashierAsync(int orderid, int itemid, double quantity);
+        public Task<(QuestPDF.Infrastructure.IDocument, string)> getOrderReportAsync(int orderid);
     }
 }

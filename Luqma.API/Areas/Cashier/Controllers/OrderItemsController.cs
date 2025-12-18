@@ -46,6 +46,12 @@ namespace Luqma.API.Areas.Cashier.Controllers
             var result = await mediator.Send(request);
             return Result(result);
         }
+        [HttpGet(Router.CashierOrderItemRouting.getOrderReport)]
+        public async Task<IActionResult> getOrderReport([FromRoute]int id)
+        {
+            var result = await mediator.Send(new GetOrderReportQuery(id));
+            return Result(result);
+        }
 
     }
 }

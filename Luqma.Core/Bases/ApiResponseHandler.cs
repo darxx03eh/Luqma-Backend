@@ -92,5 +92,18 @@ namespace Luqma.Core.Bases
                 Meta = meta,
                 Message = message is null ? SharedResponseKeys.Created : message
             };
+        public FileApiResponse File(string message,byte[] fileContent, string fileName, string contentType = "application/pdf")
+        {
+            return new FileApiResponse()
+            {
+               StatusCode=System.Net.HttpStatusCode.OK,
+               Messgae=message,
+               FileBytes=fileContent,
+               FileName=fileName,
+               ContentType=contentType
+
+
+            };
+        }
     }
 }

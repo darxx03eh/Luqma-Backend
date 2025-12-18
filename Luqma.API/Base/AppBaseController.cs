@@ -25,5 +25,9 @@ namespace Luqma.API.Base
             System.Net.HttpStatusCode.NoContent => new ObjectResult(response) { StatusCode = 204 },
             _ => new BadRequestObjectResult(response)
         };
+        protected IActionResult Result(FileApiResponse response)
+        {
+            return File(response.FileBytes, response.ContentType, response.FileName);
+        }
     }
 }
