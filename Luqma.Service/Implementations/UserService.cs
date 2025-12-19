@@ -240,6 +240,7 @@ namespace Luqma.Service.Implementations
                 }
             }
         }
+
         public async Task<string> ActivateAsync(int id)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -259,6 +260,7 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredWhileActivatingTheUser";
             return "TheUserHasBeenActivatedSuccessfully";
         }
+
         public async Task<string> DeActivateAsync(int id)
         {
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
@@ -400,7 +402,8 @@ namespace Luqma.Service.Implementations
                     JoinDate = user.CreatedAt.ToString("MMMM dd, yyyy")
                 };
                 return ("UserFound", profile);
-            }catch(Exception exp)
+            }
+            catch (Exception exp)
             {
                 return ("ThereWasAProblemLoadingTheProfile", null);
             }
@@ -435,9 +438,10 @@ namespace Luqma.Service.Implementations
                     }
                     await transaction.CommitAsync();
                     return "AddedToUserRolesSuccessfully";
-                }catch(Exception exp)
+                }
+                catch (Exception exp)
                 {
-                    if(transaction.GetDbTransaction().Connection is not null)
+                    if (transaction.GetDbTransaction().Connection is not null)
                         await transaction.RollbackAsync();
                     return "AnErrorOccurredWhileAddingTheUserToRoles";
                 }
