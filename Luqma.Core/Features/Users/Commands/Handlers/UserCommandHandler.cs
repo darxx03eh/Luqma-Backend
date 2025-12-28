@@ -29,6 +29,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
         {
             this.userService = userService;
         }
+
         public async Task<ApiResponse> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
             var result = await userService.ChangePasswordAsync(request.CurrentPassword, request.NewPassword);
@@ -124,17 +125,20 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileChangingTheBirthDate)
             };
         }
+
         public async Task<ApiResponse> Handle(ActivateUserCommand request, CancellationToken cancellationToken)
         {
             var result = await userService.ActivateAsync(request.UserId);
             return result switch
             {
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
                 "TheUserWhoseAccountYouWantToActivateIsNotFound" =>
                 NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToActivateIsNotFound),
                 "AnErrorOccurredWhileActivatingTheUser" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser),
                 "UserAlreadyActive" => BadRequest(SharedResponseKeys.UserAlreadyActive),
+                "YouCanNotPerformThisActionOnYourself" => BadRequest(SharedResponseKeys.YouCanNotPerformThisActionOnYourself),
                 "TheUserHasBeenActivatedSuccessfully" => Success(null, message: SharedResponseKeys.TheUserHasBeenActivatedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileActivatingTheUser)
             };
@@ -146,11 +150,13 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
             return result switch
             {
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
                 "TheUserNWhoseAccountYouWantToDeactivateIsNotFound" =>
                 NotFound(SharedResponseKeys.TheUserWhoseAccountYouWantToDeactivateIsNotFound),
                 "AnErrorOccurredWhileDeactivatingTheUser" =>
                 InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser),
                 "UserAlreadyInActive" => BadRequest(SharedResponseKeys.UserAlreadyInActive),
+                "YouCanNotPerformThisActionOnYourself" => BadRequest(SharedResponseKeys.YouCanNotPerformThisActionOnYourself),
                 "TheUserHasBeenDeactivatedSuccessfully" =>
                 Success(null, message: SharedResponseKeys.TheUserHasBeenDeactivatedSuccessfully),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeactivatingTheUser)
@@ -215,6 +221,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
             {
                 "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
+                "YouCanNotPerformThisActionOnYourself" => BadRequest(SharedResponseKeys.YouCanNotPerformThisActionOnYourself),
                 "AnErrorOccurredWhileDeletingOldRoles" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingOldRoles),
                 "FailedToAddUserRoles" => InternalServerError(SharedResponseKeys.FailedToAddUserRoles),
                 "AddedToUserRolesSuccessfully" => Success(null, message: SharedResponseKeys.AddedToUserRolesSuccessfully),
@@ -262,7 +269,7 @@ namespace Luqma.Core.Features.Users.Commands.Handlers
                 "ManagerNotFound" => NotFound(SharedResponseKeys.ManagerNotFound),
                 "UserNotFound" => NotFound(SharedResponseKeys.UserNotFound),
                 "AnErrorOccurredWhileUpdatingSalary" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingSalary),
-                "SalaryForSpecificUserUpdatedSuccessfully" => 
+                "SalaryForSpecificUserUpdatedSuccessfully" =>
                 Success(new
                 {
                     Salary = request.Salary

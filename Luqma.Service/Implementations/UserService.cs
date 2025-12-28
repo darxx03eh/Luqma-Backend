@@ -243,6 +243,12 @@ namespace Luqma.Service.Implementations
 
         public async Task<string> ActivateAsync(int id)
         {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+            var manager = await userManager.FindByIdAsync(managerId);
+            if (manager is null)
+                return "ManagerNotFound";
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(userId))
                 return "UserNotFound";
@@ -252,6 +258,9 @@ namespace Luqma.Service.Implementations
             user = await userManager.FindByIdAsync(id.ToString());
             if (user is null)
                 return "TheUserWhoseAccountYouWantToActivateIsNotFound";
+
+            if (manager.Id.Equals(user.Id))
+                return "YouCanNotPerformThisActionOnYourself";
             if (user.IsActive)
                 return "UserAlreadyActive";
             user.IsActive = true;
@@ -263,6 +272,12 @@ namespace Luqma.Service.Implementations
 
         public async Task<string> DeActivateAsync(int id)
         {
+            var managerId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(managerId))
+                return "ManagerNotFound";
+            var manager = await userManager.FindByIdAsync(managerId);
+            if (manager is null)
+                return "ManagerNotFound";
             var userId = unitOfWork.UserRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(userId))
                 return "UserNotFound";
@@ -272,6 +287,8 @@ namespace Luqma.Service.Implementations
             user = await userManager.FindByIdAsync(id.ToString());
             if (user is null)
                 return "TheUserWhoseAccountYouWantToDeactivateIsNotFound";
+            if (manager.Id.Equals(user.Id))
+                return "YouCanNotPerformThisActionOnYourself";
             if (!user.IsActive)
                 return "UserAlreadyInActive";
             user.IsActive = false;
@@ -415,9 +432,12 @@ namespace Luqma.Service.Implementations
             if (string.IsNullOrWhiteSpace(managerId))
                 return "ManagerNotFound";
 
+            var manager = await userManager.FindByIdAsync(managerId);
             var user = await userManager.FindByIdAsync(Convert.ToString(userId));
             if (user is null)
                 return "UserNotFound";
+            if (manager.Id.Equals(user.Id))
+                return "YouCanNotPerformThisActionOnYourself";
             using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try
