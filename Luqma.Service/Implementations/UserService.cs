@@ -8,6 +8,7 @@ using Luqma.Infrastructure.IRepositories;
 using Luqma.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Luqma.Service.Implementations
@@ -538,6 +539,18 @@ namespace Luqma.Service.Implementations
             user.Salary = Convert.ToDecimal(salary);
             var result = await userManager.UpdateAsync(user);
             return !result.Succeeded ? "AnErrorOccurredWhileUpdatingSalary" : "SalaryForSpecificUserUpdatedSuccessfully";
+        }
+
+        public async Task<(string, IList<LuqmaUser>?)> GetUsersForFinanceAsync()
+        {
+            var financeId = unitOfWork.UserRepository.ExtractUserIdFromToken();
+            if (string.IsNullOrWhiteSpace(financeId))
+                return ("FinanceEmployeeNotFound", null);
+
+            var users = await userManager.Users.ToListAsync();
+            if (!users.Any())
+                return ("UsersNotFound", null);
+            return ("UsersFound", users);
         }
     }
 }

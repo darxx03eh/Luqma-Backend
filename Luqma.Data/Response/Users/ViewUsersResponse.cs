@@ -1,10 +1,8 @@
 ﻿namespace Luqma.Data.Response.Users
 {
-    public class ViewUsersResponse
+    public class ViewUsersResponse : GetUsersForFinanceResponse
     {
-        public int Id { get; set; }
         public string ImageUrl { get; set; }
-        public string Name { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
         public string Role { get; set; }

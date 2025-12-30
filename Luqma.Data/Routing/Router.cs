@@ -47,6 +47,7 @@
             public const string UpdateUserData = prefix;
             public const string ChangePasswordForUserByManager = $"{prefix}/user-management/password";
             public const string ChangeSalary = $"{prefix}/change-salary";
+            public const string DropdownUsers = $"{prefix}/dropdown";
         }
 
         public static class ManagerCategoriesRouting
@@ -184,7 +185,6 @@
             public const string prefix = $"{rule}Customer/Orders";
             public const string AddOrder = $"{prefix}/PlaceOrder";
             public const string CancelOrder = $"{prefix}/CancelOrder{singleRoute}";
-
         }
 
         public static class FeedbacksRouting
@@ -209,12 +209,14 @@
             public const string GetAllCategoryItems = $"{rule}CategoryItems/GetAllMenuItems";
             public const string GetAll = $"{prefix}/GetAllMenuItems";
         }
+
         public static class CashierCartsRouting
 
         {
             public const string prefix = $"{rule}Cashier/Orders";
             public const string AddOrder = $"{prefix}/AddOrder";
         }
+
         public static class CashierOrderItemRouting
         {
             public const string prefix = $"{rule}Cashier/OrderItems";
@@ -224,14 +226,14 @@
             public const string GetOrderDetailsByID = $"{prefix}/getOrderDetailsById{singleRoute}";
             public const string UpdateQuantity = $"{prefix}/UpdateQuantity";
             public const string getOrderReport = $"{prefix}/getOrderReport{singleRoute}";
-
-
         }
+
         public static class OrdersTrackingRouting
         {
             public const string prefix = $"{rule}order-tracking";
             public const string TrackOrder = $"{prefix}{singleRoute}";
         }
+
         public static class CashierOrderRouting
         {
             public const string prefix = $"{rule}Cashier/Orders";
@@ -240,15 +242,15 @@
             public const string CancelOrder = $"{prefix}/CancelOrder";
             public const string CancelOrderById = $"{prefix}/CancelOrder{singleRoute}";
             public const string UpdateOrder = $"{prefix}/UpdateOrder";
-
-
         }
+
         public static class ChefOrderRouting
         {
             public const string prefix = $"{rule}Chef/Orders";
             public const string ViewOrders = $"{prefix}/viewOrders";
             public const string ChangeStatus = $"{prefix}/ChangeStatus{singleRoute}";
         }
+
         public static class DeliveryOrderRouting
         {
             public const string prefix = $"{rule}Delivery/Orders";
