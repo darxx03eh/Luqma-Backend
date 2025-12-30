@@ -1,6 +1,8 @@
-﻿using Luqma.Core.Bases;
+﻿using AutoMapper;
+using Luqma.Core.Bases;
 using Luqma.Core.Features.Users.Queries.Models;
 using Luqma.Core.ResponseKeys;
+using Luqma.Data.Response.Users;
 using Luqma.Service.Interfaces;
 using MediatR;
 
@@ -11,13 +13,17 @@ namespace Luqma.Core.Features.Users.Queries.Handlers
         , IRequestHandler<ShowUserAddressesQuery, ApiResponse>
         , IRequestHandler<ViewSpecificAddressQuery, ApiResponse>
         , IRequestHandler<GetUserProfileQuery, ApiResponse>
+        , IRequestHandler<GetUsersForFinanceQuery, ApiResponse>
     {
         private readonly IUserService userService;
+        private readonly IMapper mapper;
 
-        public UserQueryHandler(IUserService userService)
+        public UserQueryHandler(IUserService userService, IMapper mapper)
         {
             this.userService = userService;
+            this.mapper = mapper;
         }
+
         public async Task<ApiResponse> Handle(ViewUsersQuery request, CancellationToken cancellationToken)
         {
             var (result, users) = await userService.ViewUsersAsync(request.PageNumber, 5);
@@ -63,6 +69,18 @@ namespace Luqma.Core.Features.Users.Queries.Handlers
                 "UserFound" => Success(profile, message: SharedResponseKeys.UsersFound),
                 "ThereWasAProblemLoadingTheProfile" => InternalServerError(SharedResponseKeys.ThereWasAProblemLoadingTheProfile),
                 _ => InternalServerError(SharedResponseKeys.ThereWasAProblemLoadingTheProfile)
+            };
+        }
+
+        public async Task<ApiResponse> Handle(GetUsersForFinanceQuery request, CancellationToken cancellationToken)
+        {
+            var (result, users) = await userService.GetUsersForFinanceAsync();
+            return result switch
+            {
+                "FinanceEmployeeNotFound" => NotFound(SharedResponseKeys.FinanceEmployeeNotFound),
+                "UsersNotFound" => NotFound(SharedResponseKeys.UsersNotFound),
+                "UsersFound" => Success(mapper.Map<IList<GetUsersForFinanceResponse>>(users), message: SharedResponseKeys.UsersFound),
+                _ => NotFound(SharedResponseKeys.UsersNotFound)
             };
         }
     }
