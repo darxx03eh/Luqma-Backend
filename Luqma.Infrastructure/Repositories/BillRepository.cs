@@ -33,6 +33,7 @@ namespace Luqma.Infrastructure.Repositories
                 Amount = bill.TotalPrice,
                 DueDate = bill.DueDate.Value.ToString("yyyy-MM-dd hh:mm tt") ?? "N/A",
                 Status = bill.Status,
+                Note = bill.Note
             }).ToPaginatedListAsync(pageNumber, 5);
             if (bills.Data.Count().Equals(0))
                 return ("BillsNotFound", null);
