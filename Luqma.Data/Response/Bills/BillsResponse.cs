@@ -4,9 +4,10 @@
     {
         public int Id { get; set; }
         public string FinanceName { get; set; }
-        public string BillType {  get; set; }
+        public string BillType { get; set; }
         public double Amount { get; set; }
         public string DueDate { get; set; }
         public string Status { get; set; }
+        public string Note { get; set; }
     }
 }
