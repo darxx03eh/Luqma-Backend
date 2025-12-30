@@ -22,7 +22,7 @@ namespace Luqma.API.Areas.Customer.Controllers
         public async Task<IActionResult> SuccessPayment([FromQuery] int orderid)
         {
             var result = await mediator.Send(new SuccessPaymentCommand(orderid));
-            var frontMenuUrl = "https://luqma.runasp.net/menu";
+            var frontMenuUrl = "https://customer-graduation-project.vercel.app/";
 
             return Redirect(frontMenuUrl);
         }

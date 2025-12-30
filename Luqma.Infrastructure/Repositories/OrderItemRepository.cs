@@ -31,10 +31,8 @@ namespace Luqma.Infrastructure.Repositories
         {
            var orderitems= await _context.OrderItems.Include(oi => oi.Order).Where(oi=>oi.Order.Status.Equals("Pending") && oi.Order.TotalPrice!=0).ToListAsync();
             var orderItems= orderitems.DistinctBy(oi => oi.OrderId).ToList();
-            foreach (var oi in orderItems)
-            {
-                if (oi.Order.CashierId != null && oi.Order.CashierId != cashierid) orderItems.Remove(oi);
-            }
+            orderItems.RemoveAll(oi => oi.Order.CashierId != null && oi.Order.CashierId != cashierid);
+      
             return orderItems;
         }
         public async Task<bool> isOrderIdInOrderitemsAsync(int orderid)

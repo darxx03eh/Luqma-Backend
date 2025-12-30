@@ -47,6 +47,8 @@ namespace Luqma.API.Areas.Cashier.Controllers
             return Result(result);
         }
         [HttpGet(Router.CashierOrderItemRouting.getOrderReport)]
+        [AllowAnonymous]
+        [Authorize(Roles = $"{Roles.Cashier},{Roles.Chef}")]
         public async Task<IActionResult> getOrderReport([FromRoute]int id)
         {
             var result = await mediator.Send(new GetOrderReportQuery(id));
