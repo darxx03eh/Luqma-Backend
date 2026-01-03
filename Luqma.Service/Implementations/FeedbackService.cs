@@ -15,6 +15,7 @@ namespace Luqma.Service.Implementations
         {
             this.unitOfWork = unitOfWork;
         }
+
         public async Task<(string, GetFeedbacksForItemResponse?)> GetFeedbacksForItemAsync(int id, int pageNumber, int pageSize)
         {
             var item = await unitOfWork.MenuItemRepository.GetByIdAsync(id);
@@ -40,6 +41,7 @@ namespace Luqma.Service.Implementations
             };
             return ("FeedbacksFoundForItem", feedbacks);
         }
+
         public async Task<string> DeleteExistingFeedbackAsync(int feedbackId)
         {
             var customerId = unitOfWork.CustomerRepository.ExtractUserIdFromToken();
@@ -69,6 +71,7 @@ namespace Luqma.Service.Implementations
                 return "AnErrorOccurredWhileUpdatingTheTotalStars";
             return result <= 0 ? "AnErrorOccurredWhileDeletingFeedback" : "TheFeedbackWasSuccessfullyDeleted";
         }
+
         public async Task<(string, AddNewFeedbackResponse?, double?)> UpdateExistingFeedbackAsync(int feedbackId, double stars, string content)
         {
             var customerId = unitOfWork.CustomerRepository.ExtractUserIdFromToken();
@@ -101,7 +104,7 @@ namespace Luqma.Service.Implementations
             else if (updateTotalStarsResult.Equals("AnErrorOccurredWhileUpdatingTheTotalStars"))
                 return ("AnErrorOccurredWhileUpdatingTheTotalStars", null, null);
 
-            return result <= 0 ? ("AnErrorOccurredWhileUpdatingFeedback.", null, null):("TheFeedbackWasSuccessfullyUpdated", new AddNewFeedbackResponse
+            return result <= 0 ? ("AnErrorOccurredWhileUpdatingFeedback.", null, null) : ("TheFeedbackWasSuccessfullyUpdated", new AddNewFeedbackResponse
             {
                 Id = feedback.Id,
                 Customer = new CustomerFeedback()
@@ -113,8 +116,8 @@ namespace Luqma.Service.Implementations
                 Stars = stars,
                 Content = content
             }, totalStars);
-                                    
         }
+
         public async Task<(string, AddNewFeedbackResponse?, double?)> AddNewFeedbackAsync(int id, double stars, string content)
         {
             var customerId = unitOfWork.CustomerRepository.ExtractUserIdFromToken();
@@ -135,8 +138,8 @@ namespace Luqma.Service.Implementations
             if (orders is null || !orders.Any())
                 return ("YouHaveNoOrders", null, null);
 
-            var hasItem = orders.Any(order => order.OrderItems.Any(item => item.Id.Equals(id)));
-            if(!hasItem)
+            var hasItem = orders.Any(order => order.OrderItems.Any(item => item.MenuItem.Id.Equals(id)));
+            if (!hasItem)
                 return ("YouHaveNoOrdersWithThisItem", null, null);
 
             var existingFeedback = await unitOfWork.FeedbackRepository.GetTableNoTracking()
@@ -192,7 +195,7 @@ namespace Luqma.Service.Implementations
             {
                 item.TotalStars = feedbacks.Average(feedback => feedback.Stars);
                 var result = await unitOfWork.MenuItemRepository.UpdateAsync(item);
-                return result <= 0 ? ("AnErrorOccurredWhileUpdatingTheTotalStars", null) 
+                return result <= 0 ? ("AnErrorOccurredWhileUpdatingTheTotalStars", null)
                                    : ("TotalStarsHaveBeenUpdatedSuccessfully", item.TotalStars);
             }
             item.TotalStars = 0;
