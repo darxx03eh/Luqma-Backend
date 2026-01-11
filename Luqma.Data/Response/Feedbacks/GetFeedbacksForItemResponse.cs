@@ -10,13 +10,15 @@ namespace Luqma.Data.Response.Feedbacks
         public int ReviewsForThisMonth { get; set; }
         public PaginatedResult<GetCustomerFeedback> CustomersFeedback { get; set; }
     }
+
     public class GetCustomerFeedback
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int FeedbackId { get; set; }
         public double Stars { get; set; }
         public string Content { get; set; }
-        public string Since {  get; set; }
+        public string Since { get; set; }
     }
 }

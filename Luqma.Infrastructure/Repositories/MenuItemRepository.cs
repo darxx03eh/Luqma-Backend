@@ -11,7 +11,6 @@ namespace Luqma.Infrastructure.Repositories
 {
     public class MenuItemRepository : GenericRepository<MenuItem>, IMenuItemRepository
     {
-
         private readonly LuqmaDbContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -36,6 +35,7 @@ namespace Luqma.Infrastructure.Repositories
                 Id = feedback.CustomerId,
                 FirstName = feedback.Customer.FirstName,
                 LastName = feedback.Customer.LastName,
+                FeedbackId = feedback.Id,
                 Stars = feedback.Stars,
                 Content = feedback.Content,
                 Since = feedback.UpdatedAt.Humanize()
@@ -59,13 +59,11 @@ namespace Luqma.Infrastructure.Repositories
             var menuitem = _context.MenuItems.FirstOrDefault(mi => mi.Id == id);
             if (menuitem is null) return false;
             return true;
-
         }
+
         public async Task<List<MenuItem>> GetAllMenuItemsAsync()
         {
-            return  await _context.MenuItems.Include(m => m.CategoryItems).ThenInclude(ci => ci.Category).AsNoTracking().AsQueryable().ToListAsync();
-
+            return await _context.MenuItems.Include(m => m.CategoryItems).ThenInclude(ci => ci.Category).AsNoTracking().AsQueryable().ToListAsync();
         }
-       
     }
 }
