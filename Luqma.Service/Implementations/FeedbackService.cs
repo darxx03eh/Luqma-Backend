@@ -42,34 +42,34 @@ namespace Luqma.Service.Implementations
             return ("FeedbacksFoundForItem", feedbacks);
         }
 
-        public async Task<string> DeleteExistingFeedbackAsync(int feedbackId)
+        public async Task<(string, double?)> DeleteExistingFeedbackAsync(int feedbackId)
         {
             var customerId = unitOfWork.CustomerRepository.ExtractUserIdFromToken();
             if (string.IsNullOrWhiteSpace(customerId))
-                return "CustomerNotFound";
+                return ("CustomerNotFound", null);
 
             var customer = await unitOfWork.CustomerRepository.GetByIdAsync(Convert.ToInt32(customerId));
             if (customer is null)
-                return "CustomerNotFound";
+                return ("CustomerNotFound", null);
 
             var feedback = await unitOfWork.FeedbackRepository.GetByIdAsync(feedbackId);
             if (feedback is null)
-                return "FeedbackNotFound";
+                return ("FeedbackNotFound", null);
 
             var (response, customerFeedbacks) = await unitOfWork.FeedbackRepository.GetCustomerFeedbacksAsync(customer.Id);
             if (response.Equals("FeedbacksForCustomerNotFound"))
-                return "FeedbacksForCustomerNotFound";
+                return ("FeedbacksForCustomerNotFound", null);
 
             var isFeedbackForCustomer = customerFeedbacks.Any(cf => cf.Equals(feedback.Id));
             if (!isFeedbackForCustomer)
-                return "ThisFeedbackDoNotBelongToThisCustomer";
+                return ("ThisFeedbackDoNotBelongToThisCustomer", null);
 
             var result = await unitOfWork.FeedbackRepository.DeleteAsync(feedback);
             var (updateTotalStarsResult, totalStars) = await UpdateTotalStarsAsync(feedback.ItemId);
-            if (updateTotalStarsResult.Equals("ItemNotFound")) return "ItemNotFound";
+            if (updateTotalStarsResult.Equals("ItemNotFound")) return ("ItemNotFound", null);
             else if (updateTotalStarsResult.Equals("AnErrorOccurredWhileUpdatingTheTotalStars"))
-                return "AnErrorOccurredWhileUpdatingTheTotalStars";
-            return result <= 0 ? "AnErrorOccurredWhileDeletingFeedback" : "TheFeedbackWasSuccessfullyDeleted";
+                return ("AnErrorOccurredWhileUpdatingTheTotalStars", null);
+            return result <= 0 ? ("AnErrorOccurredWhileDeletingFeedback", null) : ("TheFeedbackWasSuccessfullyDeleted", totalStars);
         }
 
         public async Task<(string, AddNewFeedbackResponse?, double?)> UpdateExistingFeedbackAsync(int feedbackId, double stars, string content)
@@ -114,7 +114,8 @@ namespace Luqma.Service.Implementations
                     LastName = feedback.Customer.LastName
                 },
                 Stars = stars,
-                Content = content
+                Content = content,
+                Since = feedback.UpdatedAt.Humanize()
             }, totalStars);
         }
 

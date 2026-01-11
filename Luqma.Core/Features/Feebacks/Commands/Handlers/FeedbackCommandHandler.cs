@@ -60,7 +60,7 @@ namespace Luqma.Core.Features.Feebacks.Commands.Handlers
 
         public async Task<ApiResponse> Handle(DeleteExistingFeedbackCommand request, CancellationToken cancellationToken)
         {
-            var result = await feedbackService.DeleteExistingFeedbackAsync(request.Id);
+            var (result, itemTotalStars) = await feedbackService.DeleteExistingFeedbackAsync(request.Id);
             return result switch
             {
                 "CustomerNotFound" => NotFound(SharedResponseKeys.CustomerNotFound),
@@ -70,7 +70,10 @@ namespace Luqma.Core.Features.Feebacks.Commands.Handlers
                 "AnErrorOccurredWhileUpdatingTheTotalStars" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileUpdatingTheTotalStars),
                 "ItemNotFound" => NotFound(SharedResponseKeys.ItemNotFound),
                 "AnErrorOccurredWhileDeletingFeedback" => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingFeedback),
-                "TheFeedbackWasSuccessfullyDeleted" => Success(null, message: SharedResponseKeys.TheFeedbackWasSuccessfullyDeleted),
+                "TheFeedbackWasSuccessfullyDeleted" => Success(null, new
+                {
+                    ItemTotalStars = itemTotalStars
+                }, message: SharedResponseKeys.TheFeedbackWasSuccessfullyDeleted),
                 _ => InternalServerError(SharedResponseKeys.AnErrorOccurredWhileDeletingFeedback)
             };
         }
