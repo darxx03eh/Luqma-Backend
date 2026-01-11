@@ -38,6 +38,7 @@ namespace Luqma.Service.Implementations
                 items.Add(new Items()
                 {
                     Id = item.Id,
+                    ItemName = item.MenuItem.Item,
                     ImageUrl = item.MenuItem.ImageUrl,
                     Quantity = Convert.ToInt32(item.Quantity),
                     TotalPrice = Convert.ToDouble(item.TotalPrice)
