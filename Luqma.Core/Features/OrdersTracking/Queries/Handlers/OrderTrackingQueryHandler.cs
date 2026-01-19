@@ -20,7 +20,7 @@ namespace Luqma.Core.Features.OrdersTracking.Queries.Handlers
             {
                 "CustomerNotFound" => NotFound(SharedResponseKeys.CustomerNotFound),
                 "OrderNotFound" => NotFound(SharedResponseKeys.OrderNotFound),
-                "UnauthorizedAccessForCustomer" => Forbidden(SharedResponseKeys.ThisOrderDoNotBelongToYou),
+                "ThisOrderDoNotBelongToYou" => Forbidden(SharedResponseKeys.ThisOrderDoNotBelongToYou),
                 "OrderTrackingFailed" => InternalServerError(SharedResponseKeys.OrderTrackingFailed),
                 "TheOrderWasFoundAndTrackingTheOrder" =>
                 Success(tracking, message: SharedResponseKeys.TheOrderWasFoundAndTrackingTheOrder),
