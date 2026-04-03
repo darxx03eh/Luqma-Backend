@@ -160,841 +160,247 @@ Swagger UI is enabled by default. After running the project, navigate to:
 https://localhost:<port>/swagger
 ```
 
-**Provided Soon**
+Base API route: `api/v1`
+
+### Authentications
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/authentications/register | Register a new user account |
+| POST | /api/v1/authentications/login | Sign in and get tokens |
+| GET | /api/v1/authentications/email-confirmation | Confirm email address |
+| POST | /api/v1/authentications/send-confirmation-email | Resend email confirmation |
+| POST | /api/v1/authentications/send-forget-password-email | Send forgot-password email |
+| POST | /api/v1/authentications/forget-password-confirmation | Confirm forgot-password code |
+| POST | /api/v1/authentications/reset-password | Reset account password |
+| POST | /api/v1/authentications/refresh-token | Generate a new access token |
+| DELETE | /api/v1/authentications/refresh-token | Revoke refresh token |
+| GET | /api/v1/authentications/token-validate?token={value} | Validate access token |
+| POST | /api/v1/authentications/send-confirmation-code-add | Send phone confirmation code before add |
+| POST | /api/v1/authentications/phonenumber-confirmation | Confirm phone number code |
+
+### Users
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/users/profile/{username} | Get user profile by username |
+| PATCH | /api/v1/users/settings/change-password | Change current user password |
+| PATCH | /api/v1/users/settings/change-name | Change current user display name |
+| PATCH | /api/v1/users/settings/profile/upload-image | Upload profile image |
+| PATCH | /api/v1/users/settings/change-username | Change username |
+| DELETE | /api/v1/users/settings/profile-image | Delete profile image |
+| PATCH | /api/v1/users/settings/change-birth-date | Change birth date |
+| POST | /api/v1/users/address | Add a new user address |
+| PUT | /api/v1/users/address | Update existing user address |
+| DELETE | /api/v1/users/address/{id} | Delete address by id |
+| GET | /api/v1/users/address?pageNumber={value} | Get paginated user addresses |
+| GET | /api/v1/users/address/{id} | Get specific address by id |
+| DELETE | /api/v1/users/deactive | Deactivate user |
+| POST | /api/v1/users/active | Activate user |
+| GET | /api/v1/users?pageNumber={value} | Get paginated users |
+| PATCH | /api/v1/users/roles | Change user roles |
+| PUT | /api/v1/users | Update user data |
+| PATCH | /api/v1/users/user-management/password | Change password for user by manager |
+| PATCH | /api/v1/users/change-salary | Change user salary |
+| GET | /api/v1/users/dropdown | Get users dropdown list |
+
+### Bills
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/bills | Add a new bill |
+| DELETE | /api/v1/bills/{id} | Delete bill by id |
+| PATCH | /api/v1/bills/{id}/status?status={value} | Update bill status |
+| PUT | /api/v1/bills | Update bill |
+| GET | /api/v1/bills?pageNumber={value} | Get paginated bills |
+
+### Deductions
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/deductions | Add deduction to user |
+| DELETE | /api/v1/deductions/{id} | Remove deduction by id |
+| PUT | /api/v1/deductions | Update deduction |
+| GET | /api/v1/deductions?pageNumber={value} | View all deductions (paginated) |
+| GET | /api/v1/deductions/date?year={value}&month={value}&pageNumber={value} | View deductions filtered by month |
+| GET | /api/v1/deductions/{name}?pageNumber={value} | View deductions for specific user |
+
+### Feedbacks
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/feedbacks | Add new feedback |
+| PUT | /api/v1/feedbacks | Update existing feedback |
+| GET | /api/v1/feedbacks/item/{id}?pageNumber={value}&pageSize={value} | Get feedbacks for menu item |
+| DELETE | /api/v1/feedbacks/{id} | Delete feedback by id |
+
+### Kitchen Items
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/kitchen-items?search={value}&pageNumber={value} | Get kitchen items (paginated/search) |
+| POST | /api/v1/kitchen-items | Add kitchen item |
+| GET | /api/v1/kitchen-items/{id} | Get kitchen item by id |
+| DELETE | /api/v1/kitchen-items/{id} | Delete kitchen item by id |
+| PATCH | /api/v1/kitchen-items/status | Change kitchen item status |
+| PUT | /api/v1/kitchen-items | Update kitchen item |
+| PATCH | /api/v1/kitchen-items/upload-image | Upload kitchen item image |
+
+### Kitchen Requirements
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/kitchen-requirements | Place new kitchen requirement |
+| PATCH | /api/v1/kitchen-requirements/status | Change kitchen requirement status |
+| GET | /api/v1/kitchen-requirements?pageNumber={value} | Get paginated kitchen requirements |
+| GET | /api/v1/kitchen-requirements/{id} | Get kitchen requirement by id |
+| DELETE | /api/v1/kitchen-requirements/{id} | Delete kitchen requirement by id |
+| GET | /api/v1/kitchen-requirements/{id}/info | Get kitchen requirement details/info |
+| DELETE | /api/v1/kitchen-requirements/pending/{id} | Delete pending kitchen requirement |
+
+### Order Tracking
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/order-tracking/{id} | Track order by id |
+
+### Salaries
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/salaries | Generate salaries |
+| POST | /api/v1/salaries/user/{id}?year={value}&month={value} | Generate salary for specific user |
+| GET | /api/v1/salaries?name={value}&status={value}&pageNumber={value}&year={value}&month={value} | Get salaries with filters |
+| DELETE | /api/v1/salaries/{id} | Delete salary by id |
+| PATCH | /api/v1/salaries/status | Change salary status |
+| PATCH | /api/v1/salaries/amount | Change salary amount |
+
+### Customer Area
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/Categories/GetAll | Get all categories |
+| GET | /api/v1/Categories/GetById/{id} | Get category by id |
+| GET | /api/v1/CategoryItems/GetItemsByCategoryId/{id} | Get items by category id |
+| GET | /api/v1/CategoryItems/GetAllMenuItems | Get all menu items |
+| GET | /api/v1/Menus/GetAll | Get all menus |
+| GET | /api/v1/MenuContains/GetItemsByMenuId/{id} | Get menu items by menu id |
+| POST | /api/v1/Customers/AddPhoneNumberThenSend | Add phone number and send code |
+| POST | /api/v1/Customers/ConfirmPhoneNumberCode | Confirm phone number code |
+| PUT | /api/v1/Customers/UpdateCustomerDetails | Update customer details |
+| GET | /api/v1/Customers/GetCustomerInfo | Get current customer info |
+| POST | /api/v1/Customer/Carts/AddTocart | Add item to customer cart |
+| GET | /api/v1/Customer/Carts/GetCartForCustomer | Get customer cart |
+| PATCH | /api/v1/Customer/Carts/IncreaseQuantity | Increase cart item quantity |
+| PATCH | /api/v1/Customer/Carts/DecreaseQuantity | Decrease cart item quantity |
+| DELETE | /api/v1/Customer/Carts/DeleteItemFormCartForCustomerByItemId/{id} | Delete item from cart by item id |
+| POST | /api/v1/Customer/Orders/PlaceOrder | Place order |
+| DELETE | /api/v1/Customer/Orders/CancelOrder/{id} | Cancel customer order by id |
+| POST | /api/v1/Customer/Payments/ProcessPayment | Process payment |
+| GET | /api/v1/Customer/Payments/successPayment?orderid={value} | Payment success callback |
+
+### Cashier Area
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| POST | /api/v1/Cashier/Orders/AddOrder | Create order by cashier |
+| PATCH | /api/v1/Cashier/Orders/SubmitOrder | Submit order |
+| DELETE | /api/v1/Cashier/Orders/CancelOrder | Cancel current cashier order |
+| DELETE | /api/v1/Cashier/Orders/CancelOrder/{id} | Cancel cashier order by id |
+| PATCH | /api/v1/Cashier/Orders/UpdateOrder | Update cashier order |
+| POST | /api/v1/Cashier/OrderItems/AddItemToOrder | Add item to order |
+| DELETE | /api/v1/Cashier/OrderItems/DeleteItemFromOrder/{id} | Delete item from order |
+| GET | /api/v1/Cashier/OrderItems/ViewOrders | View cashier orders |
+| GET | /api/v1/Cashier/OrderItems/getOrderDetailsById/{id} | View order details by id |
+| PATCH | /api/v1/Cashier/OrderItems/UpdateQuantity | Update order item quantity |
+| GET | /api/v1/Cashier/OrderItems/getOrderReport/{id} | Get order report by id |
+
+### Chef Area
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/Chef/Orders/viewOrders | View chef orders |
+| PATCH | /api/v1/Chef/Orders/ChangeStatus/{id} | Change order status by id |
+
+### Delivery Area
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/Delivery/Orders/ViewOrders | View delivery orders |
+| GET | /api/v1/Delivery/Orders/getOrderDetails/{id} | View order details by id |
+| PATCH | /api/v1/Delivery/Orders/ChangeStatusToOutForDelivery/{id} | Mark order as out for delivery |
+| GET | /api/v1/Delivery/Orders/viewOutForDeliveryOrders | View out-for-delivery orders |
+| PATCH | /api/v1/Delivery/Orders/ChangeStatusToDelivered/{id} | Mark order as delivered |
+
+### Manager Area
+
+| HTTP Method | Endpoint | Description |
+| ----------- | -------- | ----------- |
+| GET | /api/v1/Manager/Categories/GetAll | Get all categories (manager) |
+| GET | /api/v1/Manager/Categories/GetById/{id} | Get category by id (manager) |
+| POST | /api/v1/Manager/Categories/Add | Add category |
+| PUT | /api/v1/Manager/Categories/Update | Update category |
+| DELETE | /api/v1/Manager/Categories/Delete/{id} | Delete category |
+| POST | /api/v1/Manager/MenuItems/Add | Add menu item |
+| DELETE | /api/v1/Manager/MenuItems/Delete/{id} | Delete menu item |
+| PUT | /api/v1/Manager/MenuItems/Update | Update menu item |
+| GET | /api/v1/MenuItems/GetAllMenuItems | Get all menu items |
+| GET | /api/v1/Manager/MenuItems/GetById/{id} | Get menu item by id |
+| PATCH | /api/v1/ManagerOrChef/MenuItems/toggleStatus/{id} | Toggle menu item status |
+| POST | /api/v1/Manager/Menus/Add | Add menu |
+| DELETE | /api/v1/Manager/Menus/Delete/{id} | Delete menu |
+| PUT | /api/v1/Manager/Menus/Update | Update menu |
 
 ---
 
 ## 🗂 Folder Structure
 
+```text
+src/
+|-- Luqma.API/
+|   |-- Areas/
+|   |   |-- Cashier/Controllers/
+|   |   |-- Chef/controllers/
+|   |   |-- Customer/Controllers/
+|   |   |-- Delivery/Controllers/
+|   |   `-- Manager/Controllers/
+|   |-- Base/
+|   |-- Controllers/
+|   |-- Program.cs
+|   `-- appsettings*.json
+|-- Luqma.Core/
+|   |-- Bases/
+|   |-- Behaviors/
+|   |-- Features/
+|   |-- GlobalFunctions/
+|   |-- Middlewares/
+|   `-- Resources/
+|-- Luqma.Data/
+|   |-- Entities/
+|   |-- Enum/
+|   |-- Routing/Router.cs
+|   `-- Response/
+|-- Luqma.Infrastructure/
+|   |-- Data/
+|   |-- Configurations/
+|   |-- Repositories/
+|   `-- Migrations/
+`-- Luqma.Service/
+    |-- Abstractions/
+    |-- Implementations/
+    `-- DependencyInjection/
+
+ERD/
+`-- Luqma.svg
 ```
 
-+---src
-|
-+---Luqma.API
-|   |   appsettings.Development.json
-|   |   appsettings.json
-|   |   libman.json
-|   |   Luqma.API.csproj
-|   |   Luqma.API.csproj.Backup.tmp
-|   |   Luqma.API.csproj.user
-|   |   Luqma.API.http
-|   |   Program.cs
-|   |
-|   +---Areas
-|   |   +---Cashier
-|   |   |   \---Controllers
-|   |   |           OrderItemsController.cs
-|   |   |           OrdersController.cs
-|   |   |
-|   |   +---Chef
-|   |   |   \---controllers
-|   |   |           OrderItemsController.cs
-|   |   |           OrdersController.cs
-|   |   |
-|   |   +---Customer
-|   |   |   \---Controllers
-|   |   |           CartsController.cs
-|   |   |           CategoriesController.cs
-|   |   |           CategoryItemsController.cs
-|   |   |           CustomersController.cs
-|   |   |           MenuContainsController.cs
-|   |   |           MenusController.cs
-|   |   |           OrdersController.cs
-|   |   |           PaymentsController.cs
-|   |   |
-|   |   +---Delivery
-|   |   |   \---Controllers
-|   |   |           OrdersController.cs
-|   |   |
-|   |   \---Manager
-|   |       \---Controllers
-|   |               CategoriesController.cs
-|   |               MenuItemsController.cs
-|   |               MenusController.cs
-|   |
-|   +---Base
-|   |       AppBaseController.cs
-|   |
-|   +---Controllers
-|   |       AuthenticationsController.cs
-|   |       BillsController.cs
-|   |       DeductionsController.cs
-|   |       FeedbacksController.cs
-|   |       KitchenItemsController.cs
-|   |       KitchenRequirementsController.cs
-|   |       OrderTrackingsController.cs
-|   |       SalariesController.cs
-|   |       UsersController.cs
-|   |
-|   |
-|   \---Templates
-|           ConfirmationEmail.html
-|           ForgetPassword.html
-|
-+---Luqma.Core
-|   |   Luqma.Core.csproj
-|   |   ModuleCoreServices.cs
-|   |
-|   +---Bases
-|   |       ApiResponse.cs
-|   |       ApiResponseHandler.cs
-|   |       FileApiResponse.cs
-|   |
-|   +---Behaviors
-|   |       ValidationBehavior.cs
-|   |
-|   +---Exceptions
-|   |       CustomValidationException.cs
-|   |
-|   +---Features
-|   |   +---Authentications
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       AuthenticationCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       ConfirmationEmailCommand.cs
-|   |   |   |   |       ConfirmationPhoneNumberCommand.cs
-|   |   |   |   |       ForgetPasswordConfirmationCommand.cs
-|   |   |   |   |       GenerateRefreshTokenCommand.cs
-|   |   |   |   |       ResetPasswordCommand.cs
-|   |   |   |   |       RevokeRefreshTokenCommand.cs
-|   |   |   |   |       SendConfirmationCodeThenAddCommand.cs
-|   |   |   |   |       SendConfirmationEmailCommand.cs
-|   |   |   |   |       SendForgetPasswordCommand.cs
-|   |   |   |   |       SignInCommand.cs
-|   |   |   |   |       SignUpCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           ConfirmationEmailValidator.cs
-|   |   |   |           ConfirmationPhoneNumberValidator.cs
-|   |   |   |           ForgetPasswordConfirmationValidator.cs
-|   |   |   |           ResetPasswordValidator.cs
-|   |   |   |           SendConfirmationCodeThenAddValidator.cs
-|   |   |   |           SendConfirmationEmailValidator.cs
-|   |   |   |           SendForgetPasswordValidator.cs
-|   |   |   |           SignInValidator.cs
-|   |   |   |           SignUpValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       AuthenticationQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               ValidateAccessTokenQuery.cs
-|   |   |
-|   |   +---Bills
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       BillCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   \---Models
-|   |   |   |           AddNewBillCommand.cs
-|   |   |   |           DeleteBillCommand.cs
-|   |   |   |           UpdateBillCommand.cs
-|   |   |   |           UpdateBillStatusCommand.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       BillQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetBillsQuery.cs
-|   |   |
-|   |   +---Carts
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       CartCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddToCartCommand.cs
-|   |   |   |   |       DecreaseQuantityCommand.cs
-|   |   |   |   |       DeleteItemFromCartForCustomer.cs
-|   |   |   |   |       IncreaseQuantityCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddToCartValidator.cs
-|   |   |   |           DecreaseQuantityValidator.cs
-|   |   |   |           IncreaseQuantityValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       CartQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetCartforCustomer.cs
-|   |   |
-|   |   +---Categories
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       CategoryCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddCategoryCommand.cs
-|   |   |   |   |       DeleteCategoryCommand.cs
-|   |   |   |   |       UpdateCategoryCommand.cs
-|   |   |   |   |
-|   |   |   |   \---validators
-|   |   |   |           AddCategoryValidator.cs
-|   |   |   |           DeleteCategoryValidator.cs
-|   |   |   |           UpdateCategoryValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       CategoryQueryHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       GetAllCategoryQuery.cs
-|   |   |       |       GetCategoryQuery.cs
-|   |   |       |
-|   |   |       \---validators
-|   |   |               GetCategoryValidator.cs
-|   |   |
-|   |   +---CategoryItems
-|   |   |   \---Queries
-|   |   |       +---Handler
-|   |   |       |       CategoryItemQueryHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       GetallMenuItems.cs
-|   |   |       |       GetItemsbyCategoryIdQuery.cs
-|   |   |       |
-|   |   |       \---validators
-|   |   |               GetItemsbyCategoryQueryValidator.cs
-|   |   |
-|   |   +---Customers
-|   |   |   +---commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       CustomerCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   \---Models
-|   |   |   |           AddPhoneNumberCommand.cs
-|   |   |   |           ConfirmPhoneNumberCodeCommand.cs
-|   |   |   |           UpdateCustomerDetailsCommand.cs
-|   |   |   |
-|   |   |   +---Queries
-|   |   |   |   +---Handlers
-|   |   |   |   |       CustomerQueryHandler.cs
-|   |   |   |   |
-|   |   |   |   \---Models
-|   |   |   |           GetCustomerInformationQuery.cs
-|   |   |   |
-|   |   |   \---validators
-|   |   |           AddPhoneNumberValidator.cs
-|   |   |           ConfirmPhoneNumberValidator.cs
-|   |   |           UpdateCustomerValidator.cs
-|   |   |
-|   |   +---Deductions
-|   |   |   +---commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       DeductionCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddDeductionToUserCommand.cs
-|   |   |   |   |       RemoveDeductionFromUserCommand.cs
-|   |   |   |   |       UpdateDeductionCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddDeductionToUserValidator.cs
-|   |   |   |           UpdateDeductionValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       DeductionQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               ShowAllDeductionsQuery.cs
-|   |   |               ShowDeductionsForSpecificUserQuery.cs
-|   |   |               ShowDeductionsForSpecificYearAndMonthQuery.cs
-|   |   |
-|   |   +---Feebacks
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       FeedbackCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddNewFeedbackCommand.cs
-|   |   |   |   |       DeleteExistingFeedbackCommand.cs
-|   |   |   |   |       UpdateExistingFeedbackCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddNewFeedbackValidator.cs
-|   |   |   |           UpdateExistingFeedbackValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       FeedbackQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetFeedbacksForItemCommand.cs
-|   |   |
-|   |   +---KitchenItems
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       KitchenItemsCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddKitchenItemsCommand.cs
-|   |   |   |   |       DeleteKitchenItemsCommand.cs
-|   |   |   |   |       UpdateKitchenItemsCommand.cs
-|   |   |   |   |       UpdateKitchenItemsStatusCommand.cs
-|   |   |   |   |       UploadNewKitchenItemImageCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddKitchenItemsValidator.cs
-|   |   |   |           UpdateKitchenItemsStatusValidator.cs
-|   |   |   |           UpdateKitchenItemsValidator.cs
-|   |   |   |           UploadNewKitchenItemImageValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       KitchenItemsQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetKitchenItemByIdQuery.cs
-|   |   |               GetKitchenItemsQuery.cs
-|   |   |
-|   |   +---KitchenRequirements
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       KitchenRequirementsCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       ChangeKitchenRequirementsStatusCommand.cs
-|   |   |   |   |       DeleteKitchenRequirementsCommand.cs
-|   |   |   |   |       DeletePendingRequirementsCommand.cs
-|   |   |   |   |       PlaceNewKitchenRequirementsCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           ChangeKitchenRequirmentsStatusValidator.cs
-|   |   |   |           PlaceNewKitchenRequirmentsValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       KitchenRequirementsQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetKitchenRequirementsByIdQuery.cs
-|   |   |               GetKitchenRequirementsInfoQuery.cs
-|   |   |               GetKitchenRequirementsQuery.cs
-|   |   |
-|   |   +---MenuContains
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       MenuContainsQueryHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       GetitemsbyMenuIdQuery.cs
-|   |   |       |
-|   |   |       \---Validators
-|   |   |               GetitemsbyMenuIdValidator.cs
-|   |   |
-|   |   +---MenuItems
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       MenuItemCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddMenuItemCommand.cs
-|   |   |   |   |       DeleteMenuItemCommand.cs
-|   |   |   |   |       ToggleStatusCommand.cs
-|   |   |   |   |       UpdateMenuItemCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddMenuitemValidator.cs
-|   |   |   |           DeleteMenuItemValidator.cs
-|   |   |   |           ToggleStatusValidator.cs
-|   |   |   |           UpdateMenuItemValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       MenuItemQueryHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       GetAllMenuItemQuery.cs
-|   |   |       |       GetMenuItemByIdQuery.cs
-|   |   |       |
-|   |   |       \---Validators
-|   |   |               GetByIdValidator.cs
-|   |   |
-|   |   +---Menus
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       MenuCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddMenuCommand.cs
-|   |   |   |   |       DeleteMenuCommand.cs
-|   |   |   |   |       UpdateMenuCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddMenuValidator.cs
-|   |   |   |           DeleteMenuValidator.cs
-|   |   |   |           UpdateMenuValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       MenuQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetAllMenusQuery.cs
-|   |   |
-|   |   +---OrderItems
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       OrderItemCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   \---Models
-|   |   |   |           AddItemToOrderCommand.cs
-|   |   |   |           DeleteItemFromOrderCommand.cs
-|   |   |   |           UpdateQuantityForItemByCashierCommand.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       OrderItemQueryHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       GetOrderReportQuery.cs
-|   |   |       |       ViewOrderDetailsQuery.cs
-|   |   |       |       ViewOrdersQuery.cs
-|   |   |       |
-|   |   |       \---Validators
-|   |   |               ViewOrderDetailsValidator.cs
-|   |   |
-|   |   +---Orders
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       OrderCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   +---Models
-|   |   |   |   |       AddOrderCommand.cs
-|   |   |   |   |       CancelOrder.cs
-|   |   |   |   |       CancelOrderByCashierCommand.cs
-|   |   |   |   |       ChangeStatusByChefCommand.cs
-|   |   |   |   |       ChangeStatusByDeliveryToDeliveredCommand.cs
-|   |   |   |   |       ChangeStatusToOutByDeliveryCommand.cs
-|   |   |   |   |       placeOrderCommand.cs
-|   |   |   |   |       UpdateOnOrderTotalPriceCommand.cs
-|   |   |   |   |       UpdateOrderByCashierCommand.cs
-|   |   |   |   |
-|   |   |   |   \---Validators
-|   |   |   |           AddOrderValidator.cs
-|   |   |   |           UpdateOrderByCashierValidator.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       OrderQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               ViewOrderDetailsByDeliveryQuery.cs
-|   |   |               ViewOrdersByChefQuery.cs
-|   |   |               ViewOrdersByDeliveryQuery.cs
-|   |   |               viewOutOrdersforDeliveryQuery.cs
-|   |   |
-|   |   +---OrdersTracking
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       OrderTrackingQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               OrderTrackingQuery.cs
-|   |   |
-|   |   +---Payments
-|   |   |   \---Commands
-|   |   |       +---Handlers
-|   |   |       |       PaymentCommandHandler.cs
-|   |   |       |
-|   |   |       +---Models
-|   |   |       |       AddPaymentCommand.cs
-|   |   |       |       SuccessPaymentCommand.cs
-|   |   |       |
-|   |   |       \---Validators
-|   |   |               AddPaymentValidator.cs
-|   |   |
-|   |   +---Salaries
-|   |   |   +---Commands
-|   |   |   |   +---Handlers
-|   |   |   |   |       SalaryCommandHandler.cs
-|   |   |   |   |
-|   |   |   |   \---Models
-|   |   |   |           ChangeSalaryAmountCommand.cs
-|   |   |   |           ChangeSalaryStatusCommand.cs
-|   |   |   |           DeleteSalaryCommand.cs
-|   |   |   |           GenerateSalariesCommand.cs
-|   |   |   |           GenerateSalaryForUserCommand.cs
-|   |   |   |
-|   |   |   \---Queries
-|   |   |       +---Handlers
-|   |   |       |       SalaryQueryHandler.cs
-|   |   |       |
-|   |   |       \---Models
-|   |   |               GetSalariesQuery.cs
-|   |   |
-|   |   \---Users
-|   |       +---Commands
-|   |       |   +---Handlers
-|   |       |   |       UserCommandHandler.cs
-|   |       |   |
-|   |       |   +---Models
-|   |       |   |       ActivateUserCommand.cs
-|   |       |   |       AddUserAddressCommand.cs
-|   |       |   |       ChangeBirthDateCommand.cs
-|   |       |   |       ChangeNameCommand.cs
-|   |       |   |       ChangePasswordCommand.cs
-|   |       |   |       ChangePasswordForUserByManagerCommand.cs
-|   |       |   |       ChangeSalaryCommand.cs
-|   |       |   |       ChangeUserNameCommand.cs
-|   |       |   |       ChangeUserRolesCommand.cs
-|   |       |   |       DeactivateUserCommand.cs
-|   |       |   |       DeleteProfileImageCommand.cs
-|   |       |   |       DeleteUserAddressCommand.cs
-|   |       |   |       UpdateUserAddressCommand.cs
-|   |       |   |       UpdateUserDataCommand.cs
-|   |       |   |       UploadProfileImageCommand.cs
-|   |       |   |
-|   |       |   \---Validators
-|   |       |           AddUserAddressValidator.cs
-|   |       |           ChangeBirthDateValidator.cs
-|   |       |           ChangeNameValidator.cs
-|   |       |           ChangePasswordForUserByManagerValidator.cs
-|   |       |           ChangePasswordValidator.cs
-|   |       |           ChangeSalaryValidator.cs
-|   |       |           ChangeUserNameValidator.cs
-|   |       |           UpdateUserAddressValidator.cs
-|   |       |           UpdateUserDataValidator.cs
-|   |       |           UploadProfileImageValidator.cs
-|   |       |
-|   |       \---Queries
-|   |           +---Handlers
-|   |           |       UserQueryHandler.cs
-|   |           |
-|   |           \---Models
-|   |                   GetUserProfileQuery.cs
-|   |                   GetUsersForFinanceQuery.cs
-|   |                   ShowUserAddressesQuery.cs
-|   |                   ViewSpecificAddressQuery.cs
-|   |                   ViewUsersQuery.cs
-|   |
-|   +---Mapping
-|   |   +---Authentications
-|   |   |   |   AuthenticationProfile.cs
-|   |   |   |
-|   |   |   \---CommandMapping
-|   |   |           SignUpMapping.cs
-|   |   |
-|   |   +---Carts
-|   |   |       CartProfile.cs
-|   |   |
-|   |   +---Categories
-|   |   |       CategoryProfile.cs
-|   |   |
-|   |   +---CategoryItems
-|   |   |       CategoryItemProfile.cs
-|   |   |
-|   |   +---Customers
-|   |   |       CustomerProfile.cs
-|   |   |
-|   |   +---MenuContain
-|   |   |       MenuContainProfile.cs
-|   |   |
-|   |   +---MenuItems
-|   |   |       MenuItemProfile.cs
-|   |   |
-|   |   +---Menus
-|   |   |       MenuProfile.cs
-|   |   |
-|   |   +---Orders
-|   |   |       OrderProfile.cs
-|   |   |
-|   |   \---Users
-|   |       |   UserProfile.cs
-|   |       |
-|   |       \---QueryMapping
-|   |               GetUsersForFinanceMapping.cs
-|   |
-|   +---Middlewares
-|   |       ErrorHandlerMiddleWare.cs
-|   |       TokenValidationMiddleware.cs
-|   \---ResponseKeys
-|           SharedResponseKeys.cs
-|
-+---Luqma.Data
-|   |   Luqma.Data.csproj
-|   |   ModuleDataServices.cs
-|   |
-|   +---DTOs
-|   |   +---RequirementItems
-|   |   |       RequirementItemsDTO.cs
-|   |   |
-|   |   \---Users
-|   |           UpdateUserDataDTO.cs
-|   |           UserRolesDTO.cs
-|   |
-|   +---Entities
-|   |   |   Bill.cs
-|   |   |   Cart.cs
-|   |   |   Category.cs
-|   |   |   CategoryItem.cs
-|   |   |   Customer.cs
-|   |   |   CustomerAddress.cs
-|   |   |   Deduction.cs
-|   |   |   Deliveries.cs
-|   |   |   Feedback.cs
-|   |   |   KitchenItems.cs
-|   |   |   KitchenRequirements.cs
-|   |   |   Menu.cs
-|   |   |   MenuContains.cs
-|   |   |   MenuItem.cs
-|   |   |   Order.cs
-|   |   |   OrderItem.cs
-|   |   |   OrderTracking.cs
-|   |   |   Payment.cs
-|   |   |   PaymentsOrder.cs
-|   |   |   Prediction.cs
-|   |   |   RequirementItems.cs
-|   |   |   Salary.cs
-|   |   |   UserAddress.cs
-|   |   |   WasteReport.cs
-|   |   |
-|   |   \---Identity
-|   |           LuqmaRole.cs
-|   |           LuqmaUser.cs
-|   |           UserRefreshToken.cs
-|   |
-|   +---Enums
-|   |       Gender.cs
-|   |
-|   +---Helpers
-|   |       CloudinarySettings.cs
-|   |       EmailSettings.cs
-|   |       EncryptionHelper.cs
-|   |       EncryptionSettings.cs
-|   |       JwtSettings.cs
-|   |       OpenWeatherSettings.cs
-|   |       Roles.cs
-|   |       UserClaimModel.cs
-|   |       WhatsAppSettings.cs
-|   +---Response
-|   |   +---Authentications
-|   |   |       SignInResponse.cs
-|   |   |
-|   |   +---Bills
-|   |   |       BillsResponse.cs
-|   |   |
-|   |   +---Carts
-|   |   |       CartResponse.cs
-|   |   |
-|   |   +---Categories
-|   |   |       CategoryResponse.cs
-|   |   |
-|   |   +---CategoryItems
-|   |   |       CategoryItemResponse.cs
-|   |   |
-|   |   +---Customers
-|   |   |       CustomerAddressResponse.cs
-|   |   |       CustomerResponse.cs
-|   |   |
-|   |   +---Deductions
-|   |   |       TotalDeductionsResponse.cs
-|   |   |       ViewDeductionsResponse.cs
-|   |   |
-|   |   +---Feedbacks
-|   |   |       AddNewFeedbackResponse.cs
-|   |   |       GetFeedbacksForItemResponse.cs
-|   |   |
-|   |   +---KitchenItems
-|   |   |       GetKitchenItemsResponse.cs
-|   |   |
-|   |   +---KitchenRequirements
-|   |   |       GetKitchenRequirementsInfoResponse.cs
-|   |   |       GetKitchenRequirementsResponse.cs
-|   |   |
-|   |   +---MenuContains
-|   |   |       MenuContainsRespons.cs
-|   |   |
-|   |   +---MenuItems
-|   |   |       MenuItemResponse.cs
-|   |   |
-|   |   +---Menus
-|   |   |       MenuResponse.cs
-|   |   |
-|   |   +---Order
-|   |   |       OrderResponse.cs
-|   |   |       ViewOrderDetailsByDeliveryResponse.cs
-|   |   |       ViewOrderDetailsResponse.cs
-|   |   |       ViewOrderResponse.cs
-|   |   |
-|   |   +---OrdersTracking
-|   |   |       OrderTrackingResponse.cs
-|   |   |
-|   |   +---Salaries
-|   |   |       GetSalariesResponse.cs
-|   |   |
-|   |   \---Users
-|   |           GetUsersForFinanceResponse.cs
-|   |           ProfileResponse.cs
-|   |           ShowUserAddressResponse.cs
-|   |           ViewUsersResponse.cs
-|   |
-|   +---Routing
-|   |       Router.cs
-|   |
-|   \---Wrappers
-|           PaginatedResult.cs
-|           QueryableExtensions.cs
-|
-+---Luqma.Infrastructure
-|   |   Luqma.Infrastructure.csproj
-|   |   ModuleInfrastructureServices.cs
-|   |
-|   +---Configurations
-|   |       BillConfigurations.cs
-|   |       CartConfigurations.cs
-|   |       CategoryConfigurations.cs
-|   |       CategoryItemConfigurations.cs
-|   |       CustomerAddressConfigurations.cs
-|   |       CustomerConfigurations.cs
-|   |       DeductionConfigurations.cs
-|   |       DeliveriesConfigurations.cs
-|   |       FeedbackConfigurations.cs
-|   |       KitchenItemsConfigurations.cs
-|   |       KitchenRequirmentsConfigurations.cs
-|   |       LuqmaUserConfigurations.cs
-|   |       MenuConfigurations.cs
-|   |       MenuContainsConfigurations.cs
-|   |       MenuItemConfigurations.cs
-|   |       OrderConfigurations.cs
-|   |       OrderItemConfigurations.cs
-|   |       OrderTrackingConfigurations.cs
-|   |       PaymentConfigurations.cs
-|   |       PaymentsOrderConfigurations.cs
-|   |       PredictionConfigurations.cs
-|   |       RequirmentItemsConfigurations.cs
-|   |       SalaryConfigurations.cs
-|   |       UserAddressConfigurations.cs
-|   |       UserRefreshTokenConfigurations.cs
-|   |       WasteReportConfigurations.cs
-|   |
-|   +---Data
-|   |       LuqmaDbContext.cs
-|   |
-|   +---IRepositories
-|   |       IBillRepository.cs
-|   |       ICartRepository.cs
-|   |       ICategoryItemRepository.cs
-|   |       ICategoryRepository.cs
-|   |       ICustomerRepository.cs
-|   |       IDeductionRepository.cs
-|   |       IDeliveriesRepository.cs
-|   |       IFeedbackRepository.cs
-|   |       IGenericRepository.cs
-|   |       IKitchenItemsRepository.cs
-|   |       IKitchenRequirementsRepository.cs
-|   |       IMenuContainsRepository.cs
-|   |       IMenuItemRepository.cs
-|   |       IMenuRepository.cs
-|   |       IOrderItemRepository.cs
-|   |       IOrderRepository.cs
-|   |       IOrderTrackingRepository.cs
-|   |       IPaymentOrderRepository.cs
-|   |       IPaymentRepository.cs
-|   |       IRefreshTokenRepository.cs
-|   |       IRequirementItemsRepository.cs
-|   |       ISalaryRepository.cs
-|   |       IUnitOfWork.cs
-|   |       IUserAddressRepository.cs
-|   |       IUserRepository.cs
-|   |
-|   +---Repositories
-|   |       BillRepository.cs
-|   |       CartRepository.cs
-|   |       CategoryItemRepository.cs
-|   |       CategoryRepository.cs
-|   |       CustomerRepository.cs
-|   |       DeductionRepository.cs
-|   |       DeliveriesRepository.cs
-|   |       FeedbackRepository.cs
-|   |       GenericRepository.cs
-|   |       KitchenItemsRepository.cs
-|   |       KitchenRequirementsRepository.cs
-|   |       MenuContainsRepository.cs
-|   |       MenuItemRepository.cs
-|   |       MenuRepository.cs
-|   |       OrderItemRepository.cs
-|   |       OrderRepository.cs
-|   |       OrderTrackingRepository.cs
-|   |       PaymentOrderRepository.cs
-|   |       PaymentRepository.cs
-|   |       RefreshTokenRepository.cs
-|   |       RequirementItemsRepository.cs
-|   |       SalaryRepository.cs
-|   |       UnitOfWork.cs
-|   |       UserAddressRepository.cs
-|   |       UserRepository.cs
-|   |
-|   \---Seeder
-|           RoleSeeder.cs
-|           UserSeeder.cs
-|
-\---Luqma.Service
-    |   Luqma.Service.csproj
-    |   ModuleServiceServices.cs
-    +---Implementations
-    |       AuthenticationService.cs
-    |       BillService.cs
-    |       CartService.cs
-    |       CategoryItemService.cs
-    |       CategoryService.cs
-    |       CloudinaryService.cs
-    |       CustomerService.cs
-    |       DeductionService.cs
-    |       EmailService.cs
-    |       FeedbackService.cs
-    |       FileService.cs
-    |       KitchenItemsService.cs
-    |       KitchenRequirementsService.cs
-    |       MenuContainService.cs
-    |       MenuItemService.cs
-    |       MenuService.cs
-    |       OrderItemService.cs
-    |       OrderService.cs
-    |       OrderTrackingService.cs
-    |       PaymentService.cs
-    |       SalaryService.cs
-    |       StripeSettings.cs
-    |       TokenService.cs
-    |       UserService.cs
-    |       WeatherService.cs
-    |       WhatsAppService.cs
-    |
-    +---Interfaces
-    |       IAuthenticationService.cs
-    |       IBillService.cs
-    |       ICartService.cs
-    |       ICategoryItemService.cs
-    |       ICategoryService.cs
-    |       ICloudinaryService.cs
-    |       ICustomerService.cs
-    |       IDeductionService.cs
-    |       IEmailService.cs
-    |       IFeedbackService.cs
-    |       IFileService.cs
-    |       IKitchenItemsService.cs
-    |       IKitchenRequirementsService.cs
-    |       IMenuContainService.cs
-    |       IMenuItemService.cs
-    |       IMenuService.cs
-    |       IOrderItemService.cs
-    |       IOrderService.cs
-    |       IOrderTrackingService.cs
-    |       IPaymentService.cs
-    |       ISalaryService.cs
-    |       ITokenService.cs
-    |       IUserService.cs
-    |       IWeatherService.cs
-    |       IWhatsAppService.cs
-
-```
+| Project | Responsibility |
+| ------- | -------------- |
+| `Luqma.API` | Exposes HTTP endpoints, auth, area-based controllers, and API setup |
+| `Luqma.Core` | Application use-cases (CQRS), pipeline behaviors, validation, and business orchestration |
+| `Luqma.Data` | Entities, DTO/response contracts, enums, and centralized route constants |
+| `Luqma.Infrastructure` | EF Core context, repositories, persistence config, and migrations |
+| `Luqma.Service` | External/service integrations (mail, media, notifications, helpers) |
 
 ---
 
